@@ -7,7 +7,7 @@ import som.umltonosql.core.middleware.datastore.store.JsonDatastore;
 import som.umltonosql.core.middleware.datastore.store.MongoDatastore;
 import som.umltonosql.core.middleware.exceptions.ConsistencyException;
 import som.umltonosql.core.middleware.exceptions.LifeCycleException;
-import som.umltonosql.mongojson.example.json.beans.StateBean;
+import som.umltonosql.mongojson.example.json.beans.State;
 import som.umltonosql.mongojson.example.mongodb.beans.Zip;
 
 import java.io.IOException;
@@ -37,8 +37,8 @@ public class ExampleMiddleware extends Middleware {
         INSTANCE = this;
     }
 
-    public StateBean getState(int state_id) throws IOException {
-        return (StateBean) jsonDatastore.getElement(state_id, StateBean.class);
+    public State getState(int state_id) throws IOException {
+        return (State) jsonDatastore.getElement(state_id, State.class);
     }
 
     public Zip getZip(int zipId) {

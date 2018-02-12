@@ -3,7 +3,7 @@ package som.umltonosql.mongojson.example.mongodb.beans;
 import som.umltonosql.core.middleware.bean.MongoBean;
 import som.umltonosql.core.middleware.datastore.store.MongoDatastore;
 import som.umltonosql.mongojson.example.core.generated.ExampleMiddleware;
-import som.umltonosql.mongojson.example.json.beans.StateBean;
+import som.umltonosql.mongojson.example.json.beans.State;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class Zip extends MongoBean {
         return document.getString("city");
     }
 
-    public StateBean getState() throws IOException {
+    public State getState() throws IOException {
         Integer stateId = document.getInteger("state_id");
         return ExampleMiddleware.getInstance().getState(stateId);
     }

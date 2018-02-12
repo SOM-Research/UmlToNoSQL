@@ -4,9 +4,9 @@ import som.umltonosql.core.middleware.bean.JsonBean;
 import som.umltonosql.core.middleware.datastore.store.JsonDatastore;
 
 // Should be generated
-public class StateBean extends JsonBean {
+public class State extends JsonBean {
 
-    public StateBean(JsonDatastore jsonDatastore) {
+    public State(JsonDatastore jsonDatastore) {
         super(jsonDatastore);
     }
 
