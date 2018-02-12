@@ -1,7 +1,7 @@
 package som.umltonosql.mongojson.example.mongodb.beans;
 
-import som.umltonosql.core.middleware.bean.MongoBean;
-import som.umltonosql.core.middleware.datastore.store.MongoDatastore;
+import som.umltonosql.core.bean.MongoBean;
+import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.mongojson.example.core.generated.ExampleMiddleware;
 import som.umltonosql.mongojson.example.json.beans.State;
 

@@ -1,4 +1,4 @@
-package som.umltonosql.core.middleware.region;
+package som.umltonosql.core.region;
 
 import java.util.Collection;
 import java.util.HashMap;

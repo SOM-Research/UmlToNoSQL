@@ -1,14 +1,14 @@
 package som.umltonosql.mongojson.example.core.generated;
 
-import som.umltonosql.core.middleware.region.ModelRegionManager;
-import som.umltonosql.core.middleware.region.Region;
-import som.umltonosql.core.middleware.Bootstrap;
-import som.umltonosql.core.middleware.ConstraintManager;
-import som.umltonosql.core.middleware.LifeCycleManager;
-import som.umltonosql.core.middleware.datastore.handler.DrillHandler;
-import som.umltonosql.core.middleware.datastore.handler.MongoHandler;
-import som.umltonosql.core.middleware.datastore.store.JsonDatastore;
-import som.umltonosql.core.middleware.datastore.store.MongoDatastore;
+import som.umltonosql.core.region.ModelRegionManager;
+import som.umltonosql.core.region.Region;
+import som.umltonosql.core.Bootstrap;
+import som.umltonosql.core.ConstraintManager;
+import som.umltonosql.core.LifeCycleManager;
+import som.umltonosql.core.datastore.handler.DrillHandler;
+import som.umltonosql.core.datastore.handler.MongoHandler;
+import som.umltonosql.core.datastore.store.JsonDatastore;
+import som.umltonosql.core.datastore.store.MongoDatastore;
 
 import java.util.Arrays;
 

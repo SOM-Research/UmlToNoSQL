@@ -1,7 +1,7 @@
 package som.umltonosql.mongojson.example.json.beans;
 
-import som.umltonosql.core.middleware.bean.JsonBean;
-import som.umltonosql.core.middleware.datastore.store.JsonDatastore;
+import som.umltonosql.core.bean.JsonBean;
+import som.umltonosql.core.datastore.store.JsonDatastore;
 
 // Should be generated
 public class State extends JsonBean {

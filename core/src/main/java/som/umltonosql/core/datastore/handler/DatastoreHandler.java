@@ -1,4 +1,4 @@
-package som.umltonosql.core.middleware.datastore.handler;
+package som.umltonosql.core.datastore.handler;
 
 public abstract class DatastoreHandler {
 

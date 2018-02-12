@@ -1,6 +1,6 @@
-package som.umltonosql.core.middleware.bean;
+package som.umltonosql.core.bean;
 
-import som.umltonosql.core.middleware.datastore.store.Datastore;
+import som.umltonosql.core.datastore.store.Datastore;
 
 public abstract class Bean {
 

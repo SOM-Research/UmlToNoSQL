@@ -1,6 +1,6 @@
-package som.umltonosql.core.middleware.bean;
+package som.umltonosql.core.bean;
 
-import som.umltonosql.core.middleware.datastore.store.JsonDatastore;
+import som.umltonosql.core.datastore.store.JsonDatastore;
 
 public abstract class JsonBean extends Bean {
 

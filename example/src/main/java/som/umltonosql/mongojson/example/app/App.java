@@ -1,7 +1,7 @@
 package som.umltonosql.mongojson.example.app;
 
 import fr.inria.atlanmod.commons.log.Log;
-import som.umltonosql.core.middleware.exceptions.ConsistencyException;
+import som.umltonosql.core.exceptions.ConsistencyException;
 import som.umltonosql.mongojson.example.core.generated.ExampleBootstrap;
 import som.umltonosql.mongojson.example.core.generated.ExampleMiddleware;
 import som.umltonosql.mongojson.example.json.beans.State;

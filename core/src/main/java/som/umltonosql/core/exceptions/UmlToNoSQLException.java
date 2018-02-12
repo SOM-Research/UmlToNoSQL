@@ -1,4 +1,4 @@
-package som.umltonosql.core.middleware.exceptions;
+package som.umltonosql.core.exceptions;
 
 // base class for UmlToNoSQL exceptions (allows abstract catch blocks)
 public class UmlToNoSQLException extends Exception {

@@ -1,7 +1,7 @@
-package som.umltonosql.core.middleware.bean;
+package som.umltonosql.core.bean;
 
 import org.bson.Document;
-import som.umltonosql.core.middleware.datastore.store.MongoDatastore;
+import som.umltonosql.core.datastore.store.MongoDatastore;
 
 public abstract class MongoBean extends Bean {
 

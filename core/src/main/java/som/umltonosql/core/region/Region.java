@@ -1,6 +1,6 @@
-package som.umltonosql.core.middleware.region;
+package som.umltonosql.core.region;
 
-import som.umltonosql.core.middleware.datastore.store.Datastore;
+import som.umltonosql.core.datastore.store.Datastore;
 
 public class Region {
 

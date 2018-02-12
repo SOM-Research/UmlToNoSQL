@@ -1,6 +1,6 @@
-package som.umltonosql.core.middleware;
+package som.umltonosql.core;
 
-import som.umltonosql.core.middleware.datastore.handler.DatastoreHandler;
+import som.umltonosql.core.datastore.handler.DatastoreHandler;
 
 import java.util.Collection;
 

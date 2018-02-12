@@ -1,8 +1,8 @@
-package som.umltonosql.core.middleware.datastore.store;
+package som.umltonosql.core.datastore.store;
 
 import com.google.gson.Gson;
 import fr.inria.atlanmod.commons.log.Log;
-import som.umltonosql.core.middleware.bean.Bean;
+import som.umltonosql.core.bean.Bean;
 
 import java.io.*;
 import java.util.*;

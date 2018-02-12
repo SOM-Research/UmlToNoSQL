@@ -1,4 +1,4 @@
-package som.umltonosql.core.middleware.datastore.handler;
+package som.umltonosql.core.datastore.handler;
 
 import java.io.IOException;
 import java.text.MessageFormat;

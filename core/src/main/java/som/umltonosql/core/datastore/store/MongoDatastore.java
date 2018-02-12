@@ -1,11 +1,11 @@
-package som.umltonosql.core.middleware.datastore.store;
+package som.umltonosql.core.datastore.store;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import fr.inria.atlanmod.commons.log.Log;
 import org.bson.Document;
-import som.umltonosql.core.middleware.bean.Bean;
+import som.umltonosql.core.bean.Bean;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

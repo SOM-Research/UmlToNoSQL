@@ -1,4 +1,4 @@
-package som.umltonosql.core.middleware.exceptions;
+package som.umltonosql.core.exceptions;
 
 public class ConsistencyException extends UmlToNoSQLException {
 

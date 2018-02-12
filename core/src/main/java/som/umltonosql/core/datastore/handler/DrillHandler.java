@@ -1,11 +1,9 @@
-package som.umltonosql.core.middleware.datastore.handler;
+package som.umltonosql.core.datastore.handler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DrillHandler extends DatastoreHandler {
 

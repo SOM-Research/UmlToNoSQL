@@ -1,12 +1,12 @@
 package som.umltonosql.mongojson.example.core.generated;
 
 import fr.inria.atlanmod.commons.log.Log;
-import som.umltonosql.core.middleware.ConstraintManager;
-import som.umltonosql.core.middleware.Middleware;
-import som.umltonosql.core.middleware.datastore.store.JsonDatastore;
-import som.umltonosql.core.middleware.datastore.store.MongoDatastore;
-import som.umltonosql.core.middleware.exceptions.ConsistencyException;
-import som.umltonosql.core.middleware.exceptions.LifeCycleException;
+import som.umltonosql.core.ConstraintManager;
+import som.umltonosql.core.Middleware;
+import som.umltonosql.core.datastore.store.JsonDatastore;
+import som.umltonosql.core.datastore.store.MongoDatastore;
+import som.umltonosql.core.exceptions.ConsistencyException;
+import som.umltonosql.core.exceptions.LifeCycleException;
 import som.umltonosql.mongojson.example.json.beans.State;
 import som.umltonosql.mongojson.example.mongodb.beans.Zip;
 
