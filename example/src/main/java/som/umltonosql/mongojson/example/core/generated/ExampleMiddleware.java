@@ -3,6 +3,7 @@ package som.umltonosql.mongojson.example.core.generated;
 import fr.inria.atlanmod.commons.log.Log;
 import som.umltonosql.core.ConstraintManager;
 import som.umltonosql.core.Middleware;
+import som.umltonosql.core.bean.Bean;
 import som.umltonosql.core.datastore.store.Datastore;
 import som.umltonosql.core.datastore.store.JsonDatastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
@@ -61,6 +62,11 @@ public class ExampleMiddleware extends Middleware {
         } catch (Exception e) {
             throw new LifeCycleException("An error occured during the committing operations", e);
         }
+    }
+
+    @Override
+    public Bean getElement(long id, Class<? extends Bean> clazz) {
+        return null;
     }
 
     public void checkConstraints() throws ConsistencyException, RuntimeException {

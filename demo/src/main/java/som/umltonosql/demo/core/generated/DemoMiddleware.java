@@ -3,6 +3,7 @@ package som.umltonosql.demo.core.generated;
 import fr.inria.atlanmod.commons.log.Log;
 import org.bson.types.ObjectId;
 import som.umltonosql.core.Middleware;
+import som.umltonosql.core.bean.Bean;
 import som.umltonosql.core.datastore.store.Datastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.exceptions.ConsistencyException;
@@ -11,6 +12,7 @@ import som.umltonosql.demo.mongodb.beans.Order;
 import som.umltonosql.demo.mongodb.beans.OrderLine;
 import som.umltonosql.demo.mongodb.beans.Product;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,6 +57,21 @@ public class DemoMiddleware extends Middleware {
 
     public OrderLine createOrderLine() {
         return (OrderLine) mongoDatastore.createElement(OrderLine.class);
+    }
+
+    @Override
+    public Bean getElement(long id, Class<? extends Bean> clazz) throws ConsistencyException {
+        if(clazz.equals(Order.class)) {
+            return getOrder(id);
+        }
+        if(clazz.equals(Product.class)) {
+            return getProduct(id);
+        }
+        if(clazz.equals(OrderLine.class)) {
+            return getOrderLine(id);
+        }
+        throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class : {0}",
+                clazz.getName()));
     }
 
     // Get existing elements
