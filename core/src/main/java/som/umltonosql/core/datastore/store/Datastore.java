@@ -14,7 +14,9 @@ public abstract class Datastore {
         return this.path;
     }
 
-    public abstract Bean getElement(int id, Class<? extends Bean> clazz);
+    public abstract Bean createElement(Class<? extends Bean> clazz);
+
+    public abstract Bean getElement(long id, Class<? extends Bean> clazz);
 
     public abstract void commit() throws Exception;
 

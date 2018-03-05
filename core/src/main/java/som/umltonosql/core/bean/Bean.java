@@ -2,14 +2,14 @@ package som.umltonosql.core.bean;
 
 import som.umltonosql.core.datastore.store.Datastore;
 
-public abstract class Bean {
+public abstract class Bean<T extends Datastore> {
 
     // UMLToNoSQL ID
     protected int id;
 
-    private Datastore datastore;
+    protected T datastore;
 
-    public Bean(Datastore datastore) {
+    public Bean(T datastore) {
         this.datastore = datastore;
     }
 

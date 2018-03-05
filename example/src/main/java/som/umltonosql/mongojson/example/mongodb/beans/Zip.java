@@ -1,5 +1,6 @@
 package som.umltonosql.mongojson.example.mongodb.beans;
 
+import org.bson.types.ObjectId;
 import som.umltonosql.core.bean.MongoBean;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.mongojson.example.core.generated.ExampleMiddleware;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class Zip extends MongoBean {
 
-    public Zip(int id, MongoDatastore mongoDatastore) {
+    public Zip(ObjectId id, MongoDatastore mongoDatastore) {
         super(id, mongoDatastore);
     }
 

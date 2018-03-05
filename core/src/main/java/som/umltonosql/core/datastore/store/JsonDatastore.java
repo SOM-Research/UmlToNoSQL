@@ -5,6 +5,8 @@ import fr.inria.atlanmod.commons.log.Log;
 import som.umltonosql.core.bean.Bean;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class JsonDatastore extends Datastore {
@@ -20,7 +22,31 @@ public class JsonDatastore extends Datastore {
     }
 
     @Override
-    public Bean getElement(int id, Class<? extends Bean> clazz) {
+    public Bean createElement(Class<? extends Bean> clazz) {
+        Bean bean = null;
+        try {
+            Constructor<?> constructor = clazz.getConstructor(JsonDatastore.class);
+            bean = (Bean) constructor.newInstance(this);
+        } catch(NoSuchMethodException e) {
+            Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
+            throw new RuntimeException(e);
+        } catch(InstantiationException | IllegalAccessException | InvocationTargetException e1) {
+            Log.error("Cannot invoke the constructor for the provided bean {0}", clazz.getName());
+            throw new RuntimeException(e1);
+        }
+        if(elements.containsKey(clazz.getName())) {
+            Set<Bean> instances = elements.get(clazz.getName());
+            instances.add(bean);
+        } else {
+            Set<Bean> instances = new HashSet<>();
+            instances.add(bean);
+            elements.put(clazz.getName(), instances);
+        }
+        return bean;
+    }
+
+    @Override
+    public Bean getElement(long id, Class<? extends Bean> clazz) {
         try {
             this.importCollectionNoBrackets(path, clazz);
         } catch(IOException e) {
