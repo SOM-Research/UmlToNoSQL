@@ -3,6 +3,7 @@ package som.umltonosql.mongojson.example.core.generated;
 import fr.inria.atlanmod.commons.log.Log;
 import som.umltonosql.core.ConstraintManager;
 import som.umltonosql.core.Middleware;
+import som.umltonosql.core.datastore.store.Datastore;
 import som.umltonosql.core.datastore.store.JsonDatastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.exceptions.ConsistencyException;
@@ -13,6 +14,8 @@ import som.umltonosql.mongojson.example.mongodb.beans.Zip;
 import java.io.IOException;
 import java.sql.*;
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
 
 import static java.util.Objects.nonNull;
 
@@ -35,6 +38,11 @@ public class ExampleMiddleware extends Middleware {
             Log.warn("Multiple instances of ExampleMiddleware have been created");
         }
         INSTANCE = this;
+    }
+
+    @Override
+    public List<Datastore> getDatastores() {
+        return Arrays.asList(mongoDatastore, jsonDatastore);
     }
 
     public State getState(int state_id) throws IOException {

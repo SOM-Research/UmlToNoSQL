@@ -3,12 +3,16 @@ package som.umltonosql.demo.core.generated;
 import fr.inria.atlanmod.commons.log.Log;
 import org.bson.types.ObjectId;
 import som.umltonosql.core.Middleware;
+import som.umltonosql.core.datastore.store.Datastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.exceptions.ConsistencyException;
 import som.umltonosql.core.exceptions.LifeCycleException;
 import som.umltonosql.demo.mongodb.beans.Order;
 import som.umltonosql.demo.mongodb.beans.OrderLine;
 import som.umltonosql.demo.mongodb.beans.Product;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static java.util.Objects.nonNull;
 
@@ -28,6 +32,15 @@ public class DemoMiddleware extends Middleware {
             Log.warn("Multiple instances of DemoMiddleware have been created");
         }
         INSTANCE = this;
+    }
+
+    @Override
+    public List<Datastore> getDatastores() {
+        return Arrays.asList(mongoDatastore);
+    }
+
+    public MongoDatastore getMongoDatastore() {
+        return mongoDatastore;
     }
 
     // Create new elements

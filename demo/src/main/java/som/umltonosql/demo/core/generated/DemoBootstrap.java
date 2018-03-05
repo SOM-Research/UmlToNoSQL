@@ -1,6 +1,7 @@
 package som.umltonosql.demo.core.generated;
 
 import som.umltonosql.core.Bootstrap;
+import som.umltonosql.core.ConstraintManager;
 import som.umltonosql.core.LifeCycleManager;
 import som.umltonosql.core.datastore.handler.MongoHandler;
 import som.umltonosql.core.datastore.store.MongoDatastore;
@@ -25,5 +26,8 @@ public class DemoBootstrap extends Bootstrap {
         regionManager.addRegion(businessRegion);
 
         middleware = new DemoMiddleware(businessDatastore);
+
+        ConstraintManager.getInstance().getConstraints().put("validPrice",
+                "db.product.find({price: {$gt: 0}})");
     }
 }
