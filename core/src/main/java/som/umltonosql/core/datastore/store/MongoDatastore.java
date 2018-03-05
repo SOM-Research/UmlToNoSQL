@@ -35,6 +35,11 @@ public class MongoDatastore extends Datastore {
     }
 
     @Override
+    public MongoDatabase getDatabase() {
+        return database;
+    }
+
+    @Override
     public Bean createElement(Class<? extends Bean> clazz) {
         Document document = new Document("_id", new ObjectId());
         MongoCollection<Document> collection = database.getCollection(getCollectionNameFromBeanClass(clazz));

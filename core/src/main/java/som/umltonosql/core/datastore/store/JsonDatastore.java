@@ -22,6 +22,11 @@ public class JsonDatastore extends Datastore {
     }
 
     @Override
+    public Map<String, Set<Bean>> getDatabase() {
+        return elements;
+    }
+
+    @Override
     public Bean createElement(Class<? extends Bean> clazz) {
         Bean bean = null;
         try {

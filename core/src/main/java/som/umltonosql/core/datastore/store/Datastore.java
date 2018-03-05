@@ -14,6 +14,8 @@ public abstract class Datastore {
         return this.path;
     }
 
+    public abstract Object getDatabase();
+
     public abstract Bean createElement(Class<? extends Bean> clazz);
 
     public abstract Bean getElement(long id, Class<? extends Bean> clazz);
