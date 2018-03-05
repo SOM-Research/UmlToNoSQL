@@ -21,7 +21,7 @@ public class Product extends MongoBean {
     }
 
     public String getName() {
-        return (String) getValue("name");
+        return getValue("name");
     }
 
     public void setName(String newName) {
@@ -29,7 +29,7 @@ public class Product extends MongoBean {
     }
 
     public Integer getPrice() {
-        return (Integer) getValue("price");
+        return getValue("price");
     }
 
     public void setPrice(Integer newPrice) {
@@ -37,7 +37,7 @@ public class Product extends MongoBean {
     }
 
     public String description() {
-        return (String) getValue("description");
+        return getValue("description");
     }
 
     public void setDescription(String newDescription) {
@@ -45,7 +45,7 @@ public class Product extends MongoBean {
     }
 
     Iterable<OrderLine> getOrderLines() {
-        List<ObjectId> orderLinesId = (List<ObjectId>) getValue("orderLines");
+        List<ObjectId> orderLinesId = getValue("orderLines");
         List<OrderLine> orderLines = new ArrayList<>();
         for(ObjectId id : orderLinesId) {
             orderLines.add(DemoMiddleware.getInstance().getOrderLine(id.getDate().getTime()));
@@ -55,7 +55,7 @@ public class Product extends MongoBean {
     }
 
     public void addOrderLine(OrderLine newOrderLine) {
-        List<ObjectId> orderLinesId = (List<ObjectId>) getValue("orderLines");
+        List<ObjectId> orderLinesId = getValue("orderLines");
         orderLinesId.add(newOrderLine.getObjectId());
         updateField("orderLines", orderLinesId);
     }

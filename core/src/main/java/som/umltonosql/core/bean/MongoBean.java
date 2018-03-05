@@ -24,8 +24,8 @@ public abstract class MongoBean extends Bean<MongoDatastore> {
         this.objectId = id;
     }
 
-    protected Object getValue(String field) {
-        return datastore.getValue(objectId, this.getClass(), field);
+    protected <T> T getValue(String field) {
+        return (T) datastore.getValue(objectId, this.getClass(), field);
     }
 
     protected void updateField(String field, Object value) {

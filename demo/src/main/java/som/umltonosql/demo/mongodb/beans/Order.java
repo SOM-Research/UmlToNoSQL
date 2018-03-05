@@ -23,7 +23,7 @@ public class Order extends MongoBean {
     }
 
     public String getReference() {
-        return (String) getValue("reference");
+        return getValue("reference");
     }
 
     public void setReference(String newReference) {
@@ -31,7 +31,7 @@ public class Order extends MongoBean {
     }
 
     public Date getShipmentDate() {
-        Long timestamp = (Long) getValue("shipmentDate");
+        Long timestamp = getValue("shipmentDate");
         return new Date(timestamp);
     }
 
@@ -41,7 +41,7 @@ public class Order extends MongoBean {
     }
 
     public Date getDeliveryDate() {
-        Long timestamp = (Long) getValue("deliveryDate");
+        Long timestamp = getValue("deliveryDate");
         return new Date(timestamp);
     }
 
@@ -51,7 +51,7 @@ public class Order extends MongoBean {
     }
 
     public Boolean getPaid() {
-        return (Boolean) getValue("paid");
+        return getValue("paid");
     }
 
     public void setPaid(Boolean newPaid) {
@@ -59,7 +59,7 @@ public class Order extends MongoBean {
     }
 
     public Iterable<OrderLine> getOrderLines() throws ConsistencyException {
-        List<ObjectId> orderLinesId = (List<ObjectId>) getValue("orderLines");
+        List<ObjectId> orderLinesId = getValue("orderLines");
         if (!orderLinesId.isEmpty()) {
             List<OrderLine> orderLines = new ArrayList<>();
             for (ObjectId id : orderLinesId) {
@@ -74,7 +74,7 @@ public class Order extends MongoBean {
     }
 
     public void addOrderLine(OrderLine newOrderLine) {
-        List<ObjectId> orderLinesId = (List<ObjectId>) getValue("orderLines");
+        List<ObjectId> orderLinesId = getValue("orderLines");
         // Don't check the cardinality here, otherwise we cannot add order lines to the order
         orderLinesId.add(newOrderLine.getObjectId());
         updateField("orderLines", orderLinesId);

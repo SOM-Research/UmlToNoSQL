@@ -17,7 +17,7 @@ public class OrderLine extends MongoBean {
     }
 
     public Integer getQuantity() {
-        return (Integer) getValue("quantity");
+        return getValue("quantity");
     }
 
     public void setQuantity(Integer newQuantity) {
@@ -25,7 +25,7 @@ public class OrderLine extends MongoBean {
     }
 
     public Integer getProductPrive() {
-        return (Integer) getValue("productPrice");
+        return getValue("productPrice");
     }
 
     public void setProductPrice(Integer newProductPrice) {
@@ -34,7 +34,7 @@ public class OrderLine extends MongoBean {
 
     public Order getOrder() {
         // cardinality ?
-        ObjectId orderId = (ObjectId) getValue("order");
+        ObjectId orderId = getValue("order");
         return DemoMiddleware.getInstance().getOrder(orderId.getDate().getTime());
     }
 
@@ -44,7 +44,7 @@ public class OrderLine extends MongoBean {
 
     public Product getProduct() {
         // cardinality ?
-        ObjectId productId = (ObjectId) getValue("product");
+        ObjectId productId = getValue("product");
         return DemoMiddleware.getInstance().getProduct(productId.getDate().getTime());
     }
 
