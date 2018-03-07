@@ -2,6 +2,7 @@ package som.umltonosql.demo.app;
 
 import fr.inria.atlanmod.commons.log.Log;
 import som.umltonosql.core.bean.Bean;
+import som.umltonosql.core.constraint.ConstraintResult;
 import som.umltonosql.core.datastore.query.MongoQuery;
 import som.umltonosql.core.datastore.query.QueryResult;
 import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
@@ -43,7 +44,10 @@ public class App {
         invalidProduct.setPrice(-10);
 
         Log.info("Checking Constraints");
-        middleware.checkConstraints();
+        Iterable<ConstraintResult> constraintResults = middleware.checkConstraints();
+        for(ConstraintResult result : constraintResults) {
+            Log.info(result.toString());
+        }
 
         middleware.commit();
         demoBootstrap.getLcManager().stopServers();

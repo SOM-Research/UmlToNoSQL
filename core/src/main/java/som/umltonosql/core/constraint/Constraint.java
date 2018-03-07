@@ -1,8 +1,12 @@
 package som.umltonosql.core.constraint;
 
+import som.umltonosql.core.bean.Bean;
 import som.umltonosql.core.datastore.query.Query;
 import som.umltonosql.core.datastore.query.QueryResult;
 import som.umltonosql.core.datastore.query.processor.QueryProcessor;
+import som.umltonosql.core.exceptions.ConsistencyException;
+
+import java.text.MessageFormat;
 
 public class Constraint {
 
@@ -22,7 +26,12 @@ public class Constraint {
         return this.name;
     }
 
-    public QueryResult checkConstraint() {
-        return this.processor.query(query);
+    public ConstraintResult checkConstraint() {
+        QueryResult result = this.processor.query(query);
+        try {
+            return new ConstraintResult(this, result.getResults());
+        } catch(ConsistencyException e) {
+            throw new RuntimeException("An error occured when checking the constraints", e);
+        }
     }
 }

@@ -2,6 +2,7 @@ package som.umltonosql.core;
 
 import som.umltonosql.core.bean.Bean;
 import som.umltonosql.core.constraint.ConstraintManager;
+import som.umltonosql.core.constraint.ConstraintResult;
 import som.umltonosql.core.datastore.query.Query;
 import som.umltonosql.core.datastore.query.processor.QueryProcessor;
 import som.umltonosql.core.datastore.store.Datastore;
@@ -30,7 +31,7 @@ public abstract class Middleware {
 
     public abstract void commit() throws LifeCycleException;
 
-    public void checkConstraints() throws ConsistencyException {
-        ConstraintManager.getInstance().checkConstraints();
+    public Iterable<ConstraintResult> checkConstraints() throws ConsistencyException {
+        return ConstraintManager.getInstance().checkConstraints();
     }
 }
