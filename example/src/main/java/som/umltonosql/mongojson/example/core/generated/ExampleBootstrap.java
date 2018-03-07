@@ -3,7 +3,7 @@ package som.umltonosql.mongojson.example.core.generated;
 import som.umltonosql.core.region.ModelRegionManager;
 import som.umltonosql.core.region.Region;
 import som.umltonosql.core.Bootstrap;
-import som.umltonosql.core.ConstraintManager;
+import som.umltonosql.core.constraint.ConstraintManager;
 import som.umltonosql.core.LifeCycleManager;
 import som.umltonosql.core.datastore.handler.DrillHandler;
 import som.umltonosql.core.datastore.handler.MongoHandler;

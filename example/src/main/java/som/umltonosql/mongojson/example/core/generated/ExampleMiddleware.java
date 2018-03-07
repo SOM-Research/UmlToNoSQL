@@ -1,7 +1,7 @@
 package som.umltonosql.mongojson.example.core.generated;
 
 import fr.inria.atlanmod.commons.log.Log;
-import som.umltonosql.core.ConstraintManager;
+import som.umltonosql.core.constraint.ConstraintManager;
 import som.umltonosql.core.Middleware;
 import som.umltonosql.core.bean.Bean;
 import som.umltonosql.core.datastore.store.Datastore;

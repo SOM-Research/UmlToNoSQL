@@ -5,6 +5,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import som.umltonosql.core.Middleware;
 import som.umltonosql.core.datastore.query.MongoQuery;
+import som.umltonosql.core.datastore.query.Query;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 
 import java.text.MessageFormat;
@@ -37,5 +38,13 @@ public class MongoQueryProcessor extends  QueryProcessor<MongoQuery> {
             idResults.add(id.getDate().getTime());
         }
         return idResults;
+    }
+
+    @Override
+    public boolean accepts(Class<? extends Query> queryClazz) {
+        if(queryClazz.equals(MongoQuery.class)) {
+            return true;
+        }
+        return false;
     }
 }

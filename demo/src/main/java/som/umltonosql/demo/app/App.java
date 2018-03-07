@@ -42,15 +42,8 @@ public class App {
         invalidProduct.setDescription("An invalid product with an invalid price");
         invalidProduct.setPrice(-10);
 
-        MongoQueryProcessor mongoProcessor = new MongoQueryProcessor(middleware, middleware.getMongoDatastore());
-        MongoQuery<Product> constraintQuery = new MongoQuery<>("db.product.find({price: {$lt: 0}})", Product.class);
-        QueryResult result = mongoProcessor.query(constraintQuery);
-        Log.info("?empty result : {0}", result.isEmpty());
-        Log.info("execution time : {0}", result.getExecutionTime());
-        Iterable<Bean> resultBeans = result.getResults();
-        for(Bean rBean : resultBeans) {
-            Log.info("Constraint violated for {0}", rBean.getId());
-        }
+        Log.info("Checking Constraints");
+        middleware.checkConstraints();
 
         middleware.commit();
         demoBootstrap.getLcManager().stopServers();

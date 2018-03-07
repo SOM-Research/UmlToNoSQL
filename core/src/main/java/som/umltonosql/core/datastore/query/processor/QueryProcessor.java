@@ -21,4 +21,7 @@ public abstract class QueryProcessor<Q extends Query> {
     }
 
     abstract Iterable<Long> doquery(Q query);
+
+    public abstract boolean accepts(Class<? extends Query> queryClazz);
+
 }

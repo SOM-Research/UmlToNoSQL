@@ -4,6 +4,8 @@ import fr.inria.atlanmod.commons.log.Log;
 import org.bson.types.ObjectId;
 import som.umltonosql.core.Middleware;
 import som.umltonosql.core.bean.Bean;
+import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
+import som.umltonosql.core.datastore.query.processor.QueryProcessor;
 import som.umltonosql.core.datastore.store.Datastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.exceptions.ConsistencyException;
@@ -22,6 +24,8 @@ public class DemoMiddleware extends Middleware {
 
     private MongoDatastore mongoDatastore;
 
+    private MongoQueryProcessor mongoProcessor;
+
     private static DemoMiddleware INSTANCE;
 
     public static DemoMiddleware getInstance() {
@@ -30,6 +34,8 @@ public class DemoMiddleware extends Middleware {
 
     public DemoMiddleware(MongoDatastore mongoDatastore) {
         this.mongoDatastore = mongoDatastore;
+        this.mongoProcessor = new MongoQueryProcessor(this, mongoDatastore);
+
         if (nonNull(INSTANCE)) {
             Log.warn("Multiple instances of DemoMiddleware have been created");
         }
@@ -41,8 +47,17 @@ public class DemoMiddleware extends Middleware {
         return Arrays.asList(mongoDatastore);
     }
 
+    @Override
+    public List<QueryProcessor> getProcessors() {
+        return Arrays.asList(mongoProcessor);
+    }
+
     public MongoDatastore getMongoDatastore() {
         return mongoDatastore;
+    }
+
+    public MongoQueryProcessor getMongoProcessor() {
+        return mongoProcessor;
     }
 
     // Create new elements
@@ -94,9 +109,5 @@ public class DemoMiddleware extends Middleware {
         } catch (Exception e) {
             throw new LifeCycleException("An error occured during the committing operations", e);
         }
-    }
-
-    public void checkConstraints() throws ConsistencyException, RuntimeException {
-
     }
 }

@@ -1,12 +1,16 @@
 package som.umltonosql.demo.core.generated;
 
 import som.umltonosql.core.Bootstrap;
-import som.umltonosql.core.ConstraintManager;
+import som.umltonosql.core.constraint.Constraint;
+import som.umltonosql.core.constraint.ConstraintManager;
 import som.umltonosql.core.LifeCycleManager;
 import som.umltonosql.core.datastore.handler.MongoHandler;
+import som.umltonosql.core.datastore.query.MongoQuery;
+import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.region.ModelRegionManager;
 import som.umltonosql.core.region.Region;
+import som.umltonosql.demo.mongodb.beans.Product;
 
 import java.util.Arrays;
 
@@ -27,7 +31,7 @@ public class DemoBootstrap extends Bootstrap {
 
         middleware = new DemoMiddleware(businessDatastore);
 
-        ConstraintManager.getInstance().getConstraints().put("validPrice",
-                "db.product.find({price: {$gt: 0}})");
+        ConstraintManager.getInstance().addConstraint(new Constraint("validPrice", new MongoQuery("db.product.find" +
+                        "({price: {$gt: 0}})", Product.class), middleware.getProcessorFor(MongoQuery.class)));
     }
 }
