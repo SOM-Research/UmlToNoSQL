@@ -63,7 +63,7 @@ public class MongoDatastore extends Datastore {
 
     public Bean getElement(ObjectId id, Class<? extends Bean> clazz) {
         try {
-            Constructor<?> constructor = clazz.getConstructor(int.class, MongoDatastore.class);
+            Constructor<?> constructor = clazz.getConstructor(ObjectId.class, MongoDatastore.class);
             return (Bean) constructor.newInstance(id, this);
         } catch (NoSuchMethodException e) {
             Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
