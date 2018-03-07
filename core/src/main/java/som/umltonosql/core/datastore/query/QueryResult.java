@@ -10,7 +10,7 @@ import java.util.List;
 public class QueryResult {
 
     // Iterable ID
-    private Iterable<Long> rawResult;
+    private Iterable<String> rawResult;
 
     private Class<? extends Bean> resultType;
 
@@ -18,7 +18,7 @@ public class QueryResult {
 
     private Middleware middleware;
 
-    public QueryResult(Iterable<Long> rawResult, Class<? extends Bean> resultType, long executionTime, Middleware
+    public QueryResult(Iterable<String> rawResult, Class<? extends Bean> resultType, long executionTime, Middleware
             middleware) {
         this.rawResult = rawResult;
         this.resultType = resultType;
@@ -28,7 +28,7 @@ public class QueryResult {
 
     public Iterable<Bean> getResults() throws ConsistencyException {
         List<Bean> reifiedResults = new ArrayList<>();
-        for (Long id : rawResult) {
+        for (String id : rawResult) {
             reifiedResults.add(middleware.getElement(id, resultType));
         }
         return reifiedResults;

@@ -63,7 +63,7 @@ public class Order extends MongoBean {
         if (!orderLinesId.isEmpty()) {
             List<OrderLine> orderLines = new ArrayList<>();
             for (ObjectId id : orderLinesId) {
-                orderLines.add(DemoMiddleware.getInstance().getOrderLine(id.getDate().getTime()));
+                orderLines.add(DemoMiddleware.getInstance().getOrderLine(id.toString()));
             }
             return Collections.unmodifiableList(orderLines);
         } else {

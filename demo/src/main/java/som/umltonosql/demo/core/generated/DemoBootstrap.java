@@ -10,6 +10,7 @@ import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.region.ModelRegionManager;
 import som.umltonosql.core.region.Region;
+import som.umltonosql.demo.mongodb.beans.Order;
 import som.umltonosql.demo.mongodb.beans.Product;
 
 import java.util.Arrays;
@@ -32,6 +33,9 @@ public class DemoBootstrap extends Bootstrap {
         middleware = new DemoMiddleware(businessDatastore);
 
         ConstraintManager.getInstance().addConstraint(new Constraint("validPrice", new MongoQuery("db.product.find" +
-                        "({price: {$gt: 0}})", Product.class), middleware.getProcessorFor(MongoQuery.class)));
+                        "({price: {$lt: 0}})", Product.class), middleware.getProcessorFor(MongoQuery.class)));
+        ConstraintManager.getInstance().addConstraint(new Constraint("validOrder", new MongoQuery("db.order" +
+                ".find({$where: \"(!(this.shipmentDate < this.deliveryDate))\"})", Order.class), middleware
+                .getProcessorFor(MongoQuery.class)));
     }
 }

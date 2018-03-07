@@ -51,7 +51,7 @@ public class JsonDatastore extends Datastore {
     }
 
     @Override
-    public Bean getElement(long id, Class<? extends Bean> clazz) {
+    public Bean getElement(String id, Class<? extends Bean> clazz) {
         try {
             this.importCollectionNoBrackets(path, clazz);
         } catch(IOException e) {
@@ -59,7 +59,7 @@ public class JsonDatastore extends Datastore {
         }
         Set<Bean> instances = elements.get(clazz.getName());
         for(Bean el : instances) {
-            if(el.getId() == id) {
+            if(el.getId().equals(id)) {
                 return el;
             }
         }

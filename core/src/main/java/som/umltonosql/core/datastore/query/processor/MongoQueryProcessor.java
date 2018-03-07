@@ -27,15 +27,15 @@ public class MongoQueryProcessor extends  QueryProcessor<MongoQuery> {
     }
 
     @Override
-    Iterable<Long> doquery(MongoQuery query) {
+    Iterable<String> doquery(MongoQuery query) {
         System.out.println(query.getRawQuery());
         Document result = mongoDatastore.getDatabase().runCommand(new Document("eval", MessageFormat.format
                 (NATIVE_QUERY_TEMPLATE, query.getRawQuery())));
         List<Document> results = (List<Document>) result.get("retval");
-        List<Long> idResults = new ArrayList<>();
+        List<String> idResults = new ArrayList<>();
         for(Document res : results) {
             ObjectId id = res.getObjectId("_id");
-            idResults.add(id.getDate().getTime());
+            idResults.add(id.toString());
         }
         return idResults;
     }

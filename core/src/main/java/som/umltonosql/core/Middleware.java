@@ -27,7 +27,7 @@ public abstract class Middleware {
         throw new RuntimeException(MessageFormat.format("Cannot find a processor for {0}", queryClazz.getSimpleName()));
     }
 
-    public abstract Bean getElement(long id, Class<? extends Bean> clazz) throws ConsistencyException;
+    public abstract Bean getElement(String id, Class<? extends Bean> clazz) throws ConsistencyException;
 
     public abstract void commit() throws LifeCycleException;
 

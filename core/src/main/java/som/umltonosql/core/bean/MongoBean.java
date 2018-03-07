@@ -12,7 +12,7 @@ public abstract class MongoBean extends Bean<MongoDatastore> {
     // subclasses must not add new parameters
     public MongoBean(ObjectId id, MongoDatastore mongoDatastore) {
         super(mongoDatastore);
-        this.id = id.getTimestamp();
+        this.id = id.toString();
         this.objectId = id;
     }
 
@@ -20,7 +20,7 @@ public abstract class MongoBean extends Bean<MongoDatastore> {
     public MongoBean(Document document, MongoDatastore mongoDatastore) {
         super(mongoDatastore);
         ObjectId id = document.getObjectId("_id");
-        this.id = id.getTimestamp();
+        this.id = id.toString();
         this.objectId = id;
     }
 
@@ -33,7 +33,7 @@ public abstract class MongoBean extends Bean<MongoDatastore> {
     }
 
     @Override
-    public int getId() {
+    public String getId() {
         return id;
     }
 

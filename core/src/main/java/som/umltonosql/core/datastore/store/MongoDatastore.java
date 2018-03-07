@@ -75,9 +75,9 @@ public class MongoDatastore extends Datastore {
     }
 
     @Override
-    public Bean getElement(long id, Class<? extends Bean> clazz) {
+    public Bean getElement(String id, Class<? extends Bean> clazz) {
         // it should be a timestamp
-        return this.getElement(new ObjectId(new Date(id)), clazz);
+        return this.getElement(new ObjectId(id), clazz);
     }
 
     private String getCollectionNameFromBeanClass(Class<? extends Bean> clazz) {

@@ -5,7 +5,7 @@ import som.umltonosql.core.datastore.store.Datastore;
 public abstract class Bean<T extends Datastore> {
 
     // UMLToNoSQL ID
-    protected int id;
+    protected String id;
 
     protected T datastore;
 
@@ -13,5 +13,5 @@ public abstract class Bean<T extends Datastore> {
         this.datastore = datastore;
     }
 
-    public abstract int getId();
+    public abstract String getId();
 }

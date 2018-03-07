@@ -35,7 +35,7 @@ public class OrderLine extends MongoBean {
     public Order getOrder() {
         // cardinality ?
         ObjectId orderId = getValue("order");
-        return DemoMiddleware.getInstance().getOrder(orderId.getDate().getTime());
+        return DemoMiddleware.getInstance().getOrder(orderId.toString());
     }
 
     public void setOrder(Order newOrder) {
@@ -45,7 +45,7 @@ public class OrderLine extends MongoBean {
     public Product getProduct() {
         // cardinality ?
         ObjectId productId = getValue("product");
-        return DemoMiddleware.getInstance().getProduct(productId.getDate().getTime());
+        return DemoMiddleware.getInstance().getProduct(productId.toString());
     }
 
     public void setProduct(Product newProduct) {

@@ -75,7 +75,7 @@ public class DemoMiddleware extends Middleware {
     }
 
     @Override
-    public Bean getElement(long id, Class<? extends Bean> clazz) throws ConsistencyException {
+    public Bean getElement(String id, Class<? extends Bean> clazz) throws ConsistencyException {
         if(clazz.equals(Order.class)) {
             return getOrder(id);
         }
@@ -91,15 +91,15 @@ public class DemoMiddleware extends Middleware {
 
     // Get existing elements
 
-    public Order getOrder(long id) {
+    public Order getOrder(String id) {
         return (Order) mongoDatastore.getElement(id, Order.class);
     }
 
-    public Product getProduct(long id) {
+    public Product getProduct(String id) {
         return (Product) mongoDatastore.getElement(id, Product.class);
     }
 
-    public OrderLine getOrderLine(long id) {
+    public OrderLine getOrderLine(String id) {
         return (OrderLine) mongoDatastore.getElement(id, OrderLine.class);
     }
 

@@ -18,7 +18,7 @@ public abstract class Datastore {
 
     public abstract Bean createElement(Class<? extends Bean> clazz);
 
-    public abstract Bean getElement(long id, Class<? extends Bean> clazz);
+    public abstract Bean getElement(String id, Class<? extends Bean> clazz);
 
     public abstract void commit() throws Exception;
 

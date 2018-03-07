@@ -20,16 +20,6 @@ public class App {
         demoBootstrap.init();
         demoBootstrap.getLcManager().startServers();
         DemoMiddleware middleware = DemoMiddleware.getInstance();
-        Order order = middleware.createOrder();
-        order.setReference("abc");
-        order.setDeliveryDate(new Date());
-        order.setShipmentDate(new Date(System.currentTimeMillis() - (3600 * 1000)));
-        order.setPaid(false);
-        Log.info("Created order ID: {0}", order.getObjectId());
-        Log.info("Order reference : {0}", order.getReference());
-        Log.info("Order shipment date : {0}", order.getShipmentDate());
-        Log.info("Order delivery date : {0}", order.getDeliveryDate());
-        Log.info("Order paid? : {0}", order.getPaid());
 
         // Create valid product
         Product validProduct = middleware.createProduct();
@@ -42,6 +32,20 @@ public class App {
         invalidProduct.setName("Invalid Product");
         invalidProduct.setDescription("An invalid product with an invalid price");
         invalidProduct.setPrice(-10);
+
+        // Create a valid order
+        Order validOrder = middleware.createOrder();
+        validOrder.setReference("A valid order");
+        validOrder.setShipmentDate(new Date(System.currentTimeMillis() - (3600 * 1000)));
+        validOrder.setDeliveryDate(new Date());
+        validOrder.setPaid(true);
+
+        // Create an invalid order
+        Order invalidOrder = middleware.createOrder();
+        invalidOrder.setReference("An invalid order");
+        invalidOrder.setShipmentDate(new Date(System.currentTimeMillis() + (3600 * 1000)));
+        invalidOrder.setDeliveryDate(new Date());
+        invalidOrder.setPaid(true);
 
         Log.info("Checking Constraints");
         Iterable<ConstraintResult> constraintResults = middleware.checkConstraints();
