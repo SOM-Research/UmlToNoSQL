@@ -33,7 +33,7 @@ public class ConstraintResult {
             sb.append(MessageFormat.format("Constraint {0} violated for instances ", this.constraint.getName()));
             sb.append('[');
             for (Bean bean : violatingInstances) {
-                sb.append(bean.getId());
+                sb.append(bean.toString());
                 sb.append(',');
             }
             if(sb.length() > 1) {

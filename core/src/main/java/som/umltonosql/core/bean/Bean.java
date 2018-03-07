@@ -14,4 +14,13 @@ public abstract class Bean<T extends Datastore> {
     }
 
     public abstract String getId();
+
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(id);
+        sb.append(" (");
+        sb.append(this.getClass().getSimpleName());
+        sb.append(')');
+        return sb.toString();
+    }
 }
