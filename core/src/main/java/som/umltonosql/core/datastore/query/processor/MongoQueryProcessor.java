@@ -28,7 +28,6 @@ public class MongoQueryProcessor extends  QueryProcessor<MongoQuery> {
 
     @Override
     Iterable<String> doQuery(MongoQuery query) {
-        System.out.println(query.getRawQuery());
         Document result = mongoDatastore.getDatabase().runCommand(new Document("eval", MessageFormat.format
                 (NATIVE_QUERY_TEMPLATE, query.getRawQuery())));
         List<Document> results = (List<Document>) result.get("retval");

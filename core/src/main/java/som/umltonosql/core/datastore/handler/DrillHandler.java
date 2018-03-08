@@ -37,7 +37,6 @@ public class DrillHandler extends DatastoreHandler {
             String line;
             while (true) {
                 line = stdInput.readLine();
-                if (line != null) System.out.println(line);
                 if (line != null && line.startsWith("\"") && line.endsWith("\"")) {
                     // Check the citation before the final print, that is never read in the input stream for
                     // whatever reason.
