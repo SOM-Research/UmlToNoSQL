@@ -1,11 +1,7 @@
 package som.umltonosql.demo.app;
 
 import fr.inria.atlanmod.commons.log.Log;
-import som.umltonosql.core.bean.Bean;
 import som.umltonosql.core.constraint.ConstraintResult;
-import som.umltonosql.core.datastore.query.MongoQuery;
-import som.umltonosql.core.datastore.query.QueryResult;
-import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
 import som.umltonosql.demo.core.generated.DemoBootstrap;
 import som.umltonosql.demo.core.generated.DemoMiddleware;
 import som.umltonosql.demo.mongodb.beans.Order;

@@ -14,13 +14,13 @@ public abstract class QueryProcessor<Q extends Query> {
 
     public final QueryResult query(Q query) {
         long before = System.currentTimeMillis();
-        Iterable<String> rawResult = doquery(query);
+        Iterable<String> rawResult = doQuery(query);
         long after = System.currentTimeMillis();
         long executionTime = (after - before);
         return new QueryResult(rawResult, query.getResultType(), executionTime, middleware);
     }
 
-    abstract Iterable<String> doquery(Q query);
+    abstract Iterable<String> doQuery(Q query);
 
     public abstract boolean accepts(Class<? extends Query> queryClazz);
 

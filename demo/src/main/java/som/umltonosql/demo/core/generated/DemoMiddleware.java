@@ -4,6 +4,7 @@ import fr.inria.atlanmod.commons.log.Log;
 import org.bson.types.ObjectId;
 import som.umltonosql.core.Middleware;
 import som.umltonosql.core.bean.Bean;
+import som.umltonosql.core.datastore.query.processor.DrillQueryProcessor;
 import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
 import som.umltonosql.core.datastore.query.processor.QueryProcessor;
 import som.umltonosql.core.datastore.store.Datastore;
@@ -26,6 +27,8 @@ public class DemoMiddleware extends Middleware {
 
     private MongoQueryProcessor mongoProcessor;
 
+    private DrillQueryProcessor drillProcessor;
+
     private static DemoMiddleware INSTANCE;
 
     public static DemoMiddleware getInstance() {
@@ -35,6 +38,7 @@ public class DemoMiddleware extends Middleware {
     public DemoMiddleware(MongoDatastore mongoDatastore) {
         this.mongoDatastore = mongoDatastore;
         this.mongoProcessor = new MongoQueryProcessor(this, mongoDatastore);
+        this.drillProcessor = new DrillQueryProcessor(this);
 
         if (nonNull(INSTANCE)) {
             Log.warn("Multiple instances of DemoMiddleware have been created");
@@ -49,7 +53,7 @@ public class DemoMiddleware extends Middleware {
 
     @Override
     public List<QueryProcessor> getProcessors() {
-        return Arrays.asList(mongoProcessor);
+        return Arrays.asList(mongoProcessor, drillProcessor);
     }
 
     public MongoDatastore getMongoDatastore() {
