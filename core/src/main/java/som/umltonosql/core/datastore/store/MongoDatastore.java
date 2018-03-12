@@ -29,7 +29,6 @@ public class MongoDatastore extends Datastore {
 
     public MongoDatastore(String path) {
         super(path);
-        Log.info("Creating MongoDatastore(db={0}, col={1}");
         client = new MongoClient();
         database = client.getDatabase(path);
     }
