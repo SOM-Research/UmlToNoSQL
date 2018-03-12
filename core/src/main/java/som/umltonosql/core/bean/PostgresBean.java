@@ -13,6 +13,10 @@ public class PostgresBean extends Bean<PostgresDatastore> {
         return (T) datastore.getValue(id, this.getClass(), columnName);
     }
 
+    protected void updateValue(String columnName, Object value) {
+        datastore.updateValue(id, this.getClass(), columnName, value);
+    }
+
     @Override
     public String getId() {
         return id;

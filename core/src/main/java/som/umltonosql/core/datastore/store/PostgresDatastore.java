@@ -17,6 +17,9 @@ public class PostgresDatastore extends Datastore {
 
     private static String SELECT_COLUMN_TEMPLATE = "select {0} from {1} where id = ''{2}''";
 
+    // {2} only works with string for now
+    private static String UPDATE_COLUMN_TEMPLATE = "update {0} set {1} = ''{2}'' where id = ''{3}'';";
+
     public PostgresDatastore(String path) {
         super(path);
         // can we provide the user and password in the path?
@@ -70,6 +73,17 @@ public class PostgresDatastore extends Datastore {
 
     private String formatColumnName(String columnName) {
         return columnName.toLowerCase();
+    }
+
+    public void updateValue(String id, Class<? extends Bean> clazz, String columnName, Object value) {
+        try {
+            Statement statement = connection.createStatement();
+            boolean updated = statement.execute(MessageFormat.format(UPDATE_COLUMN_TEMPLATE, getTableNameFromBeanClass
+                    (clazz), columnName, value, id));
+            Log.info("Updated {0}", updated);
+        } catch(SQLException e) {
+            throw new RuntimeException(MessageFormat.format("Cannot udpate the provided field ({0})", columnName), e);
+        }
     }
 
     public Object getValue(String id, Class<? extends Bean> clazz, String columnName) {

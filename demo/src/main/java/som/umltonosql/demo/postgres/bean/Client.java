@@ -13,7 +13,15 @@ public class Client extends PostgresBean {
         return getValue("name");
     }
 
+    public void setName(String newName) {
+        updateValue("name", newName);
+    }
+
     public String getAddress() {
         return getValue("address");
+    }
+
+    public void setAddress(String newAddress) {
+        updateValue("address", newAddress);
     }
 }

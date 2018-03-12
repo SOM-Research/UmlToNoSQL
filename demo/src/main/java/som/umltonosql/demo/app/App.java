@@ -1,14 +1,9 @@
 package som.umltonosql.demo.app;
 
 import fr.inria.atlanmod.commons.log.Log;
-import som.umltonosql.core.constraint.ConstraintResult;
 import som.umltonosql.demo.core.generated.DemoBootstrap;
 import som.umltonosql.demo.core.generated.DemoMiddleware;
-import som.umltonosql.demo.mongodb.beans.Order;
-import som.umltonosql.demo.mongodb.beans.Product;
 import som.umltonosql.demo.postgres.bean.Client;
-
-import java.util.Date;
 
 public class App {
 
@@ -48,6 +43,13 @@ public class App {
         // statement.execute("insert into client values ('abc', 'name', 'address');");
         // Create a Client
         Client client = middleware.getClient("abc");
+        Log.info("Client id: {0}", client.getId());
+        Log.info("Client name: {0}", client.getName());
+        Log.info("Client address {0}", client.getAddress());
+
+        client.setName("myName");
+        client.setAddress("myAddress");
+
         Log.info("Client id: {0}", client.getId());
         Log.info("Client name: {0}", client.getName());
         Log.info("Client address {0}", client.getAddress());
