@@ -9,11 +9,13 @@ import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
 import som.umltonosql.core.datastore.query.processor.QueryProcessor;
 import som.umltonosql.core.datastore.store.Datastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
+import som.umltonosql.core.datastore.store.PostgresDatastore;
 import som.umltonosql.core.exceptions.ConsistencyException;
 import som.umltonosql.core.exceptions.LifeCycleException;
 import som.umltonosql.demo.mongodb.beans.Order;
 import som.umltonosql.demo.mongodb.beans.OrderLine;
 import som.umltonosql.demo.mongodb.beans.Product;
+import som.umltonosql.demo.postgres.bean.Client;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -25,6 +27,8 @@ public class DemoMiddleware extends Middleware {
 
     private MongoDatastore mongoDatastore;
 
+    private PostgresDatastore postgresDatastore;
+
     private MongoQueryProcessor mongoProcessor;
 
     private DrillQueryProcessor drillProcessor;
@@ -35,10 +39,11 @@ public class DemoMiddleware extends Middleware {
         return INSTANCE;
     }
 
-    public DemoMiddleware(MongoDatastore mongoDatastore) {
+    public DemoMiddleware(MongoDatastore mongoDatastore, PostgresDatastore postgresDatastore) {
         this.mongoDatastore = mongoDatastore;
+        this.postgresDatastore = postgresDatastore;
         this.mongoProcessor = new MongoQueryProcessor(this, mongoDatastore);
-        this.drillProcessor = new DrillQueryProcessor(this);
+//        this.drillProcessor = new DrillQueryProcessor(this);
 
         if (nonNull(INSTANCE)) {
             Log.warn("Multiple instances of DemoMiddleware have been created");
@@ -48,7 +53,7 @@ public class DemoMiddleware extends Middleware {
 
     @Override
     public List<Datastore> getDatastores() {
-        return Arrays.asList(mongoDatastore);
+        return Arrays.asList(mongoDatastore, postgresDatastore);
     }
 
     @Override
@@ -58,6 +63,10 @@ public class DemoMiddleware extends Middleware {
 
     public MongoDatastore getMongoDatastore() {
         return mongoDatastore;
+    }
+
+    public PostgresDatastore getPostgresDatastore() {
+        return postgresDatastore;
     }
 
     public MongoQueryProcessor getMongoProcessor() {
@@ -78,6 +87,9 @@ public class DemoMiddleware extends Middleware {
         return (OrderLine) mongoDatastore.createElement(OrderLine.class);
     }
 
+    public Client createClient() {
+        return (Client) postgresDatastore.createElement(Client.class);
+    }
     @Override
     public Bean getElement(String id, Class<? extends Bean> clazz) throws ConsistencyException {
         if(clazz.equals(Order.class)) {
@@ -88,6 +100,9 @@ public class DemoMiddleware extends Middleware {
         }
         if(clazz.equals(OrderLine.class)) {
             return getOrderLine(id);
+        }
+        if(clazz.equals(Client.class)) {
+            return getClient(id);
         }
         throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class : {0}",
                 clazz.getName()));
@@ -105,6 +120,10 @@ public class DemoMiddleware extends Middleware {
 
     public OrderLine getOrderLine(String id) {
         return (OrderLine) mongoDatastore.getElement(id, OrderLine.class);
+    }
+
+    public Client getClient(String id) {
+        return (Client) postgresDatastore.getElement(id, Client.class);
     }
 
     public void commit() throws LifeCycleException {
