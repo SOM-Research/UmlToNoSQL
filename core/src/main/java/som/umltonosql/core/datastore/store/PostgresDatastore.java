@@ -1,6 +1,7 @@
 package som.umltonosql.core.datastore.store;
 
 import fr.inria.atlanmod.commons.log.Log;
+import org.bson.types.ObjectId;
 import som.umltonosql.core.bean.Bean;
 
 import java.lang.reflect.Constructor;
@@ -16,6 +17,8 @@ public class PostgresDatastore extends Datastore {
     private static String GET_ELEMENT_TEMPLATE = "select id from {0} where id = ''{1}''";
 
     private static String SELECT_COLUMN_TEMPLATE = "select {0} from {1} where id = ''{2}''";
+
+    private static String INSERT_ELEMENT_TEMPLATE = "insert into {0} values (''{1}'');";
 
     // {2} only works with string for now
     private static String UPDATE_COLUMN_TEMPLATE = "update {0} set {1} = ''{2}'' where id = ''{3}'';";
@@ -37,7 +40,26 @@ public class PostgresDatastore extends Datastore {
 
     @Override
     public Bean createElement(Class<? extends Bean> clazz) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        ObjectId newObjectId = new ObjectId();
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(MessageFormat.format(INSERT_ELEMENT_TEMPLATE, getTableNameFromBeanClass(clazz),
+                    newObjectId.toString()));
+        } catch (SQLException e) {
+            throw new RuntimeException(MessageFormat.format("Cannot create the database record for the new instance " +
+                    "of {0} (id = {1})", clazz.getSimpleName(), newObjectId.toString()), e);
+        }
+        Bean bean = null;
+        try {
+            Constructor<?> constructor = clazz.getConstructor(String.class, PostgresDatastore.class);
+            return (Bean) constructor.newInstance(newObjectId.toString(), this);
+        } catch (NoSuchMethodException e) {
+            Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
+            throw new RuntimeException(e);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e1) {
+            Log.error("Cannot invoke the constructor for the provided bean {0}", clazz.getName());
+            throw new RuntimeException(e1);
+        }
     }
 
     @Override
@@ -61,7 +83,7 @@ public class PostgresDatastore extends Datastore {
         } catch (NoSuchMethodException e) {
             Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e);
-        } catch(InstantiationException | IllegalAccessException | InvocationTargetException e1) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e1) {
             Log.error("Cannot invoke the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e1);
         }
@@ -78,10 +100,9 @@ public class PostgresDatastore extends Datastore {
     public void updateValue(String id, Class<? extends Bean> clazz, String columnName, Object value) {
         try {
             Statement statement = connection.createStatement();
-            boolean updated = statement.execute(MessageFormat.format(UPDATE_COLUMN_TEMPLATE, getTableNameFromBeanClass
+            statement.execute(MessageFormat.format(UPDATE_COLUMN_TEMPLATE, getTableNameFromBeanClass
                     (clazz), columnName, value, id));
-            Log.info("Updated {0}", updated);
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(MessageFormat.format("Cannot udpate the provided field ({0})", columnName), e);
         }
     }

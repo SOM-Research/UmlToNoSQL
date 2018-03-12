@@ -5,6 +5,8 @@ import som.umltonosql.demo.core.generated.DemoBootstrap;
 import som.umltonosql.demo.core.generated.DemoMiddleware;
 import som.umltonosql.demo.postgres.bean.Client;
 
+import java.sql.Statement;
+
 public class App {
 
     public static void main(String[] args) throws Exception {
@@ -47,12 +49,9 @@ public class App {
         Log.info("Client name: {0}", client.getName());
         Log.info("Client address {0}", client.getAddress());
 
-        client.setName("myName");
-        client.setAddress("myAddress");
-
-        Log.info("Client id: {0}", client.getId());
-        Log.info("Client name: {0}", client.getName());
-        Log.info("Client address {0}", client.getAddress());
+        middleware.createClient();
+        client.setName("John Doe");
+        client.setAddress("Wall Street");
 
 //        Log.info("Checking Constraints");
 //        Iterable<ConstraintResult> constraintResults = middleware.checkConstraints();
