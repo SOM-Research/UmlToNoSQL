@@ -43,7 +43,7 @@ public class DemoMiddleware extends Middleware {
         this.mongoDatastore = mongoDatastore;
         this.postgresDatastore = postgresDatastore;
         this.mongoProcessor = new MongoQueryProcessor(this, mongoDatastore);
-//        this.drillProcessor = new DrillQueryProcessor(this);
+        this.drillProcessor = new DrillQueryProcessor(this);
 
         if (nonNull(INSTANCE)) {
             Log.warn("Multiple instances of DemoMiddleware have been created");

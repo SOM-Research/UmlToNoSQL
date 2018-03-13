@@ -33,12 +33,12 @@ public class DemoBootstrap extends Bootstrap {
 
         middleware = new DemoMiddleware(businessDatastore, clientDatastore);
 
-//        ConstraintManager.getInstance().addConstraint(new Constraint("validPrice", new MongoQuery("db.product.find" +
-//                        "({price: {$lt: 0}})", Product.class), middleware.getProcessorFor(MongoQuery.class)));
-//        ConstraintManager.getInstance().addConstraint(new Constraint("validOrder", new MongoQuery("db.order" +
-//                ".find({$where: \"(!(this.shipmentDate < this.deliveryDate))\"})", Order.class), middleware
-//                .getProcessorFor(MongoQuery.class)));
-//        ConstraintManager.getInstance().addConstraint(new Constraint("validPriceDrill", new DrillQuery("select * " +
-//                "from mongo2.demo.product where price < 0", Product.class), middleware.getProcessorFor(DrillQuery.class)));
+        ConstraintManager.getInstance().addConstraint(new Constraint("validPrice", new MongoQuery("db.product.find" +
+                        "({price: {$lt: 0}})", Product.class), middleware.getProcessorFor(MongoQuery.class)));
+        ConstraintManager.getInstance().addConstraint(new Constraint("validOrder", new MongoQuery("db.order" +
+                ".find({$where: \"(!(this.shipmentDate < this.deliveryDate))\"})", Order.class), middleware
+                .getProcessorFor(MongoQuery.class)));
+        ConstraintManager.getInstance().addConstraint(new Constraint("validPriceDrill", new DrillQuery("select * " +
+                "from mongo2.demo.product where price < 0", Product.class), middleware.getProcessorFor(DrillQuery.class)));
     }
 }
