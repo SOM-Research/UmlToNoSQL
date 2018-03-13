@@ -3,9 +3,11 @@ package som.umltonosql.demo.app;
 import fr.inria.atlanmod.commons.log.Log;
 import som.umltonosql.demo.core.generated.DemoBootstrap;
 import som.umltonosql.demo.core.generated.DemoMiddleware;
+import som.umltonosql.demo.mongodb.beans.Order;
 import som.umltonosql.demo.postgres.bean.Client;
 
 import java.sql.Statement;
+import java.util.Date;
 
 public class App {
 
@@ -28,11 +30,11 @@ public class App {
 //        invalidProduct.setPrice(-10);
 //
 //        // Create a valid order
-//        Order validOrder = middleware.createOrder();
-//        validOrder.setReference("A valid order");
-//        validOrder.setShipmentDate(new Date(System.currentTimeMillis() - (3600 * 1000)));
-//        validOrder.setDeliveryDate(new Date());
-//        validOrder.setPaid(true);
+        Order validOrder = middleware.createOrder();
+        validOrder.setReference("A valid order");
+        validOrder.setShipmentDate(new Date(System.currentTimeMillis() - (3600 * 1000)));
+        validOrder.setDeliveryDate(new Date());
+        validOrder.setPaid(true);
 //
 //        // Create an invalid order
 //        Order invalidOrder = middleware.createOrder();
@@ -44,14 +46,13 @@ public class App {
 
         // statement.execute("insert into client values ('abc', 'name', 'address');");
         // Create a Client
-        Client client = middleware.getClient("abc");
-        Log.info("Client id: {0}", client.getId());
-        Log.info("Client name: {0}", client.getName());
-        Log.info("Client address {0}", client.getAddress());
 
-        middleware.createClient();
-        client.setName("John Doe");
+        Client client = middleware.createClient();
+        client.setName("John Doe1");
         client.setAddress("Wall Street");
+        client.addOrder(validOrder);
+
+        System.out.println(client.getOrders().iterator().next().getReference());
 
 //        Log.info("Checking Constraints");
 //        Iterable<ConstraintResult> constraintResults = middleware.checkConstraints();

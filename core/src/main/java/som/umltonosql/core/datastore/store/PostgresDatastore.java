@@ -8,6 +8,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostgresDatastore extends Datastore {
 
@@ -19,6 +21,10 @@ public class PostgresDatastore extends Datastore {
     private static String SELECT_COLUMN_TEMPLATE = "select {0} from {1} where id = ''{2}''";
 
     private static String INSERT_ELEMENT_TEMPLATE = "insert into {0} values (''{1}'');";
+
+    private static String INSERT_MULTI_VALUE = "insert into {0} values (''{1}'', ''{2}'');";
+
+    private static String SELECT_MULTI_VALUE = "select * from {0} where {1} = ''{2}'';";
 
     // {2} only works with string for now
     private static String UPDATE_COLUMN_TEMPLATE = "update {0} set {1} = ''{2}'' where id = ''{3}'';";
@@ -93,11 +99,19 @@ public class PostgresDatastore extends Datastore {
         return clazz.getSimpleName().toLowerCase();
     }
 
+    private String getMultiTableName(Class<? extends Bean> clazz, String columnName) {
+        return getTableNameFromBeanClass(clazz) + "_" + columnName;
+    }
+
     private String formatColumnName(String columnName) {
         return columnName.toLowerCase();
     }
 
-    public void updateValue(String id, Class<? extends Bean> clazz, String columnName, Object value) {
+    private String multiValueId(String typeName) {
+        return typeName + "_id";
+    }
+
+    public void updateSimpleValue(String id, Class<? extends Bean> clazz, String columnName, Object value) {
         try {
             Statement statement = connection.createStatement();
             statement.execute(MessageFormat.format(UPDATE_COLUMN_TEMPLATE, getTableNameFromBeanClass
@@ -107,7 +121,18 @@ public class PostgresDatastore extends Datastore {
         }
     }
 
-    public Object getValue(String id, Class<? extends Bean> clazz, String columnName) {
+    public void addMultiValue(String id, Class<? extends Bean> clazz, String columnName, Object value) {
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(MessageFormat.format(INSERT_MULTI_VALUE, getMultiTableName(clazz, columnName), id,
+                    value));
+        } catch(SQLException e) {
+            throw new RuntimeException(MessageFormat.format("Cannot update the multi valued field {0} from bean {1}",
+                    columnName, clazz.getSimpleName()), e);
+        }
+    }
+
+    public Object getSimpleValue(String id, Class<? extends Bean> clazz, String columnName) {
         try {
             Statement statement = connection.createStatement();
             ResultSet rSet = statement.executeQuery(MessageFormat.format(SELECT_COLUMN_TEMPLATE, formatColumnName
@@ -121,6 +146,23 @@ public class PostgresDatastore extends Datastore {
                     columnName, clazz.getSimpleName()), e);
         }
         return null;
+    }
+
+    public List getMultiValue(String id, Class<? extends Bean> clazz, String columnName) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rSet = statement.executeQuery(MessageFormat.format(SELECT_MULTI_VALUE,
+                    getMultiTableName(clazz, columnName), multiValueId(getTableNameFromBeanClass(clazz)), id));
+            List<Object> result = new ArrayList<>();
+            while (rSet.next()) {
+                Object o = rSet.getObject(2);
+                result.add(o);
+            }
+            return result;
+        } catch(SQLException e) {
+            throw new RuntimeException(MessageFormat.format("Cannot access the multi-valued field {0} of Bean {1}",
+                    columnName, clazz.getSimpleName()), e);
+        }
     }
 
     @Override
