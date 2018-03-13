@@ -1,5 +1,7 @@
 package som.umltonosql.core.datastore.handler;
 
+import fr.inria.atlanmod.commons.log.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,6 +35,7 @@ public class DrillHandler extends DatastoreHandler {
                     (DRILL_COMMAND_TEMPLATE, drillInstallationPath));
             builder.redirectErrorStream(true);
             drillProcess = builder.start();
+            Log.info("Initializing Drill server");
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(drillProcess.getInputStream()));
             String line;
             while (true) {
@@ -43,6 +46,7 @@ public class DrillHandler extends DatastoreHandler {
                     break;
                 }
             }
+            Log.info("Drill server started");
         } catch (IOException e) {
             throw new RuntimeException("Cannot start the embedded drillbit");
         }
