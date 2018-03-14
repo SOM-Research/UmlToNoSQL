@@ -45,6 +45,25 @@ public class App {
         invalidOrder.setDeliveryDate(new Date());
         invalidOrder.setPaid(true);
 
+        // Create a valid, unpaid order
+        Order unpaidOrder = middleware.createOrder();
+        unpaidOrder.setReference("An unpaid order");
+        unpaidOrder.setShipmentDate(new Date());
+        unpaidOrder.setDeliveryDate(new Date(System.currentTimeMillis() + (3600 * 1000)));
+        unpaidOrder.setPaid(false);
+
+        Order unpaidOrder2 = middleware.createOrder();
+        unpaidOrder2.setReference("A second unpaid order");
+        unpaidOrder2.setShipmentDate(new Date());
+        unpaidOrder2.setDeliveryDate(new Date(System.currentTimeMillis() + (3600 * 1000)));
+        unpaidOrder2.setPaid(false);
+
+        Order unpaidOrder3 = middleware.createOrder();
+        unpaidOrder3.setReference("A second unpaid order");
+        unpaidOrder3.setShipmentDate(new Date());
+        unpaidOrder3.setDeliveryDate(new Date(System.currentTimeMillis() + (3600 * 1000)));
+        unpaidOrder3.setPaid(false);
+
 
         // Create a Client
 
@@ -52,6 +71,9 @@ public class App {
         client.setName("John Doe");
         client.setAddress("Wall Street");
         client.addOrder(validOrder);
+        client.addOrder(unpaidOrder);
+        client.addOrder(unpaidOrder2);
+        client.addOrder(unpaidOrder3);
 
         Log.info("Checking Constraints");
         Iterable<ConstraintResult> constraintResults = middleware.checkConstraints();

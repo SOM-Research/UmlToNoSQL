@@ -12,6 +12,7 @@ import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.datastore.store.PostgresDatastore;
 import som.umltonosql.demo.mongodb.beans.Order;
 import som.umltonosql.demo.mongodb.beans.Product;
+import som.umltonosql.demo.postgres.bean.Client;
 
 import java.util.Arrays;
 
@@ -40,5 +41,9 @@ public class DemoBootstrap extends Bootstrap {
                 .getProcessorFor(MongoQuery.class)));
         ConstraintManager.getInstance().addConstraint(new Constraint("validPriceDrill", new DrillQuery("select * " +
                 "from mongo2.demo.product where price < 0", Product.class), middleware.getProcessorFor(DrillQuery.class)));
+        ConstraintManager.getInstance().addConstraint(new Constraint("orderPaid", new DrillQuery("select " +
+                "client_id, count(*) from postgres.public.client_orders where order_id in (select cast(ord._id.`$oid`" +
+                " as varchar) from mongo2.demo.`order` as ord where paid = false) group by client_id having count(*)" +
+                " >= 3", Client.class), middleware.getProcessorFor(DrillQuery.class)));
     }
 }
