@@ -25,6 +25,10 @@ helper context UML!Property def : isAssociationClassAttribute() : Boolean =
 	self.owner.oclIsTypeOf(UML!AssociationClass)
 ;
 
+helper context UML!Property def : isMultiValued() : Boolean = 
+	self.upper = -1 or self.upper > 1
+;
+
 helper context UML!Class def : getAssociations() : Sequence(UML!Association) =
 	UML!Association.allInstances()->select(aa | aa.ownedEnd->collect(ee | ee.type)->contains(self))
 ;
@@ -66,7 +70,13 @@ rule class2document {
 		document : Mongo!Document(
 			fields <- class.attribute->union(Sequence{id})->union(class.getAssociations()->collect(aa | aa.getOtherEnd(class)))	
 		),
-		id : Mongo!UmlToNoSQLID()
+		id : Mongo!Field(
+			key <- '_id',
+			type <- idType
+		),
+		idType : Mongo!SimpleType(
+			name <- 'String'	
+		)
 }
 
 rule simpleClassAttribute2field {
@@ -78,19 +88,32 @@ rule simpleClassAttribute2field {
 			type <- simpleType
 		),
 		simpleType : Mongo!SimpleType(
-			type <- attribute.type.name	
+			name <- attribute.type.name	
 		)
 }
 
 rule associationAttribute2field {
 	from
-		attribute : UML!Property(attribute.isAssociationAttribute())
+		attribute : UML!Property(attribute.isAssociationAttribute() and not(attribute.isMultiValued()))
 	to
 		field : Mongo!Field(
 			key <- attribute.name,
 			type <- refId
 		),
 		refId : Mongo!UmlToNoSQLIDReference(
-			referencedType <- attribute.owner.getOtherEnd(attribute.type).type.name
+			name <- attribute.type.name
+		)
+}
+
+rule associationMultipleAttribute2field {
+	from
+		attribute : UML!Property(attribute.isAssociationAttribute() and attribute.isMultiValued())
+	to
+		field : Mongo!Field(
+			key <- attribute.name,
+			type <- refId
+		), 
+		refId : Mongo!CollectionType(
+			name <- attribute.type.name	
 		)
 }
