@@ -234,13 +234,22 @@ public interface MongodbPackage extends EPackage {
 	int TYPE = 4;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__NAME = 0;
+
+	/**
 	 * The number of structural features of the '<em>Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FEATURE_COUNT = 0;
+	int TYPE_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Type</em>' class.
@@ -252,34 +261,6 @@ public interface MongodbPackage extends EPackage {
 	int TYPE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link mongodb.impl.UmlToNoSQLIDImpl <em>Uml To No SQLID</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see mongodb.impl.UmlToNoSQLIDImpl
-	 * @see mongodb.impl.MongodbPackageImpl#getUmlToNoSQLID()
-	 * @generated
-	 */
-	int UML_TO_NO_SQLID = 5;
-
-	/**
-	 * The number of structural features of the '<em>Uml To No SQLID</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UML_TO_NO_SQLID_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Uml To No SQLID</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UML_TO_NO_SQLID_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link mongodb.impl.SimpleTypeImpl <em>Simple Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -287,16 +268,16 @@ public interface MongodbPackage extends EPackage {
 	 * @see mongodb.impl.MongodbPackageImpl#getSimpleType()
 	 * @generated
 	 */
-	int SIMPLE_TYPE = 6;
+	int SIMPLE_TYPE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIMPLE_TYPE__TYPE = TYPE_FEATURE_COUNT + 0;
+	int SIMPLE_TYPE__NAME = TYPE__NAME;
 
 	/**
 	 * The number of structural features of the '<em>Simple Type</em>' class.
@@ -305,7 +286,7 @@ public interface MongodbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SIMPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+	int SIMPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Simple Type</em>' class.
@@ -325,16 +306,16 @@ public interface MongodbPackage extends EPackage {
 	 * @see mongodb.impl.MongodbPackageImpl#getUmlToNoSQLIDReference()
 	 * @generated
 	 */
-	int UML_TO_NO_SQLID_REFERENCE = 7;
+	int UML_TO_NO_SQLID_REFERENCE = 6;
 
 	/**
-	 * The feature id for the '<em><b>Referenced Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UML_TO_NO_SQLID_REFERENCE__REFERENCED_TYPE = TYPE_FEATURE_COUNT + 0;
+	int UML_TO_NO_SQLID_REFERENCE__NAME = TYPE__NAME;
 
 	/**
 	 * The number of structural features of the '<em>Uml To No SQLID Reference</em>' class.
@@ -343,7 +324,7 @@ public interface MongodbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int UML_TO_NO_SQLID_REFERENCE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+	int UML_TO_NO_SQLID_REFERENCE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Uml To No SQLID Reference</em>' class.
@@ -353,6 +334,44 @@ public interface MongodbPackage extends EPackage {
 	 * @ordered
 	 */
 	int UML_TO_NO_SQLID_REFERENCE_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
+
+
+	/**
+	 * The meta object id for the '{@link mongodb.impl.CollectionTypeImpl <em>Collection Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see mongodb.impl.CollectionTypeImpl
+	 * @see mongodb.impl.MongodbPackageImpl#getCollectionType()
+	 * @generated
+	 */
+	int COLLECTION_TYPE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLLECTION_TYPE__NAME = TYPE__NAME;
+
+	/**
+	 * The number of structural features of the '<em>Collection Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLLECTION_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Collection Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLLECTION_TYPE_OPERATION_COUNT = TYPE_OPERATION_COUNT + 0;
 
 
 	/**
@@ -472,14 +491,15 @@ public interface MongodbPackage extends EPackage {
 	EClass getType();
 
 	/**
-	 * Returns the meta object for class '{@link mongodb.UmlToNoSQLID <em>Uml To No SQLID</em>}'.
+	 * Returns the meta object for the attribute '{@link mongodb.Type#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Uml To No SQLID</em>'.
-	 * @see mongodb.UmlToNoSQLID
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see mongodb.Type#getName()
+	 * @see #getType()
 	 * @generated
 	 */
-	EClass getUmlToNoSQLID();
+	EAttribute getType_Name();
 
 	/**
 	 * Returns the meta object for class '{@link mongodb.SimpleType <em>Simple Type</em>}'.
@@ -492,17 +512,6 @@ public interface MongodbPackage extends EPackage {
 	EClass getSimpleType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link mongodb.SimpleType#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see mongodb.SimpleType#getType()
-	 * @see #getSimpleType()
-	 * @generated
-	 */
-	EAttribute getSimpleType_Type();
-
-	/**
 	 * Returns the meta object for class '{@link mongodb.UmlToNoSQLIDReference <em>Uml To No SQLID Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -513,15 +522,14 @@ public interface MongodbPackage extends EPackage {
 	EClass getUmlToNoSQLIDReference();
 
 	/**
-	 * Returns the meta object for the attribute '{@link mongodb.UmlToNoSQLIDReference#getReferencedType <em>Referenced Type</em>}'.
+	 * Returns the meta object for class '{@link mongodb.CollectionType <em>Collection Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Referenced Type</em>'.
-	 * @see mongodb.UmlToNoSQLIDReference#getReferencedType()
-	 * @see #getUmlToNoSQLIDReference()
+	 * @return the meta object for class '<em>Collection Type</em>'.
+	 * @see mongodb.CollectionType
 	 * @generated
 	 */
-	EAttribute getUmlToNoSQLIDReference_ReferencedType();
+	EClass getCollectionType();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -645,14 +653,12 @@ public interface MongodbPackage extends EPackage {
 		EClass TYPE = eINSTANCE.getType();
 
 		/**
-		 * The meta object literal for the '{@link mongodb.impl.UmlToNoSQLIDImpl <em>Uml To No SQLID</em>}' class.
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see mongodb.impl.UmlToNoSQLIDImpl
-		 * @see mongodb.impl.MongodbPackageImpl#getUmlToNoSQLID()
 		 * @generated
 		 */
-		EClass UML_TO_NO_SQLID = eINSTANCE.getUmlToNoSQLID();
+		EAttribute TYPE__NAME = eINSTANCE.getType_Name();
 
 		/**
 		 * The meta object literal for the '{@link mongodb.impl.SimpleTypeImpl <em>Simple Type</em>}' class.
@@ -665,14 +671,6 @@ public interface MongodbPackage extends EPackage {
 		EClass SIMPLE_TYPE = eINSTANCE.getSimpleType();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SIMPLE_TYPE__TYPE = eINSTANCE.getSimpleType_Type();
-
-		/**
 		 * The meta object literal for the '{@link mongodb.impl.UmlToNoSQLIDReferenceImpl <em>Uml To No SQLID Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -683,12 +681,14 @@ public interface MongodbPackage extends EPackage {
 		EClass UML_TO_NO_SQLID_REFERENCE = eINSTANCE.getUmlToNoSQLIDReference();
 
 		/**
-		 * The meta object literal for the '<em><b>Referenced Type</b></em>' attribute feature.
+		 * The meta object literal for the '{@link mongodb.impl.CollectionTypeImpl <em>Collection Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see mongodb.impl.CollectionTypeImpl
+		 * @see mongodb.impl.MongodbPackageImpl#getCollectionType()
 		 * @generated
 		 */
-		EAttribute UML_TO_NO_SQLID_REFERENCE__REFERENCED_TYPE = eINSTANCE.getUmlToNoSQLIDReference_ReferencedType();
+		EClass COLLECTION_TYPE = eINSTANCE.getCollectionType();
 
 	}
 

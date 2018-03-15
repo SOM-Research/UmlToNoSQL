@@ -2,24 +2,25 @@
  */
 package mongodb.impl;
 
+import mongodb.CollectionType;
 import mongodb.MongodbPackage;
-import mongodb.UmlToNoSQLID;
+
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Uml To No SQLID</b></em>'.
+ * An implementation of the model object '<em><b>Collection Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class UmlToNoSQLIDImpl extends TypeImpl implements UmlToNoSQLID {
+public class CollectionTypeImpl extends TypeImpl implements CollectionType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected UmlToNoSQLIDImpl() {
+	protected CollectionTypeImpl() {
 		super();
 	}
 
@@ -30,7 +31,7 @@ public class UmlToNoSQLIDImpl extends TypeImpl implements UmlToNoSQLID {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return MongodbPackage.Literals.UML_TO_NO_SQLID;
+		return MongodbPackage.Literals.COLLECTION_TYPE;
 	}
 
-} //UmlToNoSQLIDImpl
+} //CollectionTypeImpl

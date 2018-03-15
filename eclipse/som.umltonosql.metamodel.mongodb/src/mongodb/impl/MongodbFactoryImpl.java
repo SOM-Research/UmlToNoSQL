@@ -60,9 +60,9 @@ public class MongodbFactoryImpl extends EFactoryImpl implements MongodbFactory {
 			case MongodbPackage.COLLECTION: return createCollection();
 			case MongodbPackage.DOCUMENT: return createDocument();
 			case MongodbPackage.FIELD: return createField();
-			case MongodbPackage.UML_TO_NO_SQLID: return createUmlToNoSQLID();
 			case MongodbPackage.SIMPLE_TYPE: return createSimpleType();
 			case MongodbPackage.UML_TO_NO_SQLID_REFERENCE: return createUmlToNoSQLIDReference();
+			case MongodbPackage.COLLECTION_TYPE: return createCollectionType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -113,16 +113,6 @@ public class MongodbFactoryImpl extends EFactoryImpl implements MongodbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public UmlToNoSQLID createUmlToNoSQLID() {
-		UmlToNoSQLIDImpl umlToNoSQLID = new UmlToNoSQLIDImpl();
-		return umlToNoSQLID;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public SimpleType createSimpleType() {
 		SimpleTypeImpl simpleType = new SimpleTypeImpl();
 		return simpleType;
@@ -136,6 +126,16 @@ public class MongodbFactoryImpl extends EFactoryImpl implements MongodbFactory {
 	public UmlToNoSQLIDReference createUmlToNoSQLIDReference() {
 		UmlToNoSQLIDReferenceImpl umlToNoSQLIDReference = new UmlToNoSQLIDReferenceImpl();
 		return umlToNoSQLIDReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CollectionType createCollectionType() {
+		CollectionTypeImpl collectionType = new CollectionTypeImpl();
+		return collectionType;
 	}
 
 	/**

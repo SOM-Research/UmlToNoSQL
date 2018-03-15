@@ -88,16 +88,16 @@ public class MongodbAdapterFactory extends AdapterFactoryImpl {
 				return createTypeAdapter();
 			}
 			@Override
-			public Adapter caseUmlToNoSQLID(UmlToNoSQLID object) {
-				return createUmlToNoSQLIDAdapter();
-			}
-			@Override
 			public Adapter caseSimpleType(SimpleType object) {
 				return createSimpleTypeAdapter();
 			}
 			@Override
 			public Adapter caseUmlToNoSQLIDReference(UmlToNoSQLIDReference object) {
 				return createUmlToNoSQLIDReferenceAdapter();
+			}
+			@Override
+			public Adapter caseCollectionType(CollectionType object) {
+				return createCollectionTypeAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -190,20 +190,6 @@ public class MongodbAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link mongodb.UmlToNoSQLID <em>Uml To No SQLID</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see mongodb.UmlToNoSQLID
-	 * @generated
-	 */
-	public Adapter createUmlToNoSQLIDAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link mongodb.SimpleType <em>Simple Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -228,6 +214,20 @@ public class MongodbAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createUmlToNoSQLIDReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link mongodb.CollectionType <em>Collection Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see mongodb.CollectionType
+	 * @generated
+	 */
+	public Adapter createCollectionTypeAdapter() {
 		return null;
 	}
 

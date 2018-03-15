@@ -96,13 +96,6 @@ public class MongodbSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case MongodbPackage.UML_TO_NO_SQLID: {
-				UmlToNoSQLID umlToNoSQLID = (UmlToNoSQLID)theEObject;
-				T result = caseUmlToNoSQLID(umlToNoSQLID);
-				if (result == null) result = caseType(umlToNoSQLID);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case MongodbPackage.SIMPLE_TYPE: {
 				SimpleType simpleType = (SimpleType)theEObject;
 				T result = caseSimpleType(simpleType);
@@ -114,6 +107,13 @@ public class MongodbSwitch<T> extends Switch<T> {
 				UmlToNoSQLIDReference umlToNoSQLIDReference = (UmlToNoSQLIDReference)theEObject;
 				T result = caseUmlToNoSQLIDReference(umlToNoSQLIDReference);
 				if (result == null) result = caseType(umlToNoSQLIDReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MongodbPackage.COLLECTION_TYPE: {
+				CollectionType collectionType = (CollectionType)theEObject;
+				T result = caseCollectionType(collectionType);
+				if (result == null) result = caseType(collectionType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -197,21 +197,6 @@ public class MongodbSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Uml To No SQLID</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Uml To No SQLID</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseUmlToNoSQLID(UmlToNoSQLID object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Simple Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -238,6 +223,21 @@ public class MongodbSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseUmlToNoSQLIDReference(UmlToNoSQLIDReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Collection Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Collection Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCollectionType(CollectionType object) {
 		return null;
 	}
 

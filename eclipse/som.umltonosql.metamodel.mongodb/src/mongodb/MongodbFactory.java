@@ -58,15 +58,6 @@ public interface MongodbFactory extends EFactory {
 	Field createField();
 
 	/**
-	 * Returns a new object of class '<em>Uml To No SQLID</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Uml To No SQLID</em>'.
-	 * @generated
-	 */
-	UmlToNoSQLID createUmlToNoSQLID();
-
-	/**
 	 * Returns a new object of class '<em>Simple Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -83,6 +74,15 @@ public interface MongodbFactory extends EFactory {
 	 * @generated
 	 */
 	UmlToNoSQLIDReference createUmlToNoSQLIDReference();
+
+	/**
+	 * Returns a new object of class '<em>Collection Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Collection Type</em>'.
+	 * @generated
+	 */
+	CollectionType createCollectionType();
 
 	/**
 	 * Returns the package supported by this factory.

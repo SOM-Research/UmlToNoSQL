@@ -3,6 +3,7 @@
 package mongodb.impl;
 
 import mongodb.Collection;
+import mongodb.CollectionType;
 import mongodb.Database;
 import mongodb.Document;
 import mongodb.Field;
@@ -11,7 +12,6 @@ import mongodb.MongodbPackage;
 
 import mongodb.SimpleType;
 import mongodb.Type;
-import mongodb.UmlToNoSQLID;
 import mongodb.UmlToNoSQLIDReference;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -67,13 +67,6 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass umlToNoSQLIDEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass simpleTypeEClass = null;
 
 	/**
@@ -82,6 +75,13 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 	 * @generated
 	 */
 	private EClass umlToNoSQLIDReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass collectionTypeEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -248,8 +248,8 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getUmlToNoSQLID() {
-		return umlToNoSQLIDEClass;
+	public EAttribute getType_Name() {
+		return (EAttribute)typeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -266,15 +266,6 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSimpleType_Type() {
-		return (EAttribute)simpleTypeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getUmlToNoSQLIDReference() {
 		return umlToNoSQLIDReferenceEClass;
 	}
@@ -284,8 +275,8 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getUmlToNoSQLIDReference_ReferencedType() {
-		return (EAttribute)umlToNoSQLIDReferenceEClass.getEStructuralFeatures().get(0);
+	public EClass getCollectionType() {
+		return collectionTypeEClass;
 	}
 
 	/**
@@ -331,14 +322,13 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 		createEReference(fieldEClass, FIELD__TYPE);
 
 		typeEClass = createEClass(TYPE);
-
-		umlToNoSQLIDEClass = createEClass(UML_TO_NO_SQLID);
+		createEAttribute(typeEClass, TYPE__NAME);
 
 		simpleTypeEClass = createEClass(SIMPLE_TYPE);
-		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__TYPE);
 
 		umlToNoSQLIDReferenceEClass = createEClass(UML_TO_NO_SQLID_REFERENCE);
-		createEAttribute(umlToNoSQLIDReferenceEClass, UML_TO_NO_SQLID_REFERENCE__REFERENCED_TYPE);
+
+		collectionTypeEClass = createEClass(COLLECTION_TYPE);
 	}
 
 	/**
@@ -369,9 +359,9 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		umlToNoSQLIDEClass.getESuperTypes().add(this.getType());
 		simpleTypeEClass.getESuperTypes().add(this.getType());
 		umlToNoSQLIDReferenceEClass.getESuperTypes().add(this.getType());
+		collectionTypeEClass.getESuperTypes().add(this.getType());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(databaseEClass, Database.class, "Database", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -389,14 +379,13 @@ public class MongodbPackageImpl extends EPackageImpl implements MongodbPackage {
 		initEReference(getField_Type(), this.getType(), null, "type", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(umlToNoSQLIDEClass, UmlToNoSQLID.class, "UmlToNoSQLID", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(simpleTypeEClass, SimpleType.class, "SimpleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSimpleType_Type(), ecorePackage.getEString(), "type", null, 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(umlToNoSQLIDReferenceEClass, UmlToNoSQLIDReference.class, "UmlToNoSQLIDReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUmlToNoSQLIDReference_ReferencedType(), ecorePackage.getEString(), "referencedType", null, 0, 1, UmlToNoSQLIDReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(collectionTypeEClass, CollectionType.class, "CollectionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
