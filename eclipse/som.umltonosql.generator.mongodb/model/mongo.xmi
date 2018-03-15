@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <mongodb:Database xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongodb="som.umltonosql.metamodel.mongodb">
-  <collections name="Client">
-    <documents>
-      <fields key="name">
-        <type xsi:type="mongodb:SimpleType" name="String"/>
-      </fields>
-      <fields key="address">
-        <type xsi:type="mongodb:SimpleType" name="String"/>
-      </fields>
-      <fields key="_id">
-        <type xsi:type="mongodb:SimpleType" name="String"/>
-      </fields>
-      <fields key="orders">
-        <type xsi:type="mongodb:CollectionType" name="Order"/>
-      </fields>
-    </documents>
-  </collections>
   <collections name="Order">
     <documents>
       <fields key="reference">
