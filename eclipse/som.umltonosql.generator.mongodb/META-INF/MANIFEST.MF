@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mongodb
+Bundle-SymbolicName: som.umltonosql.generator.mongodb
+Bundle-Version: 1.0.0.qualifier
+Export-Package: som.umltonosql.generator.mongodb
+Require-Bundle: com.google.inject,
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.generator,
+ org.eclipse.uml2.uml,
+ org.eclipse.xtext,
+ org.apache.log4j;bundle-version="1.2.15",
+ som.umltonosql.metamodel.mongodb;bundle-version="0.1.0",
+ org.apache.commons.io;bundle-version="2.2.0"
