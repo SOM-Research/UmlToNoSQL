@@ -3,16 +3,16 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mongodb" nsURI="som.umltonosql.metamodel.mongodb" nsPrefix="mongodb">
   <eClassifiers xsi:type="ecore:EClass" name="Database">
     <eStructuralFeatures xsi:type="ecore:EReference" name="collections" upperBound="-1"
-        eType="#//Collection"/>
+        eType="#//Collection" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Collection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="documents" upperBound="-1"
-        eType="#//Document"/>
+        eType="#//Document" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Document">
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
-        eType="#//Field"/>
+        eType="#//Field" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Field">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

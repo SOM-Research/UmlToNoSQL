@@ -8,14 +8,17 @@ import mongodb.MongodbPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -53,7 +56,7 @@ public class CollectionImpl extends MinimalEObjectImpl.Container implements Coll
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getDocuments() <em>Documents</em>}' reference list.
+	 * The cached value of the '{@link #getDocuments() <em>Documents</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDocuments()
@@ -109,9 +112,23 @@ public class CollectionImpl extends MinimalEObjectImpl.Container implements Coll
 	 */
 	public EList<Document> getDocuments() {
 		if (documents == null) {
-			documents = new EObjectResolvingEList<Document>(Document.class, this, MongodbPackage.COLLECTION__DOCUMENTS);
+			documents = new EObjectContainmentEList<Document>(Document.class, this, MongodbPackage.COLLECTION__DOCUMENTS);
 		}
 		return documents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case MongodbPackage.COLLECTION__DOCUMENTS:
+				return ((InternalEList<?>)getDocuments()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

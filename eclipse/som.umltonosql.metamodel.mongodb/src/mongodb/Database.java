@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Database extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Collections</b></em>' reference list.
+	 * Returns the value of the '<em><b>Collections</b></em>' containment reference list.
 	 * The list contents are of type {@link mongodb.Collection}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -32,9 +32,9 @@ public interface Database extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Collections</em>' reference list.
+	 * @return the value of the '<em>Collections</em>' containment reference list.
 	 * @see mongodb.MongodbPackage#getDatabase_Collections()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Collection> getCollections();

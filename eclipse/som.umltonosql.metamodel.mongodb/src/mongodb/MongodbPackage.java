@@ -67,7 +67,7 @@ public interface MongodbPackage extends EPackage {
 	int DATABASE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Collections</b></em>' reference list.
+	 * The feature id for the '<em><b>Collections</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -113,7 +113,7 @@ public interface MongodbPackage extends EPackage {
 	int COLLECTION__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Documents</b></em>' reference list.
+	 * The feature id for the '<em><b>Documents</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -150,7 +150,7 @@ public interface MongodbPackage extends EPackage {
 	int DOCUMENT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Fields</b></em>' reference list.
+	 * The feature id for the '<em><b>Fields</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -225,10 +225,10 @@ public interface MongodbPackage extends EPackage {
 	EClass getDatabase();
 
 	/**
-	 * Returns the meta object for the reference list '{@link mongodb.Database#getCollections <em>Collections</em>}'.
+	 * Returns the meta object for the containment reference list '{@link mongodb.Database#getCollections <em>Collections</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Collections</em>'.
+	 * @return the meta object for the containment reference list '<em>Collections</em>'.
 	 * @see mongodb.Database#getCollections()
 	 * @see #getDatabase()
 	 * @generated
@@ -257,10 +257,10 @@ public interface MongodbPackage extends EPackage {
 	EAttribute getCollection_Name();
 
 	/**
-	 * Returns the meta object for the reference list '{@link mongodb.Collection#getDocuments <em>Documents</em>}'.
+	 * Returns the meta object for the containment reference list '{@link mongodb.Collection#getDocuments <em>Documents</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Documents</em>'.
+	 * @return the meta object for the containment reference list '<em>Documents</em>'.
 	 * @see mongodb.Collection#getDocuments()
 	 * @see #getCollection()
 	 * @generated
@@ -278,10 +278,10 @@ public interface MongodbPackage extends EPackage {
 	EClass getDocument();
 
 	/**
-	 * Returns the meta object for the reference list '{@link mongodb.Document#getFields <em>Fields</em>}'.
+	 * Returns the meta object for the containment reference list '{@link mongodb.Document#getFields <em>Fields</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Fields</em>'.
+	 * @return the meta object for the containment reference list '<em>Fields</em>'.
 	 * @see mongodb.Document#getFields()
 	 * @see #getDocument()
 	 * @generated
@@ -343,7 +343,7 @@ public interface MongodbPackage extends EPackage {
 		EClass DATABASE = eINSTANCE.getDatabase();
 
 		/**
-		 * The meta object literal for the '<em><b>Collections</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Collections</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -369,7 +369,7 @@ public interface MongodbPackage extends EPackage {
 		EAttribute COLLECTION__NAME = eINSTANCE.getCollection_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Documents</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Documents</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -387,7 +387,7 @@ public interface MongodbPackage extends EPackage {
 		EClass DOCUMENT = eINSTANCE.getDocument();
 
 		/**
-		 * The meta object literal for the '<em><b>Fields</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

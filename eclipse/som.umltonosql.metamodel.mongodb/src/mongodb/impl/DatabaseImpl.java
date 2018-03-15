@@ -6,13 +6,16 @@ import mongodb.Collection;
 import mongodb.Database;
 import mongodb.MongodbPackage;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +32,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class DatabaseImpl extends MinimalEObjectImpl.Container implements Database {
 	/**
-	 * The cached value of the '{@link #getCollections() <em>Collections</em>}' reference list.
+	 * The cached value of the '{@link #getCollections() <em>Collections</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCollections()
@@ -64,9 +67,23 @@ public class DatabaseImpl extends MinimalEObjectImpl.Container implements Databa
 	 */
 	public EList<Collection> getCollections() {
 		if (collections == null) {
-			collections = new EObjectResolvingEList<Collection>(Collection.class, this, MongodbPackage.DATABASE__COLLECTIONS);
+			collections = new EObjectContainmentEList<Collection>(Collection.class, this, MongodbPackage.DATABASE__COLLECTIONS);
 		}
 		return collections;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case MongodbPackage.DATABASE__COLLECTIONS:
+				return ((InternalEList<?>)getCollections()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

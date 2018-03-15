@@ -51,7 +51,7 @@ public interface Collection extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Documents</b></em>' reference list.
+	 * Returns the value of the '<em><b>Documents</b></em>' containment reference list.
 	 * The list contents are of type {@link mongodb.Document}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -59,9 +59,9 @@ public interface Collection extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Documents</em>' reference list.
+	 * @return the value of the '<em>Documents</em>' containment reference list.
 	 * @see mongodb.MongodbPackage#getCollection_Documents()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Document> getDocuments();
