@@ -84,6 +84,22 @@ public class MongodbAdapterFactory extends AdapterFactoryImpl {
 				return createFieldAdapter();
 			}
 			@Override
+			public Adapter caseType(Type object) {
+				return createTypeAdapter();
+			}
+			@Override
+			public Adapter caseUmlToNoSQLID(UmlToNoSQLID object) {
+				return createUmlToNoSQLIDAdapter();
+			}
+			@Override
+			public Adapter caseSimpleType(SimpleType object) {
+				return createSimpleTypeAdapter();
+			}
+			@Override
+			public Adapter caseUmlToNoSQLIDReference(UmlToNoSQLIDReference object) {
+				return createUmlToNoSQLIDReferenceAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -156,6 +172,62 @@ public class MongodbAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFieldAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link mongodb.Type <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see mongodb.Type
+	 * @generated
+	 */
+	public Adapter createTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link mongodb.UmlToNoSQLID <em>Uml To No SQLID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see mongodb.UmlToNoSQLID
+	 * @generated
+	 */
+	public Adapter createUmlToNoSQLIDAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link mongodb.SimpleType <em>Simple Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see mongodb.SimpleType
+	 * @generated
+	 */
+	public Adapter createSimpleTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link mongodb.UmlToNoSQLIDReference <em>Uml To No SQLID Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see mongodb.UmlToNoSQLIDReference
+	 * @generated
+	 */
+	public Adapter createUmlToNoSQLIDReferenceAdapter() {
 		return null;
 	}
 

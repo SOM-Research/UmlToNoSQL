@@ -90,6 +90,33 @@ public class MongodbSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case MongodbPackage.TYPE: {
+				Type type = (Type)theEObject;
+				T result = caseType(type);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MongodbPackage.UML_TO_NO_SQLID: {
+				UmlToNoSQLID umlToNoSQLID = (UmlToNoSQLID)theEObject;
+				T result = caseUmlToNoSQLID(umlToNoSQLID);
+				if (result == null) result = caseType(umlToNoSQLID);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MongodbPackage.SIMPLE_TYPE: {
+				SimpleType simpleType = (SimpleType)theEObject;
+				T result = caseSimpleType(simpleType);
+				if (result == null) result = caseType(simpleType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MongodbPackage.UML_TO_NO_SQLID_REFERENCE: {
+				UmlToNoSQLIDReference umlToNoSQLIDReference = (UmlToNoSQLIDReference)theEObject;
+				T result = caseUmlToNoSQLIDReference(umlToNoSQLIDReference);
+				if (result == null) result = caseType(umlToNoSQLIDReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -151,6 +178,66 @@ public class MongodbSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseField(Field object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseType(Type object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Uml To No SQLID</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Uml To No SQLID</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUmlToNoSQLID(UmlToNoSQLID object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Simple Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Simple Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSimpleType(SimpleType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Uml To No SQLID Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Uml To No SQLID Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUmlToNoSQLIDReference(UmlToNoSQLIDReference object) {
 		return null;
 	}
 

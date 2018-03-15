@@ -16,5 +16,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Field">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UmlToNoSQLID" eSuperTypes="#//Type"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleType" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UmlToNoSQLIDReference" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referencedType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
