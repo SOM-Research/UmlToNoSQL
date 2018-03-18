@@ -4,13 +4,21 @@
   <eClassifiers xsi:type="ecore:EClass" name="RegionSet">
     <eStructuralFeatures xsi:type="ecore:EReference" name="regions" upperBound="-1"
         eType="#//Region" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Region">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="drillDriver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classes" upperBound="-1"
         eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//Class"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="associations" upperBound="-1"
         eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//Association"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="datastoreDescriptor" eType="#//DatastoreDescriptor"
+        containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DatastoreDescriptor" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DrillDescriptor" abstract="true" eSuperTypes="#//DatastoreDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="drillDriver" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MongoDescriptor" eSuperTypes="#//DrillDescriptor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PostgresDescriptor" eSuperTypes="#//DrillDescriptor"/>
 </ecore:EPackage>

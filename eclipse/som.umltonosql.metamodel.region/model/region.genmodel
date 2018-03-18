@@ -9,12 +9,19 @@
   <genPackages prefix="Region" disposableProviderFactory="true" ecorePackage="region.ecore#/">
     <genClasses ecoreClass="region.ecore#//RegionSet">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference region.ecore#//RegionSet/regions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//RegionSet/name"/>
     </genClasses>
     <genClasses ecoreClass="region.ecore#//Region">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//Region/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//Region/drillDriver"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference region.ecore#//Region/classes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference region.ecore#//Region/associations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference region.ecore#//Region/datastoreDescriptor"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="region.ecore#//DatastoreDescriptor"/>
+    <genClasses image="false" ecoreClass="region.ecore#//DrillDescriptor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//DrillDescriptor/drillDriver"/>
+    </genClasses>
+    <genClasses ecoreClass="region.ecore#//MongoDescriptor"/>
+    <genClasses ecoreClass="region.ecore#//PostgresDescriptor"/>
   </genPackages>
 </genmodel:GenModel>

@@ -58,6 +58,8 @@ public class RegionFactoryImpl extends EFactoryImpl implements RegionFactory {
 		switch (eClass.getClassifierID()) {
 			case RegionPackage.REGION_SET: return createRegionSet();
 			case RegionPackage.REGION: return createRegion();
+			case RegionPackage.MONGO_DESCRIPTOR: return createMongoDescriptor();
+			case RegionPackage.POSTGRES_DESCRIPTOR: return createPostgresDescriptor();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -81,6 +83,26 @@ public class RegionFactoryImpl extends EFactoryImpl implements RegionFactory {
 	public Region createRegion() {
 		RegionImpl region = new RegionImpl();
 		return region;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MongoDescriptor createMongoDescriptor() {
+		MongoDescriptorImpl mongoDescriptor = new MongoDescriptorImpl();
+		return mongoDescriptor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PostgresDescriptor createPostgresDescriptor() {
+		PostgresDescriptorImpl postgresDescriptor = new PostgresDescriptorImpl();
+		return postgresDescriptor;
 	}
 
 	/**

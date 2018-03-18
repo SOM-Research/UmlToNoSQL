@@ -17,9 +17,9 @@ import org.eclipse.uml2.uml.Association;
  * </p>
  * <ul>
  *   <li>{@link region.Region#getName <em>Name</em>}</li>
- *   <li>{@link region.Region#getDrillDriver <em>Drill Driver</em>}</li>
  *   <li>{@link region.Region#getClasses <em>Classes</em>}</li>
  *   <li>{@link region.Region#getAssociations <em>Associations</em>}</li>
+ *   <li>{@link region.Region#getDatastoreDescriptor <em>Datastore Descriptor</em>}</li>
  * </ul>
  *
  * @see region.RegionPackage#getRegion()
@@ -54,32 +54,6 @@ public interface Region extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Drill Driver</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Drill Driver</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Drill Driver</em>' attribute.
-	 * @see #setDrillDriver(String)
-	 * @see region.RegionPackage#getRegion_DrillDriver()
-	 * @model
-	 * @generated
-	 */
-	String getDrillDriver();
-
-	/**
-	 * Sets the value of the '{@link region.Region#getDrillDriver <em>Drill Driver</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Drill Driver</em>' attribute.
-	 * @see #getDrillDriver()
-	 * @generated
-	 */
-	void setDrillDriver(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Classes</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.uml2.uml.Class}.
 	 * <!-- begin-user-doc -->
@@ -110,5 +84,31 @@ public interface Region extends EObject {
 	 * @generated
 	 */
 	EList<Association> getAssociations();
+
+	/**
+	 * Returns the value of the '<em><b>Datastore Descriptor</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Datastore Descriptor</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Datastore Descriptor</em>' containment reference.
+	 * @see #setDatastoreDescriptor(DatastoreDescriptor)
+	 * @see region.RegionPackage#getRegion_DatastoreDescriptor()
+	 * @model containment="true"
+	 * @generated
+	 */
+	DatastoreDescriptor getDatastoreDescriptor();
+
+	/**
+	 * Sets the value of the '{@link region.Region#getDatastoreDescriptor <em>Datastore Descriptor</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Datastore Descriptor</em>' containment reference.
+	 * @see #getDatastoreDescriptor()
+	 * @generated
+	 */
+	void setDatastoreDescriptor(DatastoreDescriptor value);
 
 } // Region

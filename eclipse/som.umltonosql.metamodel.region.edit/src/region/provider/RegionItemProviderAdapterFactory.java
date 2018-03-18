@@ -118,6 +118,52 @@ public class RegionItemProviderAdapterFactory extends RegionAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link region.MongoDescriptor} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MongoDescriptorItemProvider mongoDescriptorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link region.MongoDescriptor}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMongoDescriptorAdapter() {
+		if (mongoDescriptorItemProvider == null) {
+			mongoDescriptorItemProvider = new MongoDescriptorItemProvider(this);
+		}
+
+		return mongoDescriptorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link region.PostgresDescriptor} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PostgresDescriptorItemProvider postgresDescriptorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link region.PostgresDescriptor}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPostgresDescriptorAdapter() {
+		if (postgresDescriptorItemProvider == null) {
+			postgresDescriptorItemProvider = new PostgresDescriptorItemProvider(this);
+		}
+
+		return postgresDescriptorItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -218,6 +264,8 @@ public class RegionItemProviderAdapterFactory extends RegionAdapterFactory imple
 	public void dispose() {
 		if (regionSetItemProvider != null) regionSetItemProvider.dispose();
 		if (regionItemProvider != null) regionItemProvider.dispose();
+		if (mongoDescriptorItemProvider != null) mongoDescriptorItemProvider.dispose();
+		if (postgresDescriptorItemProvider != null) postgresDescriptorItemProvider.dispose();
 	}
 
 }

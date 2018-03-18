@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<region:RegionSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:region="som.umltonosql.metamodel.region">
-  <regions name="client" drillDriver="postgres">
+<region:RegionSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:region="som.umltonosql.metamodel.region" name="demo">
+  <regions name="client">
     <classes href="model.uml#_9s2L4CflEeiExuQKA170HQ"/>
     <associations href="model.uml#_Bl7g0CfnEeiExuQKA170HQ"/>
+    <datastoreDescriptor xsi:type="region:PostgresDescriptor" drillDriver="postgres"/>
   </regions>
-  <regions name="business" drillDriver="mongo2">
+  <regions name="business">
     <classes href="model.uml#_Tpr2oCfmEeiExuQKA170HQ"/>
     <classes href="model.uml#_hilOMCfoEeiExuQKA170HQ"/>
     <classes href="model.uml#_2mTfoCfoEeiExuQKA170HQ"/>
+    <datastoreDescriptor xsi:type="region:MongoDescriptor" drillDriver="mongo2"/>
   </regions>
 </region:RegionSet>

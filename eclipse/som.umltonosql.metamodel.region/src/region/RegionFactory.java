@@ -40,6 +40,24 @@ public interface RegionFactory extends EFactory {
 	Region createRegion();
 
 	/**
+	 * Returns a new object of class '<em>Mongo Descriptor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mongo Descriptor</em>'.
+	 * @generated
+	 */
+	MongoDescriptor createMongoDescriptor();
+
+	/**
+	 * Returns a new object of class '<em>Postgres Descriptor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Postgres Descriptor</em>'.
+	 * @generated
+	 */
+	PostgresDescriptor createPostgresDescriptor();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -76,6 +76,22 @@ public class RegionAdapterFactory extends AdapterFactoryImpl {
 				return createRegionAdapter();
 			}
 			@Override
+			public Adapter caseDatastoreDescriptor(DatastoreDescriptor object) {
+				return createDatastoreDescriptorAdapter();
+			}
+			@Override
+			public Adapter caseDrillDescriptor(DrillDescriptor object) {
+				return createDrillDescriptorAdapter();
+			}
+			@Override
+			public Adapter caseMongoDescriptor(MongoDescriptor object) {
+				return createMongoDescriptorAdapter();
+			}
+			@Override
+			public Adapter casePostgresDescriptor(PostgresDescriptor object) {
+				return createPostgresDescriptorAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -120,6 +136,62 @@ public class RegionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRegionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link region.DatastoreDescriptor <em>Datastore Descriptor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see region.DatastoreDescriptor
+	 * @generated
+	 */
+	public Adapter createDatastoreDescriptorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link region.DrillDescriptor <em>Drill Descriptor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see region.DrillDescriptor
+	 * @generated
+	 */
+	public Adapter createDrillDescriptorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link region.MongoDescriptor <em>Mongo Descriptor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see region.MongoDescriptor
+	 * @generated
+	 */
+	public Adapter createMongoDescriptorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link region.PostgresDescriptor <em>Postgres Descriptor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see region.PostgresDescriptor
+	 * @generated
+	 */
+	public Adapter createPostgresDescriptorAdapter() {
 		return null;
 	}
 
