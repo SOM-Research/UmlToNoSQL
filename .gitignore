@@ -5,3 +5,4 @@
 **/bin
 **/.settings
 **/xtend-gen
+**/som.umltonosql.demo.generated
