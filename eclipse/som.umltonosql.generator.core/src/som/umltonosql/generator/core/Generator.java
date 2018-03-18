@@ -1,4 +1,4 @@
-package som.umltonosql.generator.mongodb;
+package som.umltonosql.generator.core;
 
 
 import java.io.IOException;
@@ -15,9 +15,6 @@ import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-import mongodb.MongodbPackage;
-import som.umltonosql.generator.mongodb.xtend.CoreXTendGenerator;
-
 public class Generator {
 
 	@Inject
@@ -29,7 +26,6 @@ public class Generator {
 	
 	public void runGenerator(String inputURI, String outputURI) {
 		UMLPackage.eINSTANCE.eClass();
-		MongodbPackage.eINSTANCE.eClass();
 		
 		ResourceSet rSet = resourceSetProvider.get();
 		rSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("uml", new XMIResourceFactoryImpl());

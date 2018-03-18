@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core
+Bundle-SymbolicName: som.umltonosql.generator.core
+Bundle-Version: 1.0.0.qualifier
+Export-Package: som.umltonosql.generator.core
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ som.umltonosql.metamodel.region,
+ com.google.inject,
+ org.eclipse.xtext.generator,
+ org.eclipse.emf.emfstore.common,
+ org.eclipse.xtext,
+ org.apache.log4j;bundle-version="1.2.15"
