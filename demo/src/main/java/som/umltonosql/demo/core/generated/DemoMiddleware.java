@@ -126,6 +126,7 @@ public class DemoMiddleware extends Middleware {
         return (Client) postgresDatastore.getElement(id, Client.class);
     }
 
+    @Override
     public void commit() throws LifeCycleException {
         try {
             mongoDatastore.commit();
