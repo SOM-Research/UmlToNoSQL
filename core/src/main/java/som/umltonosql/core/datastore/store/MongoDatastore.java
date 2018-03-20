@@ -33,6 +33,12 @@ public class MongoDatastore extends Datastore {
         database = client.getDatabase(path);
     }
 
+    public MongoDatastore(String host, int port, String dbName) {
+        super(dbName);
+        client = new MongoClient(host, port);
+        database = client.getDatabase(dbName);
+    }
+
     @Override
     public MongoDatabase getDatabase() {
         return database;

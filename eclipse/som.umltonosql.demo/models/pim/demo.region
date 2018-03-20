@@ -3,12 +3,12 @@
   <regions name="client">
     <classes href="model.uml#_9s2L4CflEeiExuQKA170HQ"/>
     <associations href="model.uml#_Bl7g0CfnEeiExuQKA170HQ"/>
-    <datastoreDescriptor xsi:type="region:PostgresDescriptor" drillDriver="postgres"/>
+    <datastoreDescriptor xsi:type="region:PostgresDescriptor" drillDriver="postgres" host="127.0.0.1" port="5432" databaseName="demo" jdbcDriver="postgresql"/>
   </regions>
   <regions name="business">
     <classes href="model.uml#_Tpr2oCfmEeiExuQKA170HQ"/>
     <classes href="model.uml#_hilOMCfoEeiExuQKA170HQ"/>
     <classes href="model.uml#_2mTfoCfoEeiExuQKA170HQ"/>
-    <datastoreDescriptor xsi:type="region:MongoDescriptor" drillDriver="mongo2"/>
+    <datastoreDescriptor xsi:type="region:MongoDescriptor" drillDriver="mongo2" host="127.0.0.1" port="27017" databaseName="demo"/>
   </regions>
 </region:RegionSet>

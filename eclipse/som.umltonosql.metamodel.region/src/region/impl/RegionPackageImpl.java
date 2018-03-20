@@ -251,8 +251,71 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMongoDescriptor_Host() {
+		return (EAttribute)mongoDescriptorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMongoDescriptor_Port() {
+		return (EAttribute)mongoDescriptorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMongoDescriptor_DatabaseName() {
+		return (EAttribute)mongoDescriptorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPostgresDescriptor() {
 		return postgresDescriptorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPostgresDescriptor_Host() {
+		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPostgresDescriptor_Port() {
+		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPostgresDescriptor_DatabaseName() {
+		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPostgresDescriptor_JdbcDriver() {
+		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -299,8 +362,15 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 		createEAttribute(drillDescriptorEClass, DRILL_DESCRIPTOR__DRILL_DRIVER);
 
 		mongoDescriptorEClass = createEClass(MONGO_DESCRIPTOR);
+		createEAttribute(mongoDescriptorEClass, MONGO_DESCRIPTOR__HOST);
+		createEAttribute(mongoDescriptorEClass, MONGO_DESCRIPTOR__PORT);
+		createEAttribute(mongoDescriptorEClass, MONGO_DESCRIPTOR__DATABASE_NAME);
 
 		postgresDescriptorEClass = createEClass(POSTGRES_DESCRIPTOR);
+		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__HOST);
+		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__PORT);
+		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__DATABASE_NAME);
+		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__JDBC_DRIVER);
 	}
 
 	/**
@@ -356,8 +426,15 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 		initEAttribute(getDrillDescriptor_DrillDriver(), theEcorePackage.getEString(), "drillDriver", null, 0, 1, DrillDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mongoDescriptorEClass, MongoDescriptor.class, "MongoDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMongoDescriptor_Host(), theEcorePackage.getEString(), "host", null, 0, 1, MongoDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMongoDescriptor_Port(), theEcorePackage.getEInt(), "port", null, 0, 1, MongoDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMongoDescriptor_DatabaseName(), theEcorePackage.getEString(), "databaseName", null, 0, 1, MongoDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(postgresDescriptorEClass, PostgresDescriptor.class, "PostgresDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPostgresDescriptor_Host(), theEcorePackage.getEString(), "host", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPostgresDescriptor_Port(), theEcorePackage.getEInt(), "port", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPostgresDescriptor_DatabaseName(), theEcorePackage.getEString(), "databaseName", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPostgresDescriptor_JdbcDriver(), theEcorePackage.getEString(), "jdbcDriver", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

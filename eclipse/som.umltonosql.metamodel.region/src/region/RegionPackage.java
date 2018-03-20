@@ -252,13 +252,40 @@ public interface RegionPackage extends EPackage {
 	int MONGO_DESCRIPTOR__DRILL_DRIVER = DRILL_DESCRIPTOR__DRILL_DRIVER;
 
 	/**
+	 * The feature id for the '<em><b>Host</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MONGO_DESCRIPTOR__HOST = DRILL_DESCRIPTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Port</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MONGO_DESCRIPTOR__PORT = DRILL_DESCRIPTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Database Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MONGO_DESCRIPTOR__DATABASE_NAME = DRILL_DESCRIPTOR_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Mongo Descriptor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MONGO_DESCRIPTOR_FEATURE_COUNT = DRILL_DESCRIPTOR_FEATURE_COUNT + 0;
+	int MONGO_DESCRIPTOR_FEATURE_COUNT = DRILL_DESCRIPTOR_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Mongo Descriptor</em>' class.
@@ -289,13 +316,49 @@ public interface RegionPackage extends EPackage {
 	int POSTGRES_DESCRIPTOR__DRILL_DRIVER = DRILL_DESCRIPTOR__DRILL_DRIVER;
 
 	/**
+	 * The feature id for the '<em><b>Host</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POSTGRES_DESCRIPTOR__HOST = DRILL_DESCRIPTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Port</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POSTGRES_DESCRIPTOR__PORT = DRILL_DESCRIPTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Database Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POSTGRES_DESCRIPTOR__DATABASE_NAME = DRILL_DESCRIPTOR_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Jdbc Driver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POSTGRES_DESCRIPTOR__JDBC_DRIVER = DRILL_DESCRIPTOR_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Postgres Descriptor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POSTGRES_DESCRIPTOR_FEATURE_COUNT = DRILL_DESCRIPTOR_FEATURE_COUNT + 0;
+	int POSTGRES_DESCRIPTOR_FEATURE_COUNT = DRILL_DESCRIPTOR_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Postgres Descriptor</em>' class.
@@ -435,6 +498,39 @@ public interface RegionPackage extends EPackage {
 	EClass getMongoDescriptor();
 
 	/**
+	 * Returns the meta object for the attribute '{@link region.MongoDescriptor#getHost <em>Host</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Host</em>'.
+	 * @see region.MongoDescriptor#getHost()
+	 * @see #getMongoDescriptor()
+	 * @generated
+	 */
+	EAttribute getMongoDescriptor_Host();
+
+	/**
+	 * Returns the meta object for the attribute '{@link region.MongoDescriptor#getPort <em>Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Port</em>'.
+	 * @see region.MongoDescriptor#getPort()
+	 * @see #getMongoDescriptor()
+	 * @generated
+	 */
+	EAttribute getMongoDescriptor_Port();
+
+	/**
+	 * Returns the meta object for the attribute '{@link region.MongoDescriptor#getDatabaseName <em>Database Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Database Name</em>'.
+	 * @see region.MongoDescriptor#getDatabaseName()
+	 * @see #getMongoDescriptor()
+	 * @generated
+	 */
+	EAttribute getMongoDescriptor_DatabaseName();
+
+	/**
 	 * Returns the meta object for class '{@link region.PostgresDescriptor <em>Postgres Descriptor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -443,6 +539,50 @@ public interface RegionPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getPostgresDescriptor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link region.PostgresDescriptor#getHost <em>Host</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Host</em>'.
+	 * @see region.PostgresDescriptor#getHost()
+	 * @see #getPostgresDescriptor()
+	 * @generated
+	 */
+	EAttribute getPostgresDescriptor_Host();
+
+	/**
+	 * Returns the meta object for the attribute '{@link region.PostgresDescriptor#getPort <em>Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Port</em>'.
+	 * @see region.PostgresDescriptor#getPort()
+	 * @see #getPostgresDescriptor()
+	 * @generated
+	 */
+	EAttribute getPostgresDescriptor_Port();
+
+	/**
+	 * Returns the meta object for the attribute '{@link region.PostgresDescriptor#getDatabaseName <em>Database Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Database Name</em>'.
+	 * @see region.PostgresDescriptor#getDatabaseName()
+	 * @see #getPostgresDescriptor()
+	 * @generated
+	 */
+	EAttribute getPostgresDescriptor_DatabaseName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link region.PostgresDescriptor#getJdbcDriver <em>Jdbc Driver</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Jdbc Driver</em>'.
+	 * @see region.PostgresDescriptor#getJdbcDriver()
+	 * @see #getPostgresDescriptor()
+	 * @generated
+	 */
+	EAttribute getPostgresDescriptor_JdbcDriver();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -574,6 +714,30 @@ public interface RegionPackage extends EPackage {
 		EClass MONGO_DESCRIPTOR = eINSTANCE.getMongoDescriptor();
 
 		/**
+		 * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MONGO_DESCRIPTOR__HOST = eINSTANCE.getMongoDescriptor_Host();
+
+		/**
+		 * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MONGO_DESCRIPTOR__PORT = eINSTANCE.getMongoDescriptor_Port();
+
+		/**
+		 * The meta object literal for the '<em><b>Database Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MONGO_DESCRIPTOR__DATABASE_NAME = eINSTANCE.getMongoDescriptor_DatabaseName();
+
+		/**
 		 * The meta object literal for the '{@link region.impl.PostgresDescriptorImpl <em>Postgres Descriptor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -582,6 +746,38 @@ public interface RegionPackage extends EPackage {
 		 * @generated
 		 */
 		EClass POSTGRES_DESCRIPTOR = eINSTANCE.getPostgresDescriptor();
+
+		/**
+		 * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute POSTGRES_DESCRIPTOR__HOST = eINSTANCE.getPostgresDescriptor_Host();
+
+		/**
+		 * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute POSTGRES_DESCRIPTOR__PORT = eINSTANCE.getPostgresDescriptor_Port();
+
+		/**
+		 * The meta object literal for the '<em><b>Database Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute POSTGRES_DESCRIPTOR__DATABASE_NAME = eINSTANCE.getPostgresDescriptor_DatabaseName();
+
+		/**
+		 * The meta object literal for the '<em><b>Jdbc Driver</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute POSTGRES_DESCRIPTOR__JDBC_DRIVER = eINSTANCE.getPostgresDescriptor_JdbcDriver();
 
 	}
 

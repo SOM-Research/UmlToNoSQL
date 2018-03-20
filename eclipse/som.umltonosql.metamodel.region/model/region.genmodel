@@ -21,7 +21,16 @@
     <genClasses image="false" ecoreClass="region.ecore#//DrillDescriptor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//DrillDescriptor/drillDriver"/>
     </genClasses>
-    <genClasses ecoreClass="region.ecore#//MongoDescriptor"/>
-    <genClasses ecoreClass="region.ecore#//PostgresDescriptor"/>
+    <genClasses ecoreClass="region.ecore#//MongoDescriptor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//MongoDescriptor/host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//MongoDescriptor/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//MongoDescriptor/databaseName"/>
+    </genClasses>
+    <genClasses ecoreClass="region.ecore#//PostgresDescriptor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/databaseName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/jdbcDriver"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
