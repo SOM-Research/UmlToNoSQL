@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.StreamSupport;
 
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.UMLPackage;
 
 import region.DatastoreDescriptor;
 import region.MongoDescriptor;
@@ -120,5 +121,12 @@ public class RegionGeneratorHelper {
 			}
 		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the region of bean {0}", bean));
+	}
+	
+	public String getBeanImport(String bean) {
+		Region r = getRegionForBean(bean);
+		RegionSet rSet = (RegionSet) r.eContainer();
+		return rSet.getName().toLowerCase() + '.' + r.getName().toLowerCase() + '.' + bean;
+		
 	}
 }

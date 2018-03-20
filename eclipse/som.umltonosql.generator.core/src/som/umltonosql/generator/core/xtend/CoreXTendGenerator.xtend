@@ -26,14 +26,12 @@ class CoreXTendGenerator implements IGenerator {
 		<project xmlns="http://maven.apache.org/POM/4.0.0"
 		         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-		    <parent>
-		        <artifactId>umltonosql</artifactId>
-		        <groupId>som.umltonosql</groupId>
-		        <version>1.0-SNAPSHOT</version>
-		    </parent>
 		    <modelVersion>4.0.0</modelVersion>
+		    
+	        <groupId>som.umltonosql.generated</groupId>
+	       	<artifactId>«rSet.name.toFirstLower»</artifactId>
+	        <version>1.0-SNAPSHOT</version>
 		
-		    <artifactId>«rSet.name.toFirstLower»</artifactId>
 		    <dependencies>
 		        <dependency>
 		            <groupId>som.umltonosql</groupId>
@@ -52,13 +50,26 @@ class CoreXTendGenerator implements IGenerator {
 		
 		</project>
 		''')
-		fsa.generateFile("src\\main\\java\\core\\" + rSet.name.toFirstUpper + "Middleware.java", '''
+		fsa.generateFile("src\\main\\java\\" + rSet.name.toLowerCase + "\\core\\" + rSet.name.toFirstUpper + "Middleware.java", '''
+		package «rSet.name.toLowerCase».core;
+		
 		import som.umltonosql.core.Middleware;
 		import fr.inria.atlanmod.commons.log.Log;
+		import som.umltonosql.core.datastore.store.Datastore;
+		import som.umltonosql.core.datastore.query.processor.QueryProcessor;
+		import som.umltonosql.core.exceptions.ConsistencyException;
+		import som.umltonosql.core.exceptions.LifeCycleException;
 		«FOR r : rSet.regions»
 		import «helper.getDatastoreImport(r)»;
 		import «helper.getProcessorImport(r)»;
 		«ENDFOR»
+		import som.umltonosql.core.bean.Bean;
+		«FOR bean : helper.beanTypes»
+		import «helper.getBeanImport(bean)»;
+		«ENDFOR»
+		import java.text.MessageFormat;
+		import java.util.Arrays;
+		import java.util.List;
 		import static java.util.Objects.nonNull;
 		
 		public class «rSet.name.toFirstUpper»Middleware extends Middleware {
@@ -66,9 +77,9 @@ class CoreXTendGenerator implements IGenerator {
 			«FOR r : rSet.regions»
 			«helper.getDatastoreType(r)» «helper.getDatastoreVariableName(r)»;
 			
-			«helper.getProcessorType(r)» «helper.getProcessorVariableName(r)»
-			«ENDFOR»
+			«helper.getProcessorType(r)» «helper.getProcessorVariableName(r)»;
 			
+			«ENDFOR»
 			private static «rSet.name.toFirstUpper»Middleware INSTANCE;
 			
 			public static «rSet.name.toFirstUpper»Middleware getInstance() {
@@ -84,9 +95,67 @@ class CoreXTendGenerator implements IGenerator {
 				«ENDFOR»
 				
 				if(nonNull(INSTANCE)) {
-					Log.warn("Multiple instances of «rSet.name.toFirstUpper»"Middleware have been created");
+					Log.warn("Multiple instances of «rSet.name.toFirstUpper»Middleware have been created");
 				}
 				INSTANCE = this;
+			}
+			
+			@Override
+			public List<Datastore> getDatastores() {
+				return Arrays.asList(«getDatastoreVariablesAsParameters(rSet, helper)»);
+			}
+			
+			@Override
+			public List<QueryProcessor> getProcessors() {
+				return Arrays.asList(«getProcessorVariablesAsParameters(rSet, helper)»);
+			}
+			
+			«FOR r : rSet.regions»
+			public «helper.getDatastoreType(r)» get«helper.getDatastoreVariableName(r).toFirstUpper»() {
+				return this.«helper.getDatastoreVariableName(r)»;
+			}
+			
+			public «helper.getProcessorType(r)» get«helper.getProcessorVariableName(r).toFirstUpper»() {
+				return this.«helper.getProcessorVariableName(r)»
+			}
+			
+			«ENDFOR»
+			
+			«FOR b : helper.beanTypes»
+			«val r = helper.getRegionForBean(b)»
+			public «b» create«b»() {
+				return («b») «helper.getDatastoreVariableName(r)».createElement(«b».class);
+			}
+			
+			«ENDFOR»
+			@Override
+			public Bean getElement(String id, Class<? extends Bean> clazz) throws ConsistencyException {
+				«FOR b : helper.beanTypes»
+				«val r = helper.getRegionForBean(b)»
+				if(clazz.equals(«b».class)) {
+					return get«b»(id);
+				}
+				«ENDFOR»
+				throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class : {0}", clazz.getName()));
+			}
+			
+			«FOR b : helper.beanTypes»
+			«val r = helper.getRegionForBean(b)»
+			public «b» get«b»(String id) {
+				return («b») «helper.getDatastoreVariableName(r)».getElement(id, «b».class);
+			}
+			
+			«ENDFOR»
+			
+			@Override
+			public void commit() throws LifeCycleException {
+				try {
+					«FOR r : rSet.regions»
+					«helper.getDatastoreVariableName(r)».commit();
+					«ENDFOR»
+				} catch(Exception e) {
+					throw new LifeCycleException("An error occured during the committing operations", e);
+				}
 			}
 		}
 		''')
@@ -98,6 +167,28 @@ class CoreXTendGenerator implements IGenerator {
 			sb.append(helper.getDatastoreType(rSet.regions.get(i)))
 			sb.append(' ')
 			sb.append(helper.getDatastoreVariableName(rSet.regions.get(i)))
+			if(i < rSet.regions.size - 1) {
+				sb.append(", ")
+			}
+		}
+		sb.toString
+	}
+	
+	def String getDatastoreVariablesAsParameters(RegionSet rSet, RegionGeneratorHelper helper) {
+		var StringBuilder sb = new StringBuilder()
+		for(var i = 0; i < rSet.regions.size; i++) {
+			sb.append(helper.getDatastoreVariableName(rSet.regions.get(i)))
+			if(i < rSet.regions.size - 1) {
+				sb.append(", ")
+			}
+		}
+		sb.toString
+	}
+	
+	def String getProcessorVariablesAsParameters(RegionSet rSet, RegionGeneratorHelper helper) {
+		var StringBuilder sb = new StringBuilder()
+		for(var i = 0; i < rSet.regions.size; i++) {
+			sb.append(helper.getProcessorVariableName(rSet.regions.get(i)))
 			if(i < rSet.regions.size - 1) {
 				sb.append(", ")
 			}
