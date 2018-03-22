@@ -18,6 +18,7 @@ import java.util.Arrays;
 
 public class DemoBootstrap extends Bootstrap {
 
+    @Override
     public void init() {
         lcManager = new LifeCycleManager(Arrays.asList(
                 /*
