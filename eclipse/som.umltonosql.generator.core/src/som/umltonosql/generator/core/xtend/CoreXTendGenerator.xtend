@@ -6,6 +6,7 @@ import org.eclipse.xtext.generator.IGenerator
 import region.Region
 import region.RegionSet
 import som.umltonosql.generator.core.RegionGeneratorHelper
+import som.umltonosql.generator.core.DatastoreHandlerHelper
 
 class CoreXTendGenerator implements IGenerator {
 	
@@ -159,6 +160,31 @@ class CoreXTendGenerator implements IGenerator {
 			}
 		}
 		''')
+		fsa.generateFile("src\\main\\java\\" + rSet.name.toLowerCase + "\\core\\" + rSet.name.toFirstUpper + "Bootstrap.java", '''
+		package «rSet.name.toLowerCase».core;
+		
+		import som.umltonosql.core.Bootstrap;
+		
+		public class DemoBootstrap extends Bootstrap {
+			
+			@Override
+			public void init() {
+				lcManager = new LifeCycleManager(Arrays.asList(
+					«getHandlersInvocationAsParameters(rSet)»
+				));
+				
+				// Creates the datastores
+				«FOR r : rSet.regions»
+				«helper.getDatastoreType(r)» «helper.getDatastoreVariableName(r)» = new «helper.getDatastoreType(r)»(«helper.getDatastoreInvocationParameters(r)»);
+				«ENDFOR»
+				
+				middleware = new «rSet.name.toFirstUpper»Middleware(«getDatastoreVariablesAsParameters(rSet, helper)»);
+				
+				// Need to generate the constraints
+			}
+		}
+		''')
+		
 	}
 	
 	def String getMiddlewareConstructorArguments(RegionSet rSet, RegionGeneratorHelper helper) {
@@ -191,6 +217,21 @@ class CoreXTendGenerator implements IGenerator {
 			sb.append(helper.getProcessorVariableName(rSet.regions.get(i)))
 			if(i < rSet.regions.size - 1) {
 				sb.append(", ")
+			}
+		}
+		sb.toString
+	}
+	
+	def String getHandlersInvocationAsParameters(RegionSet rSet) {
+		var StringBuilder sb = new StringBuilder()
+		for(var i = 0; i < rSet.regions.size; i++) {
+			sb.append("new ")
+			sb.append(DatastoreHandlerHelper.getHandlerType(rSet.regions.get(i)))
+			sb.append("(")
+			sb.append(DatastoreHandlerHelper.getHandlerLocation(rSet.regions.get(i)))
+			sb.append(")")
+			if(i < rSet.regions.size - 1) {
+				sb.append(",\n")
 			}
 		}
 		sb.toString

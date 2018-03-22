@@ -68,6 +68,18 @@ public class RegionGeneratorHelper {
 		return region.getName() + "Datastore";
 	}
 	
+	public String getDatastoreInvocationParameters(Region region) {
+		DatastoreDescriptor descriptor = region.getDatastoreDescriptor();
+		if(descriptor instanceof MongoDescriptor) {
+			return "\"" + ((RegionSet)region.eContainer()).getName().toLowerCase() + "\"";
+		}
+		if(descriptor instanceof PostgresDescriptor) {
+			PostgresDescriptor pDesc = (PostgresDescriptor)descriptor;
+			return "\"jdbc:" + pDesc.getJdbcDriver() + "://" + pDesc.getHost() + ":" + pDesc.getPort() + "/" + ((RegionSet)region.eContainer()).getName().toLowerCase() + "\"";
+		}
+		throw new RuntimeException(MessageFormat.format("Cannot find the datastore parameters for {0}", descriptor));
+	}
+	
 	public String getProcessorImport(Region region) {
 		DatastoreDescriptor descriptor = region.getDatastoreDescriptor();
 		if(descriptor instanceof MongoDescriptor) {
