@@ -12,4 +12,5 @@ Require-Bundle: com.google.inject,
  org.apache.log4j;bundle-version="1.2.15",
  som.umltonosql.metamodel.mongodb;bundle-version="0.1.0",
  org.apache.commons.io;bundle-version="2.2.0",
- som.umltonosql.generator.core;bundle-version="1.0.0"
+ som.umltonosql.generator.core;bundle-version="1.0.0",
+ som.umltonosql.metamodel.region

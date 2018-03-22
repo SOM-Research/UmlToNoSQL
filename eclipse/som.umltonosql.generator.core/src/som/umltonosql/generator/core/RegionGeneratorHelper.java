@@ -95,10 +95,10 @@ public class RegionGeneratorHelper {
 	public String getProcessorType(Region region) {
 		DatastoreDescriptor descriptor = region.getDatastoreDescriptor();
 		if(descriptor instanceof MongoDescriptor) {
-			return "MongoProcessor";
+			return "MongoQueryProcessor";
 		}
 		if(descriptor instanceof PostgresDescriptor) {
-			return "DrillProcessor";
+			return "DrillQueryProcessor";
 		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the processor type for {0}", descriptor));
 	}

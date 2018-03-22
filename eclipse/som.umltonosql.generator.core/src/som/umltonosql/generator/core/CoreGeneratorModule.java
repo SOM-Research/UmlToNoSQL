@@ -23,9 +23,9 @@ public class CoreGeneratorModule extends AbstractGenericResourceRuntimeModule {
 		return CoreXTendGenerator.class;
 	}
 	
-	public Class<? extends ResourceSet> bindResourceSet() {
-		return ResourceSetImpl.class;
-	}
+//	public Class<? extends ResourceSet> bindResourceSet() {
+//		return ResourceSetImpl.class;
+//	}
 
 	
 }

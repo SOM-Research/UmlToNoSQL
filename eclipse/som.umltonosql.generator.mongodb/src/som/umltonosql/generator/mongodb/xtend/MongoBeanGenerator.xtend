@@ -56,13 +56,13 @@ class MongoBeanGenerator implements IGenerator {
 		val List<Collection> collections = mongoModel.allContents.filter[o | o instanceof Collection].map[o | o as Collection].toList
 		collections.forEach[
 			cc | fsa.generateFile((cc as Collection).name + ".java", '''
-			package «mongoBasePackage»;
+			package «appName».«mongoBasePackage»;
 			
 			import org.bson.Document;
 			import org.bson.types.ObjectId;
 			import som.umltonosql.core.bean.MongoBean;
 			import som.umltonosql.core.datastore.store.MongoDatastore;
-			import «corePackage».«appName.toFirstUpper»Middleware;
+			import «appName».«corePackage».«appName.toFirstUpper»Middleware;
 			
 			«FOR imp : getImports(cc)»
 			import «imp»;
@@ -71,7 +71,7 @@ class MongoBeanGenerator implements IGenerator {
 			public class «cc.name» extends MongoBean {
 				
 				public «cc.name.toFirstUpper»(ObjectId id, MongoDatastore mongoDatastore) {
-					super(id, mongodatastore);
+					super(id, mongoDatastore);
 				}
 				
 				public «cc.name.toFirstUpper»(Document document, MongoDatastore mongoDatastore) {
@@ -116,7 +116,7 @@ class MongoBeanGenerator implements IGenerator {
 						updateField("«field.key»", timestamp);
 						«ELSE»
 							«IF field.type instanceof UmlToNoSQLIDReference»
-								updateField("«field.key»", new«field.key.toFirstUpper».getObjectId());
+								updateField("«field.key»", new ObjectId(new«field.key.toFirstUpper».getId()));
 							«ELSE»
 								updateField("«field.key»", new«field.key.toFirstUpper»);
 							«ENDIF»

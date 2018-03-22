@@ -32,6 +32,11 @@ class CoreXTendGenerator implements IGenerator {
 	        <groupId>som.umltonosql.generated</groupId>
 	       	<artifactId>«rSet.name.toFirstLower»</artifactId>
 	        <version>1.0-SNAPSHOT</version>
+	        
+	        <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+            </properties>
 		
 		    <dependencies>
 		        <dependency>
