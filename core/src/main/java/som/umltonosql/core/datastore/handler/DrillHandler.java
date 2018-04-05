@@ -7,15 +7,34 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.MessageFormat;
 
+/**
+ * A Drill {@link DatastoreHandler} that manages a local Drill server.
+ * <p>
+ * <b>Note:</b> this handler relies on the <i>cmd.exe</i> application, and thus only supports <b>Windows</b>
+ * operating system. Support for Linux-based systems is planned in a future release.
+ */
 public class DrillHandler extends DatastoreHandler {
 
+    /**
+     * The Drill installation folder path.
+     */
     private String drillInstallationPath;
 
+    /**
+     * The {@link Process} used to start the Drill server.
+     */
     private Process drillProcess;
 
+    /**
+     * The start command template that is used to initialize the database server.
+     */
     private static String DRILL_COMMAND_TEMPLATE = "cd {0} && sqlline -u \"jdbc:drill:zk=local\"";
 
-    // Called in generated code
+    /**
+     * Constructs a new {@link DrillHandler} managing the Drill server at the provided {@code drillInstallationPath}.
+     *
+     * @param drillInstallationPath the path of the server's executable folder
+     */
     public DrillHandler(String drillInstallationPath) {
         this.drillInstallationPath = drillInstallationPath;
     }
@@ -27,6 +46,9 @@ public class DrillHandler extends DatastoreHandler {
      * conhost.exe processes are also created and not stopped when calling {{@link #stopDatastore()} ()}}, this may
      * result in error messages from Drill that are not blocking for the execution (the conhost.exe process
      * holds a running embedded instance of Drill that blocks the new connection).
+     * <p>
+     * TODO: This method waits for the complete Drill initialization by reading the output of the start command. A more
+     * robust implementation is left for a future release.
      */
     @Override
     public void startDatastore() {
@@ -53,11 +75,11 @@ public class DrillHandler extends DatastoreHandler {
     }
 
     /**
-     * Stops the Drill server.
+     * Stops the Drill server located in the {@link #drillInstallationPath} folder.
      */
     @Override
     public void stopDatastore() {
-        if(drillProcess.isAlive()) {
+        if (drillProcess.isAlive()) {
             drillProcess.destroy();
         }
     }
