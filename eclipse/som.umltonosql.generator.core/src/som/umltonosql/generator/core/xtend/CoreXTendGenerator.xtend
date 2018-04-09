@@ -126,6 +126,15 @@ class CoreXTendGenerator implements IGenerator {
 			}
 			
 			«ENDFOR»
+			@Override
+			public Bean createElement(Class<? extends Bean> clazz) throws ConsistencyException {
+				«FOR b : helper.beanTypes»
+				if(clazz.equals(«b».class)) {
+					return create«b»();
+				}
+				«ENDFOR»
+				throw new ConsistencyException(MessageFormat.format("Cannot create the element with the provided class: {0}", clazz.getName()));
+			}
 			
 			«FOR b : helper.beanTypes»
 			«val r = helper.getRegionForBean(b)»
@@ -137,12 +146,11 @@ class CoreXTendGenerator implements IGenerator {
 			@Override
 			public Bean getElement(String id, Class<? extends Bean> clazz) throws ConsistencyException {
 				«FOR b : helper.beanTypes»
-				«val r = helper.getRegionForBean(b)»
 				if(clazz.equals(«b».class)) {
 					return get«b»(id);
 				}
 				«ENDFOR»
-				throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class : {0}", clazz.getName()));
+				throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class: {0}", clazz.getName()));
 			}
 			
 			«FOR b : helper.beanTypes»
