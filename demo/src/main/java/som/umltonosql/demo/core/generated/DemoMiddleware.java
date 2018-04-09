@@ -75,6 +75,25 @@ public class DemoMiddleware extends Middleware {
 
     // Create new elements
 
+
+    @Override
+    public Bean createElement(Class<? extends Bean> clazz) throws ConsistencyException {
+        if(clazz.equals(Order.class)) {
+            return createOrder();
+        }
+        if(clazz.equals(Product.class)) {
+            return createProduct();
+        }
+        if(clazz.equals(OrderLine.class)) {
+            return createOrderLine();
+        }
+        if(clazz.equals(Client.class)) {
+            return createClient();
+        }
+        throw new ConsistencyException(MessageFormat.format("Cannot create the element with the provided class: " +
+                "{0}", clazz.getName()));
+    }
+
     public Order createOrder() {
         return (Order) mongoDatastore.createElement(Order.class);
     }
