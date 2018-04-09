@@ -232,7 +232,7 @@ public interface PostgresPackage extends EPackage {
 	int COLUMN__KEY_OF = NAMED_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -515,10 +515,10 @@ public interface PostgresPackage extends EPackage {
 	EReference getColumn_KeyOf();
 
 	/**
-	 * Returns the meta object for the reference '{@link postgres.Column#getType <em>Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link postgres.Column#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @return the meta object for the containment reference '<em>Type</em>'.
 	 * @see postgres.Column#getType()
 	 * @see #getColumn()
 	 * @generated
@@ -698,7 +698,7 @@ public interface PostgresPackage extends EPackage {
 		EReference COLUMN__KEY_OF = eINSTANCE.getColumn_KeyOf();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

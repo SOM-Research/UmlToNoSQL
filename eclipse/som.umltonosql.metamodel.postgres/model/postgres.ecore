@@ -21,7 +21,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="keyOf" ordered="false"
         eType="#//Table" eOpposite="#//Table/key"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false" lowerBound="1"
-        eType="#//Type"/>
+        eType="#//Type" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveType" abstract="true" eSuperTypes="#//Type"/>

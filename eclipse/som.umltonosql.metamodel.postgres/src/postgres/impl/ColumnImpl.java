@@ -44,7 +44,7 @@ public class ColumnImpl extends NamedImpl implements Column {
 	protected Table keyOf;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+	 * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getType()
@@ -179,14 +179,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 	 * @generated
 	 */
 	public Type getType() {
-		if (type != null && type.eIsProxy()) {
-			InternalEObject oldType = (InternalEObject)type;
-			type = (Type)eResolveProxy(oldType);
-			if (type != oldType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PostgresPackage.COLUMN__TYPE, oldType, type));
-			}
-		}
 		return type;
 	}
 
@@ -195,8 +187,14 @@ public class ColumnImpl extends NamedImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Type basicGetType() {
-		return type;
+	public NotificationChain basicSetType(Type newType, NotificationChain msgs) {
+		Type oldType = type;
+		type = newType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PostgresPackage.COLUMN__TYPE, oldType, newType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -205,10 +203,17 @@ public class ColumnImpl extends NamedImpl implements Column {
 	 * @generated
 	 */
 	public void setType(Type newType) {
-		Type oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PostgresPackage.COLUMN__TYPE, oldType, type));
+		if (newType != type) {
+			NotificationChain msgs = null;
+			if (type != null)
+				msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PostgresPackage.COLUMN__TYPE, null, msgs);
+			if (newType != null)
+				msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PostgresPackage.COLUMN__TYPE, null, msgs);
+			msgs = basicSetType(newType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PostgresPackage.COLUMN__TYPE, newType, newType));
 	}
 
 	/**
@@ -243,6 +248,8 @@ public class ColumnImpl extends NamedImpl implements Column {
 				return basicSetOwner(null, msgs);
 			case PostgresPackage.COLUMN__KEY_OF:
 				return basicSetKeyOf(null, msgs);
+			case PostgresPackage.COLUMN__TYPE:
+				return basicSetType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -275,8 +282,7 @@ public class ColumnImpl extends NamedImpl implements Column {
 				if (resolve) return getKeyOf();
 				return basicGetKeyOf();
 			case PostgresPackage.COLUMN__TYPE:
-				if (resolve) return getType();
-				return basicGetType();
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
