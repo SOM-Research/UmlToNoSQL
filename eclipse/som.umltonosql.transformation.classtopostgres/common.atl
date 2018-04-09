@@ -1,0 +1,125 @@
+-- @nsURI UML=http://www.eclipse.org/uml2/5.0.0/UML
+-- @nsURI Region=som.umltonosql.metamodel.region
+
+
+library common;
+
+--
+-- Global variables
+--
+
+helper def : getRegionSetName() : String =
+	Region!RegionSet.allInstances()->first().name
+;
+
+--
+-- Class-related helpers
+--
+
+helper def : getNotAbstractClasses() : Sequence(UML!Class) = 
+	UML!Class.allInstances()->select(cc | not(cc.isAbstract))	
+;
+
+helper context UML!Class def : getRegion() : Region!Region =
+	let regs : Sequence(Region!Region) = Region!Region.allInstances()->select(r | r.classes->includes(self)) in
+		if regs->size() = 1 then
+			regs->first()
+		else if regs->isEmpty() then
+			OclUndefined.debug('Cannot find the region containing ' + self.name)
+		else
+			OclUndefined.debug('Found multiple region containing ' + self.name)
+		endif endif
+;
+
+helper context UML!Class def : isInMongoRegion() : Boolean =
+	self.getRegion().datastoreDescriptor.oclIsKindOf(Region!MongoDescriptor)
+;
+
+helper context UML!Class def : isInPostgresRegion() : Boolean = 
+	self.getRegion().datastoreDescriptor.oclIsKindOf(Region!PostgresDescriptor)
+;
+
+helper context UML!Class def : getAssociations() : Sequence(UML!Association) =
+	UML!Association.allInstances()->select(aa | aa.ownedEnd->collect(ee | ee.type)->contains(self))
+;
+
+helper context UML!Class def : getOutgoingAssociationProperties() : Sequence(UML!Property) =
+	self.getAssociations()->collect(a | a.getOtherEnd(self))
+;
+
+
+
+--
+-- Property-related helpers
+--
+
+
+helper context UML!Property def : isMultiValued() : Boolean = 
+	self.upper = -1 or self.upper > 1
+;
+
+helper context UML!Type def : isString() : Boolean =
+	self.name = 'String'
+;
+
+helper context UML!Property def : isClassAttribute() : Boolean =
+	self.owner.oclIsTypeOf(UML!Class)
+;
+
+helper context UML!Property def : isAssociationAttribute() : Boolean =
+	self.owner.oclIsTypeOf(UML!Association)
+;
+
+helper context UML!Property def : isAssociationClassAttribute() : Boolean =
+	self.owner.oclIsTypeOf(UML!AssociationClass)
+;
+
+helper context UML!Property def : isInvolvedInCrossDatastoreAssociation() : Boolean =
+	let association : OclAny = self.refImmediateComposite() in
+	if association.oclIsTypeOf(UML!Association) then
+		association.isCrossRegionAssociation()
+	else
+		OclUndefined.debug('The provided Property is not contained in an Association')
+	endif
+;
+
+helper context UML!Property def : refersToDatastoreClass(datastore : Region!DatastoreDescriptor) : Boolean = 
+	let type : UML!Type = self.type in
+	if type.oclIsTypeOf(UML!Class) then
+		type.getRegion().datastoreDescriptor.oclIsKindOf(datastore)
+	else
+		OclUndefined.debug('The provided Property does not refer to a Class')
+	endif
+;
+
+
+--
+-- Association-related helpers
+--
+
+helper def : getRegionAssociations(datastore : Region!DatastoreDescriptor) : Sequence(UML!Association) =
+	UML!Association.allInstances()
+		->select(a | a.hasEndStoredInDatastore(datastore))
+;
+
+helper context UML!Association def : hasEndStoredInDatastore(datastore : Region!DatastoreDescriptor) : Boolean =
+	self.memberEnd.at(1).type.getRegion().datastoreDescriptor.oclIsKindOf(datastore) or
+	self.memberEnd.at(2).type.getRegion().datastoreDescriptor.oclIsKindOf(datastore)
+;
+
+helper context UML!Association def : isCrossRegionAssociation() : Boolean =
+	let r1 : Region!Region = self.memberEnd.at(1).type.getRegion() in
+		let r2 : Region!Region = self.memberEnd.at(2).type.getRegion() in
+			r1 <> r2
+;
+	
+	helper context UML!Association def : getOtherEnd(class : UML!Class) : UML!Property = 
+	if self.memberEnd.at(1).type = class then
+		self.memberEnd.at(2)
+	else if self.memberEnd.at(2).type = class then
+		self.memberEnd.at(1)
+	else
+		OclUndefined.debug('Cannot find other end')
+	endif
+	endif
+;

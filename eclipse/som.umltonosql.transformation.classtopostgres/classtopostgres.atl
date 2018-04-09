@@ -1,0 +1,94 @@
+-- @nsURI UML=http://www.eclipse.org/uml2/5.0.0/UML
+-- @nsURI Postgres=som.umltonosql.metamodel.postgres
+-- @nsURI Region=som.umltonosql.metamodel.region
+
+module classtomongodb;
+
+create OUT : Postgres from IN : UML, IN2 : Region;
+
+--
+-- The DatastoreDescriptor handled by this transformation
+--
+helper def : TRANSFORMED_DATASTORE : Region!DatastoreDescriptor = Region!PostgresDescriptor;
+
+--
+-- Returns whether the Association has at least one end stored in a Region defining a PostgresDescriptor
+-- Note: This helper is specific to the Postgres transformation, and relies on Common#hasEndStoredInDatastore
+--
+helper context UML!Association def : hasEndStoredInPostgres() : Boolean = 
+	self.hasEndStoredInDatastore(thisModule.TRANSFORMED_DATASTORE)
+;
+
+helper def : getPostgresAssociations() : Sequence(UML!Association) = 
+	thisModule.getRegionAssociations(thisModule.TRANSFORMED_DATASTORE)
+;
+
+helper context UML!Property def : refersToPostgresClass() : Boolean = 
+	self.refersToDatastoreClass(thisModule.TRANSFORMED_DATASTORE)
+;
+
+rule model2database {
+	from
+		model : UML!Model
+	to
+		database : Postgres!Database(
+			name <- thisModule.getRegionSetName(),
+			tables <- thisModule.getNotAbstractClasses()->select(c | c.isInPostgresRegion())
+						->union(thisModule.getPostgresAssociations()->collect(a | a.memberEnd).flatten()->select(p | if p.isInvolvedInCrossDatastoreAssociation() then not p.refersToPostgresClass() else true endif)->select(p | p.isMultiValued())->collect(p | thisModule.mutiValuedAssociationProperty2table(p)))
+			-- union multi-valued attributes
+			-- implies instead of if then else ?
+		)
+}
+
+rule class2table {
+	from
+		class : UML!Class(class.isInPostgresRegion())
+	to
+		table : Postgres!Table(
+			name <- class.name,
+			col <- Sequence {key}->union(class.attribute->select(a | not a.isMultiValued())->collect(a | thisModule.singleValuedProperty2column(a)))
+								 ->union(class.getOutgoingAssociationProperties()->select(p | not p.isMultiValued())), -- single valued associations still need to be handled
+			key <- Set{key}
+		),
+		key : Postgres!Column(
+			name <- 'id',
+			type <- umlToNoSQLID
+		),
+		umlToNoSQLID : Postgres!UmlToNoSQLID()
+}
+
+lazy rule singleValuedProperty2column {
+	from
+		prop : UML!Property
+	to
+		col : Postgres!Column(
+			name <- prop.name,
+			type <- thisModule.type2type(prop.type)
+			
+		)
+}
+
+lazy abstract rule type2type {
+	from
+		type : UML!Type
+	to
+		t : Postgres!Type
+}
+
+lazy rule primitiveType2type extends type2type {
+	from
+		type : UML!Type(type.isString())
+	to
+		t : Postgres!Varchar()
+}
+
+lazy rule mutiValuedAssociationProperty2table {
+	from
+		prop : UML!Property
+	to
+		t : Postgres!Table(
+			name <- 'multiValuedAssociation'	
+		)
+}
+
+
