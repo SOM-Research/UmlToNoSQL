@@ -87,8 +87,20 @@ lazy rule mutiValuedAssociationProperty2table {
 		prop : UML!Property
 	to
 		t : Postgres!Table(
-			name <- 'multiValuedAssociation'	
-		)
+			name <- prop.getAssociation().getOtherEnd(prop.type).name + '_' + prop.getAssociation().name,
+			col <- Sequence{end1key, end2key},
+			key <- Set{end1key, end2key}
+		), 
+		end1key : Postgres!Column(
+			name <- prop.getAssociation().getOtherEnd(prop.type).name.toLower() + '_id',
+			type <- id1
+		),
+		end2key : Postgres!Column(
+			name <- prop.type.name.toLower() + '_id',
+			type <- id2
+		),
+		id1 : Postgres!UmlToNoSQLID(),
+		id2 : Postgres!UmlToNoSQLID
 }
 
 
