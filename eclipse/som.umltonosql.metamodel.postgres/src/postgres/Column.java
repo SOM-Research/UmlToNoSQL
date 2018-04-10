@@ -13,7 +13,6 @@ package postgres;
  * </p>
  * <ul>
  *   <li>{@link postgres.Column#getOwner <em>Owner</em>}</li>
- *   <li>{@link postgres.Column#getKeyOf <em>Key Of</em>}</li>
  *   <li>{@link postgres.Column#getType <em>Type</em>}</li>
  * </ul>
  *
@@ -49,34 +48,6 @@ public interface Column extends Named {
 	 * @generated
 	 */
 	void setOwner(Table value);
-
-	/**
-	 * Returns the value of the '<em><b>Key Of</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link postgres.Table#getKey <em>Key</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Key Of</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Key Of</em>' reference.
-	 * @see #setKeyOf(Table)
-	 * @see postgres.PostgresPackage#getColumn_KeyOf()
-	 * @see postgres.Table#getKey
-	 * @model opposite="key" ordered="false"
-	 * @generated
-	 */
-	Table getKeyOf();
-
-	/**
-	 * Sets the value of the '{@link postgres.Column#getKeyOf <em>Key Of</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Key Of</em>' reference.
-	 * @see #getKeyOf()
-	 * @generated
-	 */
-	void setKeyOf(Table value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' containment reference.

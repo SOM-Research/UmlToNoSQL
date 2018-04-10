@@ -168,13 +168,13 @@ public interface PostgresPackage extends EPackage {
 	int TABLE__COL = NAMED_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Key</b></em>' reference list.
+	 * The feature id for the '<em><b>Primary Keys</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE__KEY = NAMED_FEATURE_COUNT + 1;
+	int TABLE__PRIMARY_KEYS = NAMED_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Table</em>' class.
@@ -223,22 +223,13 @@ public interface PostgresPackage extends EPackage {
 	int COLUMN__OWNER = NAMED_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Key Of</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COLUMN__KEY_OF = NAMED_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN__TYPE = NAMED_FEATURE_COUNT + 2;
+	int COLUMN__TYPE = NAMED_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Column</em>' class.
@@ -247,7 +238,7 @@ public interface PostgresPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = NAMED_FEATURE_COUNT + 3;
+	int COLUMN_FEATURE_COUNT = NAMED_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Column</em>' class.
@@ -259,6 +250,70 @@ public interface PostgresPackage extends EPackage {
 	int COLUMN_OPERATION_COUNT = NAMED_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link postgres.impl.ForeignKeyImpl <em>Foreign Key</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see postgres.impl.ForeignKeyImpl
+	 * @see postgres.impl.PostgresPackageImpl#getForeignKey()
+	 * @generated
+	 */
+	int FOREIGN_KEY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY__NAME = COLUMN__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY__OWNER = COLUMN__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY__TYPE = COLUMN__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Referenced Column</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY__REFERENCED_COLUMN = COLUMN_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Foreign Key</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY_FEATURE_COUNT = COLUMN_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Foreign Key</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY_OPERATION_COUNT = COLUMN_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link postgres.impl.TypeImpl <em>Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -266,7 +321,7 @@ public interface PostgresPackage extends EPackage {
 	 * @see postgres.impl.PostgresPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 4;
+	int TYPE = 5;
 
 	/**
 	 * The number of structural features of the '<em>Type</em>' class.
@@ -294,7 +349,7 @@ public interface PostgresPackage extends EPackage {
 	 * @see postgres.impl.PostgresPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 5;
+	int PRIMITIVE_TYPE = 6;
 
 	/**
 	 * The number of structural features of the '<em>Primitive Type</em>' class.
@@ -322,7 +377,7 @@ public interface PostgresPackage extends EPackage {
 	 * @see postgres.impl.PostgresPackageImpl#getVarchar()
 	 * @generated
 	 */
-	int VARCHAR = 6;
+	int VARCHAR = 7;
 
 	/**
 	 * The feature id for the '<em><b>Length</b></em>' attribute.
@@ -359,7 +414,7 @@ public interface PostgresPackage extends EPackage {
 	 * @see postgres.impl.PostgresPackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 7;
+	int INTEGER = 8;
 
 	/**
 	 * The number of structural features of the '<em>Integer</em>' class.
@@ -387,7 +442,7 @@ public interface PostgresPackage extends EPackage {
 	 * @see postgres.impl.PostgresPackageImpl#getUmlToNoSQLID()
 	 * @generated
 	 */
-	int UML_TO_NO_SQLID = 8;
+	int UML_TO_NO_SQLID = 9;
 
 	/**
 	 * The number of structural features of the '<em>Uml To No SQLID</em>' class.
@@ -472,15 +527,15 @@ public interface PostgresPackage extends EPackage {
 	EReference getTable_Col();
 
 	/**
-	 * Returns the meta object for the reference list '{@link postgres.Table#getKey <em>Key</em>}'.
+	 * Returns the meta object for the reference list '{@link postgres.Table#getPrimaryKeys <em>Primary Keys</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Key</em>'.
-	 * @see postgres.Table#getKey()
+	 * @return the meta object for the reference list '<em>Primary Keys</em>'.
+	 * @see postgres.Table#getPrimaryKeys()
 	 * @see #getTable()
 	 * @generated
 	 */
-	EReference getTable_Key();
+	EReference getTable_PrimaryKeys();
 
 	/**
 	 * Returns the meta object for class '{@link postgres.Column <em>Column</em>}'.
@@ -504,17 +559,6 @@ public interface PostgresPackage extends EPackage {
 	EReference getColumn_Owner();
 
 	/**
-	 * Returns the meta object for the reference '{@link postgres.Column#getKeyOf <em>Key Of</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Key Of</em>'.
-	 * @see postgres.Column#getKeyOf()
-	 * @see #getColumn()
-	 * @generated
-	 */
-	EReference getColumn_KeyOf();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link postgres.Column#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -524,6 +568,27 @@ public interface PostgresPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getColumn_Type();
+
+	/**
+	 * Returns the meta object for class '{@link postgres.ForeignKey <em>Foreign Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Foreign Key</em>'.
+	 * @see postgres.ForeignKey
+	 * @generated
+	 */
+	EClass getForeignKey();
+
+	/**
+	 * Returns the meta object for the reference '{@link postgres.ForeignKey#getReferencedColumn <em>Referenced Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Referenced Column</em>'.
+	 * @see postgres.ForeignKey#getReferencedColumn()
+	 * @see #getForeignKey()
+	 * @generated
+	 */
+	EReference getForeignKey_ReferencedColumn();
 
 	/**
 	 * Returns the meta object for class '{@link postgres.Type <em>Type</em>}'.
@@ -664,12 +729,12 @@ public interface PostgresPackage extends EPackage {
 		EReference TABLE__COL = eINSTANCE.getTable_Col();
 
 		/**
-		 * The meta object literal for the '<em><b>Key</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Primary Keys</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TABLE__KEY = eINSTANCE.getTable_Key();
+		EReference TABLE__PRIMARY_KEYS = eINSTANCE.getTable_PrimaryKeys();
 
 		/**
 		 * The meta object literal for the '{@link postgres.impl.ColumnImpl <em>Column</em>}' class.
@@ -690,20 +755,30 @@ public interface PostgresPackage extends EPackage {
 		EReference COLUMN__OWNER = eINSTANCE.getColumn_Owner();
 
 		/**
-		 * The meta object literal for the '<em><b>Key Of</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COLUMN__KEY_OF = eINSTANCE.getColumn_KeyOf();
-
-		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference COLUMN__TYPE = eINSTANCE.getColumn_Type();
+
+		/**
+		 * The meta object literal for the '{@link postgres.impl.ForeignKeyImpl <em>Foreign Key</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see postgres.impl.ForeignKeyImpl
+		 * @see postgres.impl.PostgresPackageImpl#getForeignKey()
+		 * @generated
+		 */
+		EClass FOREIGN_KEY = eINSTANCE.getForeignKey();
+
+		/**
+		 * The meta object literal for the '<em><b>Referenced Column</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOREIGN_KEY__REFERENCED_COLUMN = eINSTANCE.getForeignKey_ReferencedColumn();
 
 		/**
 		 * The meta object literal for the '{@link postgres.impl.TypeImpl <em>Type</em>}' class.

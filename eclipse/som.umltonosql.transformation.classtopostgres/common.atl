@@ -48,7 +48,6 @@ helper context UML!Class def : getOutgoingAssociationProperties() : Sequence(UML
 ;
 
 
-
 --
 -- Property-related helpers
 --

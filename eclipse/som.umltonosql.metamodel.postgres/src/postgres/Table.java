@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link postgres.Table#getCol <em>Col</em>}</li>
- *   <li>{@link postgres.Table#getKey <em>Key</em>}</li>
+ *   <li>{@link postgres.Table#getPrimaryKeys <em>Primary Keys</em>}</li>
  * </ul>
  *
  * @see postgres.PostgresPackage#getTable()
@@ -41,21 +41,19 @@ public interface Table extends Named {
 	EList<Column> getCol();
 
 	/**
-	 * Returns the value of the '<em><b>Key</b></em>' reference list.
+	 * Returns the value of the '<em><b>Primary Keys</b></em>' reference list.
 	 * The list contents are of type {@link postgres.Column}.
-	 * It is bidirectional and its opposite is '{@link postgres.Column#getKeyOf <em>Key Of</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Key</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Primary Keys</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Key</em>' reference list.
-	 * @see postgres.PostgresPackage#getTable_Key()
-	 * @see postgres.Column#getKeyOf
-	 * @model opposite="keyOf" ordered="false"
+	 * @return the value of the '<em>Primary Keys</em>' reference list.
+	 * @see postgres.PostgresPackage#getTable_PrimaryKeys()
+	 * @model
 	 * @generated
 	 */
-	EList<Column> getKey();
+	EList<Column> getPrimaryKeys();
 
 } // Table

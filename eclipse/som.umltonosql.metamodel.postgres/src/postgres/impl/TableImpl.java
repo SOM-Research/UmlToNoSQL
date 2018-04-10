@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import postgres.Column;
@@ -28,7 +28,7 @@ import postgres.Table;
  * </p>
  * <ul>
  *   <li>{@link postgres.impl.TableImpl#getCol <em>Col</em>}</li>
- *   <li>{@link postgres.impl.TableImpl#getKey <em>Key</em>}</li>
+ *   <li>{@link postgres.impl.TableImpl#getPrimaryKeys <em>Primary Keys</em>}</li>
  * </ul>
  *
  * @generated
@@ -45,14 +45,14 @@ public class TableImpl extends NamedImpl implements Table {
 	protected EList<Column> col;
 
 	/**
-	 * The cached value of the '{@link #getKey() <em>Key</em>}' reference list.
+	 * The cached value of the '{@link #getPrimaryKeys() <em>Primary Keys</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKey()
+	 * @see #getPrimaryKeys()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Column> key;
+	protected EList<Column> primaryKeys;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,11 +90,11 @@ public class TableImpl extends NamedImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Column> getKey() {
-		if (key == null) {
-			key = new EObjectWithInverseResolvingEList<Column>(Column.class, this, PostgresPackage.TABLE__KEY, PostgresPackage.COLUMN__KEY_OF);
+	public EList<Column> getPrimaryKeys() {
+		if (primaryKeys == null) {
+			primaryKeys = new EObjectResolvingEList<Column>(Column.class, this, PostgresPackage.TABLE__PRIMARY_KEYS);
 		}
-		return key;
+		return primaryKeys;
 	}
 
 	/**
@@ -108,8 +108,6 @@ public class TableImpl extends NamedImpl implements Table {
 		switch (featureID) {
 			case PostgresPackage.TABLE__COL:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCol()).basicAdd(otherEnd, msgs);
-			case PostgresPackage.TABLE__KEY:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getKey()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -124,8 +122,6 @@ public class TableImpl extends NamedImpl implements Table {
 		switch (featureID) {
 			case PostgresPackage.TABLE__COL:
 				return ((InternalEList<?>)getCol()).basicRemove(otherEnd, msgs);
-			case PostgresPackage.TABLE__KEY:
-				return ((InternalEList<?>)getKey()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -140,8 +136,8 @@ public class TableImpl extends NamedImpl implements Table {
 		switch (featureID) {
 			case PostgresPackage.TABLE__COL:
 				return getCol();
-			case PostgresPackage.TABLE__KEY:
-				return getKey();
+			case PostgresPackage.TABLE__PRIMARY_KEYS:
+				return getPrimaryKeys();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -159,9 +155,9 @@ public class TableImpl extends NamedImpl implements Table {
 				getCol().clear();
 				getCol().addAll((Collection<? extends Column>)newValue);
 				return;
-			case PostgresPackage.TABLE__KEY:
-				getKey().clear();
-				getKey().addAll((Collection<? extends Column>)newValue);
+			case PostgresPackage.TABLE__PRIMARY_KEYS:
+				getPrimaryKeys().clear();
+				getPrimaryKeys().addAll((Collection<? extends Column>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -178,8 +174,8 @@ public class TableImpl extends NamedImpl implements Table {
 			case PostgresPackage.TABLE__COL:
 				getCol().clear();
 				return;
-			case PostgresPackage.TABLE__KEY:
-				getKey().clear();
+			case PostgresPackage.TABLE__PRIMARY_KEYS:
+				getPrimaryKeys().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -195,8 +191,8 @@ public class TableImpl extends NamedImpl implements Table {
 		switch (featureID) {
 			case PostgresPackage.TABLE__COL:
 				return col != null && !col.isEmpty();
-			case PostgresPackage.TABLE__KEY:
-				return key != null && !key.isEmpty();
+			case PostgresPackage.TABLE__PRIMARY_KEYS:
+				return primaryKeys != null && !primaryKeys.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

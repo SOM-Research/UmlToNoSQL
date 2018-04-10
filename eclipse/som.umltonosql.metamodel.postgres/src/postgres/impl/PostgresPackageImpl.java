@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import postgres.Column;
 import postgres.Database;
+import postgres.ForeignKey;
 import postgres.Named;
 import postgres.PostgresFactory;
 import postgres.PostgresPackage;
@@ -54,6 +55,13 @@ public class PostgresPackageImpl extends EPackageImpl implements PostgresPackage
 	 * @generated
 	 */
 	private EClass columnEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass foreignKeyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,7 +218,7 @@ public class PostgresPackageImpl extends EPackageImpl implements PostgresPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTable_Key() {
+	public EReference getTable_PrimaryKeys() {
 		return (EReference)tableEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -237,7 +245,7 @@ public class PostgresPackageImpl extends EPackageImpl implements PostgresPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getColumn_KeyOf() {
+	public EReference getColumn_Type() {
 		return (EReference)columnEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -246,8 +254,17 @@ public class PostgresPackageImpl extends EPackageImpl implements PostgresPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getColumn_Type() {
-		return (EReference)columnEClass.getEStructuralFeatures().get(2);
+	public EClass getForeignKey() {
+		return foreignKeyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForeignKey_ReferencedColumn() {
+		return (EReference)foreignKeyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -340,12 +357,14 @@ public class PostgresPackageImpl extends EPackageImpl implements PostgresPackage
 
 		tableEClass = createEClass(TABLE);
 		createEReference(tableEClass, TABLE__COL);
-		createEReference(tableEClass, TABLE__KEY);
+		createEReference(tableEClass, TABLE__PRIMARY_KEYS);
 
 		columnEClass = createEClass(COLUMN);
 		createEReference(columnEClass, COLUMN__OWNER);
-		createEReference(columnEClass, COLUMN__KEY_OF);
 		createEReference(columnEClass, COLUMN__TYPE);
+
+		foreignKeyEClass = createEClass(FOREIGN_KEY);
+		createEReference(foreignKeyEClass, FOREIGN_KEY__REFERENCED_COLUMN);
 
 		typeEClass = createEClass(TYPE);
 
@@ -390,6 +409,7 @@ public class PostgresPackageImpl extends EPackageImpl implements PostgresPackage
 		databaseEClass.getESuperTypes().add(this.getNamed());
 		tableEClass.getESuperTypes().add(this.getNamed());
 		columnEClass.getESuperTypes().add(this.getNamed());
+		foreignKeyEClass.getESuperTypes().add(this.getColumn());
 		primitiveTypeEClass.getESuperTypes().add(this.getType());
 		varcharEClass.getESuperTypes().add(this.getPrimitiveType());
 		integerEClass.getESuperTypes().add(this.getPrimitiveType());
@@ -404,12 +424,14 @@ public class PostgresPackageImpl extends EPackageImpl implements PostgresPackage
 
 		initEClass(tableEClass, Table.class, "Table", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTable_Col(), this.getColumn(), this.getColumn_Owner(), "col", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTable_Key(), this.getColumn(), this.getColumn_KeyOf(), "key", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getTable_PrimaryKeys(), this.getColumn(), null, "primaryKeys", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(columnEClass, Column.class, "Column", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getColumn_Owner(), this.getTable(), this.getTable_Col(), "owner", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getColumn_KeyOf(), this.getTable(), this.getTable_Key(), "keyOf", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getColumn_Type(), this.getType(), null, "type", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(foreignKeyEClass, ForeignKey.class, "ForeignKey", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getForeignKey_ReferencedColumn(), this.getColumn(), null, "referencedColumn", null, 0, 1, ForeignKey.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

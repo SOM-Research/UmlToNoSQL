@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import postgres.Column;
 import postgres.Database;
+import postgres.ForeignKey;
 import postgres.PostgresFactory;
 import postgres.PostgresPackage;
 import postgres.Table;
@@ -65,6 +66,7 @@ public class PostgresFactoryImpl extends EFactoryImpl implements PostgresFactory
 			case PostgresPackage.DATABASE: return createDatabase();
 			case PostgresPackage.TABLE: return createTable();
 			case PostgresPackage.COLUMN: return createColumn();
+			case PostgresPackage.FOREIGN_KEY: return createForeignKey();
 			case PostgresPackage.VARCHAR: return createVarchar();
 			case PostgresPackage.INTEGER: return createInteger();
 			case PostgresPackage.UML_TO_NO_SQLID: return createUmlToNoSQLID();
@@ -101,6 +103,16 @@ public class PostgresFactoryImpl extends EFactoryImpl implements PostgresFactory
 	public Column createColumn() {
 		ColumnImpl column = new ColumnImpl();
 		return column;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ForeignKey createForeignKey() {
+		ForeignKeyImpl foreignKey = new ForeignKeyImpl();
+		return foreignKey;
 	}
 
 	/**

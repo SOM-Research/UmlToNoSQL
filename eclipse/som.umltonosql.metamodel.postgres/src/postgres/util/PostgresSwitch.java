@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import postgres.Column;
 import postgres.Database;
+import postgres.ForeignKey;
 import postgres.Named;
 import postgres.PostgresPackage;
 import postgres.PrimitiveType;
@@ -98,6 +99,14 @@ public class PostgresSwitch<T> extends Switch<T> {
 				Column column = (Column)theEObject;
 				T result = caseColumn(column);
 				if (result == null) result = caseNamed(column);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PostgresPackage.FOREIGN_KEY: {
+				ForeignKey foreignKey = (ForeignKey)theEObject;
+				T result = caseForeignKey(foreignKey);
+				if (result == null) result = caseColumn(foreignKey);
+				if (result == null) result = caseNamed(foreignKey);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -199,6 +208,21 @@ public class PostgresSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseColumn(Column object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Foreign Key</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Foreign Key</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseForeignKey(ForeignKey object) {
 		return null;
 	}
 

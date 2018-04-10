@@ -2,7 +2,7 @@
 -- @nsURI Postgres=som.umltonosql.metamodel.postgres
 -- @nsURI Region=som.umltonosql.metamodel.region
 
-module classtomongodb;
+module classtopostgres;
 
 create OUT : Postgres from IN : UML, IN2 : Region;
 
@@ -27,6 +27,10 @@ helper context UML!Property def : refersToPostgresClass() : Boolean =
 	self.refersToDatastoreClass(thisModule.TRANSFORMED_DATASTORE)
 ;
 
+helper context UML!Class def : getPrimaryKey() : Postgres!Column = 
+	thisModule.resolveTemp(self, 'pkey')
+;
+
 rule model2database {
 	from
 		model : UML!Model
@@ -46,11 +50,11 @@ rule class2table {
 	to
 		table : Postgres!Table(
 			name <- class.name,
-			col <- Sequence {key}->union(class.attribute->select(a | not a.isMultiValued())->collect(a | thisModule.singleValuedProperty2column(a)))
+			col <- Sequence {pkey}->union(class.attribute->select(a | not a.isMultiValued())->collect(a | thisModule.singleValuedProperty2column(a)))
 								 ->union(class.getOutgoingAssociationProperties()->select(p | not p.isMultiValued())), -- single valued associations still need to be handled
-			key <- Set{key}
+			primaryKeys <- Set{pkey}
 		),
-		key : Postgres!Column(
+		pkey : Postgres!Column(
 			name <- 'id',
 			type <- umlToNoSQLID
 		),
@@ -89,18 +93,21 @@ lazy rule mutiValuedAssociationProperty2table {
 		t : Postgres!Table(
 			name <- prop.getAssociation().getOtherEnd(prop.type).name + '_' + prop.getAssociation().name,
 			col <- Sequence{end1key, end2key},
-			key <- Set{end1key, end2key}
+			primaryKeys <- Set{end1key, end2key}
 		), 
-		end1key : Postgres!Column(
+		end1key : Postgres!ForeignKey(
 			name <- prop.getAssociation().getOtherEnd(prop.type).name.toLower() + '_id',
-			type <- id1
+			type <- id1,
+			referencedColumn <- prop.getAssociation().getOtherEnd(prop.type).type.getPrimaryKey()
+			-- module helper
 		),
-		end2key : Postgres!Column(
+		end2key : Postgres!ForeignKey(
 			name <- prop.type.name.toLower() + '_id',
-			type <- id2
+			type <- id2,
+			referencedColumn <- prop.type.getPrimaryKey()
 		),
 		id1 : Postgres!UmlToNoSQLID(),
-		id2 : Postgres!UmlToNoSQLID
+		id2 : Postgres!UmlToNoSQLID()
 }
 
 

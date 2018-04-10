@@ -26,23 +26,12 @@ import postgres.Type;
  * </p>
  * <ul>
  *   <li>{@link postgres.impl.ColumnImpl#getOwner <em>Owner</em>}</li>
- *   <li>{@link postgres.impl.ColumnImpl#getKeyOf <em>Key Of</em>}</li>
  *   <li>{@link postgres.impl.ColumnImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ColumnImpl extends NamedImpl implements Column {
-	/**
-	 * The cached value of the '{@link #getKeyOf() <em>Key Of</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getKeyOf()
-	 * @generated
-	 * @ordered
-	 */
-	protected Table keyOf;
-
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -118,66 +107,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Table getKeyOf() {
-		if (keyOf != null && keyOf.eIsProxy()) {
-			InternalEObject oldKeyOf = (InternalEObject)keyOf;
-			keyOf = (Table)eResolveProxy(oldKeyOf);
-			if (keyOf != oldKeyOf) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PostgresPackage.COLUMN__KEY_OF, oldKeyOf, keyOf));
-			}
-		}
-		return keyOf;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Table basicGetKeyOf() {
-		return keyOf;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetKeyOf(Table newKeyOf, NotificationChain msgs) {
-		Table oldKeyOf = keyOf;
-		keyOf = newKeyOf;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PostgresPackage.COLUMN__KEY_OF, oldKeyOf, newKeyOf);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setKeyOf(Table newKeyOf) {
-		if (newKeyOf != keyOf) {
-			NotificationChain msgs = null;
-			if (keyOf != null)
-				msgs = ((InternalEObject)keyOf).eInverseRemove(this, PostgresPackage.TABLE__KEY, Table.class, msgs);
-			if (newKeyOf != null)
-				msgs = ((InternalEObject)newKeyOf).eInverseAdd(this, PostgresPackage.TABLE__KEY, Table.class, msgs);
-			msgs = basicSetKeyOf(newKeyOf, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PostgresPackage.COLUMN__KEY_OF, newKeyOf, newKeyOf));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Type getType() {
 		return type;
 	}
@@ -228,10 +157,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetOwner((Table)otherEnd, msgs);
-			case PostgresPackage.COLUMN__KEY_OF:
-				if (keyOf != null)
-					msgs = ((InternalEObject)keyOf).eInverseRemove(this, PostgresPackage.TABLE__KEY, Table.class, msgs);
-				return basicSetKeyOf((Table)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -246,8 +171,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 		switch (featureID) {
 			case PostgresPackage.COLUMN__OWNER:
 				return basicSetOwner(null, msgs);
-			case PostgresPackage.COLUMN__KEY_OF:
-				return basicSetKeyOf(null, msgs);
 			case PostgresPackage.COLUMN__TYPE:
 				return basicSetType(null, msgs);
 		}
@@ -278,9 +201,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 		switch (featureID) {
 			case PostgresPackage.COLUMN__OWNER:
 				return getOwner();
-			case PostgresPackage.COLUMN__KEY_OF:
-				if (resolve) return getKeyOf();
-				return basicGetKeyOf();
 			case PostgresPackage.COLUMN__TYPE:
 				return getType();
 		}
@@ -297,9 +217,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 		switch (featureID) {
 			case PostgresPackage.COLUMN__OWNER:
 				setOwner((Table)newValue);
-				return;
-			case PostgresPackage.COLUMN__KEY_OF:
-				setKeyOf((Table)newValue);
 				return;
 			case PostgresPackage.COLUMN__TYPE:
 				setType((Type)newValue);
@@ -319,9 +236,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 			case PostgresPackage.COLUMN__OWNER:
 				setOwner((Table)null);
 				return;
-			case PostgresPackage.COLUMN__KEY_OF:
-				setKeyOf((Table)null);
-				return;
 			case PostgresPackage.COLUMN__TYPE:
 				setType((Type)null);
 				return;
@@ -339,8 +253,6 @@ public class ColumnImpl extends NamedImpl implements Column {
 		switch (featureID) {
 			case PostgresPackage.COLUMN__OWNER:
 				return getOwner() != null;
-			case PostgresPackage.COLUMN__KEY_OF:
-				return keyOf != null;
 			case PostgresPackage.COLUMN__TYPE:
 				return type != null;
 		}

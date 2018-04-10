@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import postgres.Column;
 import postgres.Database;
+import postgres.ForeignKey;
 import postgres.Named;
 import postgres.PostgresPackage;
 import postgres.PrimitiveType;
@@ -90,6 +91,10 @@ public class PostgresAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseColumn(Column object) {
 				return createColumnAdapter();
+			}
+			@Override
+			public Adapter caseForeignKey(ForeignKey object) {
+				return createForeignKeyAdapter();
 			}
 			@Override
 			public Adapter caseType(Type object) {
@@ -184,6 +189,20 @@ public class PostgresAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createColumnAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link postgres.ForeignKey <em>Foreign Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see postgres.ForeignKey
+	 * @generated
+	 */
+	public Adapter createForeignKeyAdapter() {
 		return null;
 	}
 
