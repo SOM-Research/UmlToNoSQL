@@ -25,9 +25,9 @@ helper context UML!Class def : getRegion() : Region!Region =
 		if regs->size() = 1 then
 			regs->first()
 		else if regs->isEmpty() then
-			OclUndefined.debug('Cannot find the region containing ' + self.name)
+			OclUndefined.debug('[Class.getRegion()] - Cannot find the region containing ' + self.name)
 		else
-			OclUndefined.debug('Found multiple region containing ' + self.name)
+			OclUndefined.debug('[Class.getRegion()] - Found multiple region containing ' + self.name)
 		endif endif
 ;
 
@@ -79,7 +79,7 @@ helper context UML!Property def : isInvolvedInCrossDatastoreAssociation() : Bool
 	if association.oclIsTypeOf(UML!Association) then
 		association.isCrossRegionAssociation()
 	else
-		OclUndefined.debug('The provided Property is not contained in an Association')
+		OclUndefined.debug('[Property.isInvolvedInCrossDatastoreAssociation()] - The provided Property is not contained in an Association: ' + self)
 	endif
 ;
 
@@ -88,7 +88,16 @@ helper context UML!Property def : refersToDatastoreClass(datastore : Region!Data
 	if type.oclIsTypeOf(UML!Class) then
 		type.getRegion().datastoreDescriptor.oclIsKindOf(datastore)
 	else
-		OclUndefined.debug('The provided Property does not refer to a Class')
+		OclUndefined.debug('[Property.refersToDatastoreClass()] - The provided Property does not refer to a Class:' + self)
+	endif
+;
+
+helper context UML!Property def : getAssociation() : UML!Association =
+	let association : UML!Element = self.owner in
+	if association.oclIsTypeOf(UML!Association) then
+		association
+	else
+		OclUndefined.debug('[Property.getAssociation()] - The given property is not involved in an association: ' + self)
 	endif
 ;
 
@@ -113,13 +122,13 @@ helper context UML!Association def : isCrossRegionAssociation() : Boolean =
 			r1 <> r2
 ;
 	
-	helper context UML!Association def : getOtherEnd(class : UML!Class) : UML!Property = 
+helper context UML!Association def : getOtherEnd(class : UML!Class) : UML!Property = 
 	if self.memberEnd.at(1).type = class then
 		self.memberEnd.at(2)
 	else if self.memberEnd.at(2).type = class then
 		self.memberEnd.at(1)
 	else
-		OclUndefined.debug('Cannot find other end')
+		OclUndefined.debug('[Association.getOtherEnd()] - Cannot find the other end of the ' + self.name + ' association from the provided class: ' + class.name)
 	endif
 	endif
 ;
