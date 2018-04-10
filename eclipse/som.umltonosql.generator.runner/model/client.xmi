@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:postgres="som.umltonosql.metamodel.postgres">
+  <postgres:Database name="demo" tables="/1 /2"/>
+  <postgres:Table name="Client" primaryKeys="/1/@col.0">
+    <col name="id">
+      <type xsi:type="postgres:UmlToNoSQLID"/>
+    </col>
+    <col name="name">
+      <type xsi:type="postgres:Varchar"/>
+    </col>
+    <col name="address">
+      <type xsi:type="postgres:Varchar"/>
+    </col>
+  </postgres:Table>
+  <postgres:Table name="client_orders" primaryKeys="/2/@col.0 /2/@col.1">
+    <col xsi:type="postgres:ForeignKey" name="client_id" referencedColumn="/1/@col.0">
+      <type xsi:type="postgres:UmlToNoSQLID"/>
+    </col>
+    <col xsi:type="postgres:ForeignKey" name="order_id">
+      <type xsi:type="postgres:UmlToNoSQLID"/>
+    </col>
+  </postgres:Table>
+</xmi:XMI>

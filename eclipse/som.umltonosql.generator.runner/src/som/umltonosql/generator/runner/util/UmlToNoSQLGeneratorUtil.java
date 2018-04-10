@@ -12,14 +12,16 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-
+import postgres.PostgresPackage;
 import mongodb.MongodbPackage;
 import region.DatastoreDescriptor;
 import region.MongoDescriptor;
+import region.PostgresDescriptor;
 import region.Region;
 import region.RegionSet;
 import som.umltonosql.generator.core.UmlToNoSQLCoreGenerator;
 import som.umltonosql.generator.mongodb.UmlToNoSQLMongoGenerator;
+import som.umltonosql.generator.postgres.UmlToNoSQLPostgresGenerator;
 import som.umltonosql.generator.structure.UmlToNoSQLGenerator;
 
 public class UmlToNoSQLGeneratorUtil {
@@ -51,6 +53,7 @@ public class UmlToNoSQLGeneratorUtil {
 		this.rSet = rSet;
 		this.resourceSet = new ResourceSetImpl();
 		EPackage.Registry.INSTANCE.put(MongodbPackage.eINSTANCE.getNsURI(), MongodbPackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(PostgresPackage.eINSTANCE.getNsURI(), PostgresPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		basePackage = new File(rootFile, "\\src\\main\\java\\demo");
 	}
@@ -63,6 +66,9 @@ public class UmlToNoSQLGeneratorUtil {
 			if(descriptor instanceof MongoDescriptor) {
 				Resource mongoResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
 				generators.add(new UmlToNoSQLMongoGenerator(mongoResource, new File(basePackage, r.getName().toLowerCase()), r));
+			} else if(descriptor instanceof PostgresDescriptor) {
+				Resource postgresResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
+				generators.add(new UmlToNoSQLPostgresGenerator(postgresResource, new File(basePackage, r.getName().toLowerCase()), r));
 			}
 		}
 		return generators;
