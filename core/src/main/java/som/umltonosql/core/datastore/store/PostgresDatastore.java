@@ -142,8 +142,10 @@ public class PostgresDatastore extends Datastore {
         ObjectId newObjectId = new ObjectId();
         try {
             Statement statement = connection.createStatement();
-            statement.execute(MessageFormat.format(INSERT_ELEMENT_TEMPLATE, getTableNameFromBeanClass(clazz),
-                    newObjectId.toString()));
+            String sqlStatement = MessageFormat.format(INSERT_ELEMENT_TEMPLATE, getTableNameFromBeanClass(clazz),
+                    newObjectId.toString());
+            Log.trace("PostgresDatastore: createElement({0})\n\t{1}", clazz.getName(), sqlStatement);
+            statement.execute(sqlStatement);
         } catch (SQLException e) {
             throw new RuntimeException(MessageFormat.format("Cannot create the database record for the new instance " +
                     "of {0} (id = {1})", clazz.getSimpleName(), newObjectId.toString()), e);
@@ -168,8 +170,10 @@ public class PostgresDatastore extends Datastore {
     public Bean getElement(String id, Class<? extends Bean> clazz) {
         try {
             Statement statement = connection.createStatement();
-            ResultSet rSet = statement.executeQuery(MessageFormat.format(GET_ELEMENT_TEMPLATE, getTableNameFromBeanClass
-                    (clazz), id));
+            String sqlStatement = MessageFormat.format(GET_ELEMENT_TEMPLATE, getTableNameFromBeanClass
+                    (clazz), id);
+            Log.trace("PostgresDatastore: getElement({0}, {1})\n\t{2}", id, clazz.getName(), sqlStatement);
+            ResultSet rSet = statement.executeQuery(sqlStatement);
             String objectId = null;
             if (rSet.next()) {
                 // The element exists in the database
@@ -255,8 +259,11 @@ public class PostgresDatastore extends Datastore {
     public void updateSimpleValue(String id, Class<? extends Bean> clazz, String featureName, Object value) {
         try {
             Statement statement = connection.createStatement();
-            statement.execute(MessageFormat.format(UPDATE_COLUMN_TEMPLATE, getTableNameFromBeanClass
-                    (clazz), featureName, value, id));
+            String sqlStatement = MessageFormat.format(UPDATE_COLUMN_TEMPLATE, getTableNameFromBeanClass
+                    (clazz), featureName, value, id);
+            Log.trace("PostgresDatastore: updateSimpleValue({0}, {1}, {2}, {3})\n\t{4}", id, clazz.getName(),
+                    featureName, value.toString(), sqlStatement);
+            statement.execute(sqlStatement);
         } catch (SQLException e) {
             throw new RuntimeException(MessageFormat.format("Cannot udpate the provided field ({0})", featureName),
                     e);
@@ -282,8 +289,11 @@ public class PostgresDatastore extends Datastore {
     public void addMultiValue(String id, Class<? extends Bean> clazz, String featureName, Object value) {
         try {
             Statement statement = connection.createStatement();
-            statement.execute(MessageFormat.format(INSERT_MULTI_VALUE, getMultiTableName(clazz, featureName), id,
-                    value));
+            String sqlStatement = MessageFormat.format(INSERT_MULTI_VALUE, getMultiTableName(clazz, featureName), id,
+                    value);
+            Log.trace("PostgresDatastore: addMultiValue({0}, {1}, {2}, {3})\n\t{4}", id, clazz.getName(),
+                    featureName, value.toString(), sqlStatement);
+            statement.execute(sqlStatement);
         } catch (SQLException e) {
             throw new RuntimeException(MessageFormat.format("Cannot update the multi valued field {0} from bean {1}",
                     featureName, clazz.getSimpleName()), e);
@@ -302,8 +312,11 @@ public class PostgresDatastore extends Datastore {
     public Object getSimpleValue(String id, Class<? extends Bean> clazz, String featureName) {
         try {
             Statement statement = connection.createStatement();
-            ResultSet rSet = statement.executeQuery(MessageFormat.format(SELECT_COLUMN_TEMPLATE, formatColumnName
-                    (featureName), getTableNameFromBeanClass(clazz), id));
+            String sqlStatement = MessageFormat.format(SELECT_COLUMN_TEMPLATE, formatColumnName
+                    (featureName), getTableNameFromBeanClass(clazz), id);
+            Log.trace("PostgresDatastore: getSimpleValue({0}, {1}, {2})\n\t{3}", id, clazz.getName(), featureName,
+                    sqlStatement);
+            ResultSet rSet = statement.executeQuery(sqlStatement);
             if (rSet.next()) {
                 Object value = rSet.getObject(1);
                 return value;
@@ -327,8 +340,11 @@ public class PostgresDatastore extends Datastore {
     public List getMultiValue(String id, Class<? extends Bean> clazz, String featureName) {
         try {
             Statement statement = connection.createStatement();
-            ResultSet rSet = statement.executeQuery(MessageFormat.format(SELECT_MULTI_VALUE,
-                    getMultiTableName(clazz, featureName), multiValueId(getTableNameFromBeanClass(clazz)), id));
+            String sqlStatement = MessageFormat.format(SELECT_MULTI_VALUE,
+                    getMultiTableName(clazz, featureName), multiValueId(getTableNameFromBeanClass(clazz)), id);
+            Log.trace("PostgresDatastore: getMultiValue({0}, {1}, {2})\n\t{3}", id, clazz.getName(), featureName,
+                    sqlStatement);
+            ResultSet rSet = statement.executeQuery(sqlStatement);
             List<Object> result = new ArrayList<>();
             while (rSet.next()) {
                 Object o = rSet.getObject(2);
