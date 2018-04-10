@@ -28,7 +28,12 @@ helper context UML!Property def : refersToPostgresClass() : Boolean =
 ;
 
 helper context UML!Class def : getPrimaryKey() : Postgres!Column = 
-	thisModule.resolveTemp(self, 'pkey')
+	let resolved : OclAny = thisModule.resolveTemp(self, 'pkey') in
+	if resolved.oclIsUndefined() then
+		OclUndefined.debug('[Class.getPrimaryKey()] - Cannot find the primary key of class ' + self.name + ', treating it as a cross datastore reference')
+	else
+		resolved
+	endif
 ;
 
 rule model2database {
