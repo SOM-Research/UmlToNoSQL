@@ -7,30 +7,19 @@
     operationReflection="true" importOrganizing="true">
   <foreignModel>region.ecore</foreignModel>
   <genPackages prefix="Region" disposableProviderFactory="true" ecorePackage="region.ecore#/">
-    <genClasses ecoreClass="region.ecore#//RegionSet">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference region.ecore#//RegionSet/regions"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//RegionSet/name"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="region.ecore#//StorageKind">
+      <genEnumLiterals ecoreEnumLiteral="region.ecore#//StorageKind/GRAPH"/>
+      <genEnumLiterals ecoreEnumLiteral="region.ecore#//StorageKind/DOCUMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="region.ecore#//StorageKind/RELATIONAL"/>
+    </genEnums>
+    <genClasses ecoreClass="region.ecore#//Partition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference region.ecore#//Partition/regions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//Partition/name"/>
     </genClasses>
     <genClasses ecoreClass="region.ecore#//Region">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//Region/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference region.ecore#//Region/classes"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference region.ecore#//Region/associations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference region.ecore#//Region/datastoreDescriptor"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="region.ecore#//DatastoreDescriptor"/>
-    <genClasses image="false" ecoreClass="region.ecore#//DrillDescriptor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//DrillDescriptor/drillDriver"/>
-    </genClasses>
-    <genClasses ecoreClass="region.ecore#//MongoDescriptor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//MongoDescriptor/host"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//MongoDescriptor/port"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//MongoDescriptor/databaseName"/>
-    </genClasses>
-    <genClasses ecoreClass="region.ecore#//PostgresDescriptor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/host"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/port"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/databaseName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//PostgresDescriptor/jdbcDriver"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute region.ecore#//Region/storage"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

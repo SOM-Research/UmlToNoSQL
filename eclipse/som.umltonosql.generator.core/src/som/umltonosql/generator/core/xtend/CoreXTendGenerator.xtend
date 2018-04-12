@@ -3,10 +3,9 @@ package som.umltonosql.generator.core.xtend
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import region.Region
-import region.RegionSet
-import som.umltonosql.generator.core.RegionGeneratorHelper
+import region.Partition
 import som.umltonosql.generator.core.DatastoreHandlerHelper
+import som.umltonosql.generator.core.RegionGeneratorHelper
 
 class CoreXTendGenerator implements IGenerator {
 	
@@ -20,8 +19,8 @@ class CoreXTendGenerator implements IGenerator {
 	 * to low-level representation of these entities)
 	 */
 	override doGenerate(Resource regionModel, IFileSystemAccess fsa) {
-		val RegionSet rSet = regionModel.contents.get(0) as RegionSet
-		val RegionGeneratorHelper helper = new RegionGeneratorHelper(rSet)
+		val Partition partition = regionModel.contents.get(0) as Partition
+		val RegionGeneratorHelper helper = new RegionGeneratorHelper(partition)
 		fsa.generateFile("pom.xml",'''
 		<?xml version="1.0" encoding="UTF-8"?>
 		<project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -30,7 +29,7 @@ class CoreXTendGenerator implements IGenerator {
 		    <modelVersion>4.0.0</modelVersion>
 		    
 	        <groupId>som.umltonosql.generated</groupId>
-	       	<artifactId>«rSet.name.toFirstLower»</artifactId>
+	       	<artifactId>«partition.name.toFirstLower»</artifactId>
 	        <version>1.0-SNAPSHOT</version>
 	        
 	        <properties>
@@ -56,8 +55,8 @@ class CoreXTendGenerator implements IGenerator {
 		
 		</project>
 		''')
-		fsa.generateFile("src\\main\\java\\" + rSet.name.toLowerCase + "\\core\\" + rSet.name.toFirstUpper + "Middleware.java", '''
-		package «rSet.name.toLowerCase».core;
+		fsa.generateFile("src\\main\\java\\" + partition.name.toLowerCase + "\\core\\" + partition.name.toFirstUpper + "Middleware.java", '''
+		package «partition.name.toLowerCase».core;
 		
 		import som.umltonosql.core.Middleware;
 		import fr.inria.atlanmod.commons.log.Log;
@@ -65,7 +64,7 @@ class CoreXTendGenerator implements IGenerator {
 		import som.umltonosql.core.datastore.query.processor.QueryProcessor;
 		import som.umltonosql.core.exceptions.ConsistencyException;
 		import som.umltonosql.core.exceptions.LifeCycleException;
-		«FOR r : rSet.regions»
+		«FOR r : partition.regions»
 		import «helper.getDatastoreImport(r)»;
 		import «helper.getProcessorImport(r)»;
 		«ENDFOR»
@@ -78,45 +77,45 @@ class CoreXTendGenerator implements IGenerator {
 		import java.util.List;
 		import static java.util.Objects.nonNull;
 		
-		public class «rSet.name.toFirstUpper»Middleware extends Middleware {
+		public class «partition.name.toFirstUpper»Middleware extends Middleware {
 			
-			«FOR r : rSet.regions»
+			«FOR r : partition.regions»
 			«helper.getDatastoreType(r)» «helper.getDatastoreVariableName(r)»;
 			
 			«helper.getProcessorType(r)» «helper.getProcessorVariableName(r)»;
 			
 			«ENDFOR»
-			private static «rSet.name.toFirstUpper»Middleware INSTANCE;
+			private static «partition.name.toFirstUpper»Middleware INSTANCE;
 			
-			public static «rSet.name.toFirstUpper»Middleware getInstance() {
+			public static «partition.name.toFirstUpper»Middleware getInstance() {
 				return INSTANCE;
 			}
 			
-			public «rSet.name.toFirstUpper»Middleware(«getMiddlewareConstructorArguments(rSet, helper)») {
-				«FOR r : rSet.regions»
+			public «partition.name.toFirstUpper»Middleware(«getMiddlewareConstructorArguments(partition, helper)») {
+				«FOR r : partition.regions»
 				this.«helper.getDatastoreVariableName(r)» = «helper.getDatastoreVariableName(r)»
 				«ENDFOR»
-				«FOR r : rSet.regions»
+				«FOR r : partition.regions»
 				this.«helper.getProcessorVariableName(r)» = new «helper.getProcessorType(r)»(«helper.getProcessorArgumenst(r)»);
 				«ENDFOR»
 				
 				if(nonNull(INSTANCE)) {
-					Log.warn("Multiple instances of «rSet.name.toFirstUpper»Middleware have been created");
+					Log.warn("Multiple instances of «partition.name.toFirstUpper»Middleware have been created");
 				}
 				INSTANCE = this;
 			}
 			
 			@Override
 			public List<Datastore> getDatastores() {
-				return Arrays.asList(«getDatastoreVariablesAsParameters(rSet, helper)»);
+				return Arrays.asList(«getDatastoreVariablesAsParameters(partition, helper)»);
 			}
 			
 			@Override
 			public List<QueryProcessor> getProcessors() {
-				return Arrays.asList(«getProcessorVariablesAsParameters(rSet, helper)»);
+				return Arrays.asList(«getProcessorVariablesAsParameters(partition, helper)»);
 			}
 			
-			«FOR r : rSet.regions»
+			«FOR r : partition.regions»
 			public «helper.getDatastoreType(r)» get«helper.getDatastoreVariableName(r).toFirstUpper»() {
 				return this.«helper.getDatastoreVariableName(r)»;
 			}
@@ -164,7 +163,7 @@ class CoreXTendGenerator implements IGenerator {
 			@Override
 			public void commit() throws LifeCycleException {
 				try {
-					«FOR r : rSet.regions»
+					«FOR r : partition.regions»
 					«helper.getDatastoreVariableName(r)».commit();
 					«ENDFOR»
 				} catch(Exception e) {
@@ -173,8 +172,8 @@ class CoreXTendGenerator implements IGenerator {
 			}
 		}
 		''')
-		fsa.generateFile("src\\main\\java\\" + rSet.name.toLowerCase + "\\core\\" + rSet.name.toFirstUpper + "Bootstrap.java", '''
-		package «rSet.name.toLowerCase».core;
+		fsa.generateFile("src\\main\\java\\" + partition.name.toLowerCase + "\\core\\" + partition.name.toFirstUpper + "Bootstrap.java", '''
+		package «partition.name.toLowerCase».core;
 		
 		import som.umltonosql.core.Bootstrap;
 		
@@ -183,15 +182,15 @@ class CoreXTendGenerator implements IGenerator {
 			@Override
 			public void init() {
 				lcManager = new LifeCycleManager(Arrays.asList(
-					«getHandlersInvocationAsParameters(rSet)»
+					«getHandlersInvocationAsParameters(partition)»
 				));
 				
 				// Creates the datastores
-				«FOR r : rSet.regions»
+				«FOR r : partition.regions»
 				«helper.getDatastoreType(r)» «helper.getDatastoreVariableName(r)» = new «helper.getDatastoreType(r)»(«helper.getDatastoreInvocationParameters(r)»);
 				«ENDFOR»
 				
-				middleware = new «rSet.name.toFirstUpper»Middleware(«getDatastoreVariablesAsParameters(rSet, helper)»);
+				middleware = new «partition.name.toFirstUpper»Middleware(«getDatastoreVariablesAsParameters(partition, helper)»);
 				
 				// Need to generate the constraints
 			}
@@ -200,50 +199,50 @@ class CoreXTendGenerator implements IGenerator {
 		
 	}
 	
-	def String getMiddlewareConstructorArguments(RegionSet rSet, RegionGeneratorHelper helper) {
+	def String getMiddlewareConstructorArguments(Partition partition, RegionGeneratorHelper helper) {
 		var StringBuilder sb = new StringBuilder()
-		for(var i = 0; i < rSet.regions.size; i++) {
-			sb.append(helper.getDatastoreType(rSet.regions.get(i)))
+		for(var i = 0; i < partition.regions.size; i++) {
+			sb.append(helper.getDatastoreType(partition.regions.get(i)))
 			sb.append(' ')
-			sb.append(helper.getDatastoreVariableName(rSet.regions.get(i)))
-			if(i < rSet.regions.size - 1) {
+			sb.append(helper.getDatastoreVariableName(partition.regions.get(i)))
+			if(i < partition.regions.size - 1) {
 				sb.append(", ")
 			}
 		}
 		sb.toString
 	}
 	
-	def String getDatastoreVariablesAsParameters(RegionSet rSet, RegionGeneratorHelper helper) {
+	def String getDatastoreVariablesAsParameters(Partition partition, RegionGeneratorHelper helper) {
 		var StringBuilder sb = new StringBuilder()
-		for(var i = 0; i < rSet.regions.size; i++) {
-			sb.append(helper.getDatastoreVariableName(rSet.regions.get(i)))
-			if(i < rSet.regions.size - 1) {
+		for(var i = 0; i < partition.regions.size; i++) {
+			sb.append(helper.getDatastoreVariableName(partition.regions.get(i)))
+			if(i < partition.regions.size - 1) {
 				sb.append(", ")
 			}
 		}
 		sb.toString
 	}
 	
-	def String getProcessorVariablesAsParameters(RegionSet rSet, RegionGeneratorHelper helper) {
+	def String getProcessorVariablesAsParameters(Partition partition, RegionGeneratorHelper helper) {
 		var StringBuilder sb = new StringBuilder()
-		for(var i = 0; i < rSet.regions.size; i++) {
-			sb.append(helper.getProcessorVariableName(rSet.regions.get(i)))
-			if(i < rSet.regions.size - 1) {
+		for(var i = 0; i < partition.regions.size; i++) {
+			sb.append(helper.getProcessorVariableName(partition.regions.get(i)))
+			if(i < partition.regions.size - 1) {
 				sb.append(", ")
 			}
 		}
 		sb.toString
 	}
 	
-	def String getHandlersInvocationAsParameters(RegionSet rSet) {
+	def String getHandlersInvocationAsParameters(Partition partition) {
 		var StringBuilder sb = new StringBuilder()
-		for(var i = 0; i < rSet.regions.size; i++) {
+		for(var i = 0; i < partition.regions.size; i++) {
 			sb.append("new ")
-			sb.append(DatastoreHandlerHelper.getHandlerType(rSet.regions.get(i)))
+			sb.append(DatastoreHandlerHelper.getHandlerType(partition.regions.get(i)))
 			sb.append("(")
-			sb.append(DatastoreHandlerHelper.getHandlerLocation(rSet.regions.get(i)))
+			sb.append(DatastoreHandlerHelper.getHandlerLocation(partition.regions.get(i)))
 			sb.append(")")
-			if(i < rSet.regions.size - 1) {
+			if(i < partition.regions.size - 1) {
 				sb.append(",\n")
 			}
 		}

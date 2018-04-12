@@ -24,17 +24,17 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import region.Partition;
 import region.RegionFactory;
 import region.RegionPackage;
-import region.RegionSet;
 
 /**
- * This is the item provider adapter for a {@link region.RegionSet} object.
+ * This is the item provider adapter for a {@link region.Partition} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class RegionSetItemProvider 
+public class PartitionItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -48,7 +48,7 @@ public class RegionSetItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RegionSetItemProvider(AdapterFactory adapterFactory) {
+	public PartitionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -79,9 +79,9 @@ public class RegionSetItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_RegionSet_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RegionSet_name_feature", "_UI_RegionSet_type"),
-				 RegionPackage.Literals.REGION_SET__NAME,
+				 getString("_UI_Partition_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Partition_name_feature", "_UI_Partition_type"),
+				 RegionPackage.Literals.PARTITION__NAME,
 				 true,
 				 false,
 				 false,
@@ -102,7 +102,7 @@ public class RegionSetItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(RegionPackage.Literals.REGION_SET__REGIONS);
+			childrenFeatures.add(RegionPackage.Literals.PARTITION__REGIONS);
 		}
 		return childrenFeatures;
 	}
@@ -121,14 +121,14 @@ public class RegionSetItemProvider
 	}
 
 	/**
-	 * This returns RegionSet.gif.
+	 * This returns Partition.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/RegionSet"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Partition"));
 	}
 
 	/**
@@ -139,10 +139,10 @@ public class RegionSetItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((RegionSet)object).getName();
+		String label = ((Partition)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_RegionSet_type") :
-			getString("_UI_RegionSet_type") + " " + label;
+			getString("_UI_Partition_type") :
+			getString("_UI_Partition_type") + " " + label;
 	}
 	
 
@@ -157,11 +157,11 @@ public class RegionSetItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(RegionSet.class)) {
-			case RegionPackage.REGION_SET__NAME:
+		switch (notification.getFeatureID(Partition.class)) {
+			case RegionPackage.PARTITION__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case RegionPackage.REGION_SET__REGIONS:
+			case RegionPackage.PARTITION__REGIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -181,7 +181,7 @@ public class RegionSetItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(RegionPackage.Literals.REGION_SET__REGIONS,
+				(RegionPackage.Literals.PARTITION__REGIONS,
 				 RegionFactory.eINSTANCE.createRegion()));
 	}
 

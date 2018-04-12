@@ -66,9 +66,9 @@ public class RegionSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case RegionPackage.REGION_SET: {
-				RegionSet regionSet = (RegionSet)theEObject;
-				T result = caseRegionSet(regionSet);
+			case RegionPackage.PARTITION: {
+				Partition partition = (Partition)theEObject;
+				T result = casePartition(partition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -78,51 +78,22 @@ public class RegionSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case RegionPackage.DATASTORE_DESCRIPTOR: {
-				DatastoreDescriptor datastoreDescriptor = (DatastoreDescriptor)theEObject;
-				T result = caseDatastoreDescriptor(datastoreDescriptor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case RegionPackage.DRILL_DESCRIPTOR: {
-				DrillDescriptor drillDescriptor = (DrillDescriptor)theEObject;
-				T result = caseDrillDescriptor(drillDescriptor);
-				if (result == null) result = caseDatastoreDescriptor(drillDescriptor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case RegionPackage.MONGO_DESCRIPTOR: {
-				MongoDescriptor mongoDescriptor = (MongoDescriptor)theEObject;
-				T result = caseMongoDescriptor(mongoDescriptor);
-				if (result == null) result = caseDrillDescriptor(mongoDescriptor);
-				if (result == null) result = caseDatastoreDescriptor(mongoDescriptor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case RegionPackage.POSTGRES_DESCRIPTOR: {
-				PostgresDescriptor postgresDescriptor = (PostgresDescriptor)theEObject;
-				T result = casePostgresDescriptor(postgresDescriptor);
-				if (result == null) result = caseDrillDescriptor(postgresDescriptor);
-				if (result == null) result = caseDatastoreDescriptor(postgresDescriptor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			default: return defaultCase(theEObject);
 		}
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Set</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Partition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Set</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Partition</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseRegionSet(RegionSet object) {
+	public T casePartition(Partition object) {
 		return null;
 	}
 
@@ -138,66 +109,6 @@ public class RegionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRegion(Region object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Datastore Descriptor</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Datastore Descriptor</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDatastoreDescriptor(DatastoreDescriptor object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Drill Descriptor</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Drill Descriptor</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDrillDescriptor(DrillDescriptor object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Mongo Descriptor</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Mongo Descriptor</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMongoDescriptor(MongoDescriptor object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Postgres Descriptor</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Postgres Descriptor</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePostgresDescriptor(PostgresDescriptor object) {
 		return null;
 	}
 

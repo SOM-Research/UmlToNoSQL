@@ -8,22 +8,22 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Set</b></em>'.
+ * A representation of the model object '<em><b>Partition</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link region.RegionSet#getRegions <em>Regions</em>}</li>
- *   <li>{@link region.RegionSet#getName <em>Name</em>}</li>
+ *   <li>{@link region.Partition#getRegions <em>Regions</em>}</li>
+ *   <li>{@link region.Partition#getName <em>Name</em>}</li>
  * </ul>
  *
- * @see region.RegionPackage#getRegionSet()
+ * @see region.RegionPackage#getPartition()
  * @model
  * @generated
  */
-public interface RegionSet extends EObject {
+public interface Partition extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Regions</b></em>' containment reference list.
 	 * The list contents are of type {@link region.Region}.
@@ -34,7 +34,7 @@ public interface RegionSet extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Regions</em>' containment reference list.
-	 * @see region.RegionPackage#getRegionSet_Regions()
+	 * @see region.RegionPackage#getPartition_Regions()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -50,14 +50,14 @@ public interface RegionSet extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see region.RegionPackage#getRegionSet_Name()
+	 * @see region.RegionPackage#getPartition_Name()
 	 * @model
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link region.RegionSet#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link region.Partition#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
@@ -66,4 +66,4 @@ public interface RegionSet extends EObject {
 	 */
 	void setName(String value);
 
-} // RegionSet
+} // Partition

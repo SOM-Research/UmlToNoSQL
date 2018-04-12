@@ -13,8 +13,8 @@ import org.eclipse.xtext.generator.IGenerator
 import postgres.ForeignKey
 import postgres.Table
 import postgres.Type
+import region.Partition
 import region.Region
-import region.RegionSet
 import som.umltonosql.generator.postgres.PostgresGeneratorUtil
 
 import static java.util.Objects.nonNull
@@ -138,8 +138,8 @@ class PostgresBeanGenerator implements IGenerator {
 	}
 	
 	def Region findRegion(String beanName) {
-		val RegionSet rSet = region.eContainer as RegionSet
-		rSet.regions.findFirst[r | r.classes.map[c | c.name.toFirstUpper].contains(beanName)]
+		val Partition partition = region.eContainer as Partition
+		partition.regions.findFirst[r | r.classes.map[c | c.name.toFirstUpper].contains(beanName)]
 	}
 
 	def String computeGetterType(Type type) {

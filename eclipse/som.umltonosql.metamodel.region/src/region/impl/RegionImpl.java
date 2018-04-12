@@ -3,21 +3,21 @@
 package region.impl;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.uml2.uml.Association;
 
-import region.DatastoreDescriptor;
 import region.Region;
 import region.RegionPackage;
+import region.StorageKind;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,8 +29,7 @@ import region.RegionPackage;
  * <ul>
  *   <li>{@link region.impl.RegionImpl#getName <em>Name</em>}</li>
  *   <li>{@link region.impl.RegionImpl#getClasses <em>Classes</em>}</li>
- *   <li>{@link region.impl.RegionImpl#getAssociations <em>Associations</em>}</li>
- *   <li>{@link region.impl.RegionImpl#getDatastoreDescriptor <em>Datastore Descriptor</em>}</li>
+ *   <li>{@link region.impl.RegionImpl#getStorage <em>Storage</em>}</li>
  * </ul>
  *
  * @generated
@@ -67,24 +66,24 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 	protected EList<org.eclipse.uml2.uml.Class> classes;
 
 	/**
-	 * The cached value of the '{@link #getAssociations() <em>Associations</em>}' reference list.
+	 * The default value of the '{@link #getStorage() <em>Storage</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAssociations()
+	 * @see #getStorage()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Association> associations;
+	protected static final StorageKind STORAGE_EDEFAULT = StorageKind.GRAPH;
 
 	/**
-	 * The cached value of the '{@link #getDatastoreDescriptor() <em>Datastore Descriptor</em>}' containment reference.
+	 * The cached value of the '{@link #getStorage() <em>Storage</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDatastoreDescriptor()
+	 * @see #getStorage()
 	 * @generated
 	 * @ordered
 	 */
-	protected DatastoreDescriptor datastoreDescriptor;
+	protected StorageKind storage = STORAGE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -143,11 +142,8 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Association> getAssociations() {
-		if (associations == null) {
-			associations = new EObjectResolvingEList<Association>(Association.class, this, RegionPackage.REGION__ASSOCIATIONS);
-		}
-		return associations;
+	public StorageKind getStorage() {
+		return storage;
 	}
 
 	/**
@@ -155,56 +151,11 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DatastoreDescriptor getDatastoreDescriptor() {
-		return datastoreDescriptor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDatastoreDescriptor(DatastoreDescriptor newDatastoreDescriptor, NotificationChain msgs) {
-		DatastoreDescriptor oldDatastoreDescriptor = datastoreDescriptor;
-		datastoreDescriptor = newDatastoreDescriptor;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RegionPackage.REGION__DATASTORE_DESCRIPTOR, oldDatastoreDescriptor, newDatastoreDescriptor);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDatastoreDescriptor(DatastoreDescriptor newDatastoreDescriptor) {
-		if (newDatastoreDescriptor != datastoreDescriptor) {
-			NotificationChain msgs = null;
-			if (datastoreDescriptor != null)
-				msgs = ((InternalEObject)datastoreDescriptor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RegionPackage.REGION__DATASTORE_DESCRIPTOR, null, msgs);
-			if (newDatastoreDescriptor != null)
-				msgs = ((InternalEObject)newDatastoreDescriptor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RegionPackage.REGION__DATASTORE_DESCRIPTOR, null, msgs);
-			msgs = basicSetDatastoreDescriptor(newDatastoreDescriptor, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RegionPackage.REGION__DATASTORE_DESCRIPTOR, newDatastoreDescriptor, newDatastoreDescriptor));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case RegionPackage.REGION__DATASTORE_DESCRIPTOR:
-				return basicSetDatastoreDescriptor(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+	public void setStorage(StorageKind newStorage) {
+		StorageKind oldStorage = storage;
+		storage = newStorage == null ? STORAGE_EDEFAULT : newStorage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RegionPackage.REGION__STORAGE, oldStorage, storage));
 	}
 
 	/**
@@ -219,10 +170,8 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 				return getName();
 			case RegionPackage.REGION__CLASSES:
 				return getClasses();
-			case RegionPackage.REGION__ASSOCIATIONS:
-				return getAssociations();
-			case RegionPackage.REGION__DATASTORE_DESCRIPTOR:
-				return getDatastoreDescriptor();
+			case RegionPackage.REGION__STORAGE:
+				return getStorage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -243,12 +192,8 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 				getClasses().clear();
 				getClasses().addAll((Collection<? extends org.eclipse.uml2.uml.Class>)newValue);
 				return;
-			case RegionPackage.REGION__ASSOCIATIONS:
-				getAssociations().clear();
-				getAssociations().addAll((Collection<? extends Association>)newValue);
-				return;
-			case RegionPackage.REGION__DATASTORE_DESCRIPTOR:
-				setDatastoreDescriptor((DatastoreDescriptor)newValue);
+			case RegionPackage.REGION__STORAGE:
+				setStorage((StorageKind)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -268,11 +213,8 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 			case RegionPackage.REGION__CLASSES:
 				getClasses().clear();
 				return;
-			case RegionPackage.REGION__ASSOCIATIONS:
-				getAssociations().clear();
-				return;
-			case RegionPackage.REGION__DATASTORE_DESCRIPTOR:
-				setDatastoreDescriptor((DatastoreDescriptor)null);
+			case RegionPackage.REGION__STORAGE:
+				setStorage(STORAGE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -290,10 +232,8 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case RegionPackage.REGION__CLASSES:
 				return classes != null && !classes.isEmpty();
-			case RegionPackage.REGION__ASSOCIATIONS:
-				return associations != null && !associations.isEmpty();
-			case RegionPackage.REGION__DATASTORE_DESCRIPTOR:
-				return datastoreDescriptor != null;
+			case RegionPackage.REGION__STORAGE:
+				return storage != STORAGE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -310,6 +250,8 @@ public class RegionImpl extends MinimalEObjectImpl.Container implements Region {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", storage: ");
+		result.append(storage);
 		result.append(')');
 		return result.toString();
 	}

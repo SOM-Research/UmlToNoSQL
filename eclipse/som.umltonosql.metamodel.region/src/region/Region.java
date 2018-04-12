@@ -3,9 +3,8 @@
 package region;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.uml2.uml.Association;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,8 +17,7 @@ import org.eclipse.uml2.uml.Association;
  * <ul>
  *   <li>{@link region.Region#getName <em>Name</em>}</li>
  *   <li>{@link region.Region#getClasses <em>Classes</em>}</li>
- *   <li>{@link region.Region#getAssociations <em>Associations</em>}</li>
- *   <li>{@link region.Region#getDatastoreDescriptor <em>Datastore Descriptor</em>}</li>
+ *   <li>{@link region.Region#getStorage <em>Storage</em>}</li>
  * </ul>
  *
  * @see region.RegionPackage#getRegion()
@@ -58,7 +56,7 @@ public interface Region extends EObject {
 	 * The list contents are of type {@link org.eclipse.uml2.uml.Class}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Classes</em>' reference isn't clear,
+	 * If the meaning of the '<em>Classes</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -70,45 +68,32 @@ public interface Region extends EObject {
 	EList<org.eclipse.uml2.uml.Class> getClasses();
 
 	/**
-	 * Returns the value of the '<em><b>Associations</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.uml2.uml.Association}.
+	 * Returns the value of the '<em><b>Storage</b></em>' attribute.
+	 * The literals are from the enumeration {@link region.StorageKind}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Associations</em>' reference isn't clear,
+	 * If the meaning of the '<em>Storage</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Associations</em>' reference list.
-	 * @see region.RegionPackage#getRegion_Associations()
+	 * @return the value of the '<em>Storage</em>' attribute.
+	 * @see region.StorageKind
+	 * @see #setStorage(StorageKind)
+	 * @see region.RegionPackage#getRegion_Storage()
 	 * @model
 	 * @generated
 	 */
-	EList<Association> getAssociations();
+	StorageKind getStorage();
 
 	/**
-	 * Returns the value of the '<em><b>Datastore Descriptor</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Datastore Descriptor</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Datastore Descriptor</em>' containment reference.
-	 * @see #setDatastoreDescriptor(DatastoreDescriptor)
-	 * @see region.RegionPackage#getRegion_DatastoreDescriptor()
-	 * @model containment="true"
-	 * @generated
-	 */
-	DatastoreDescriptor getDatastoreDescriptor();
-
-	/**
-	 * Sets the value of the '{@link region.Region#getDatastoreDescriptor <em>Datastore Descriptor</em>}' containment reference.
+	 * Sets the value of the '{@link region.Region#getStorage <em>Storage</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Datastore Descriptor</em>' containment reference.
-	 * @see #getDatastoreDescriptor()
+	 * @param value the new value of the '<em>Storage</em>' attribute.
+	 * @see region.StorageKind
+	 * @see #getStorage()
 	 * @generated
 	 */
-	void setDatastoreDescriptor(DatastoreDescriptor value);
+	void setStorage(StorageKind value);
 
 } // Region

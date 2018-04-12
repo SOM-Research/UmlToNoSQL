@@ -4,6 +4,7 @@ package region.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -14,14 +15,11 @@ import org.eclipse.uml2.types.TypesPackage;
 
 import org.eclipse.uml2.uml.UMLPackage;
 
-import region.DatastoreDescriptor;
-import region.DrillDescriptor;
-import region.MongoDescriptor;
-import region.PostgresDescriptor;
+import region.Partition;
 import region.Region;
 import region.RegionFactory;
 import region.RegionPackage;
-import region.RegionSet;
+import region.StorageKind;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +33,7 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass regionSetEClass = null;
+	private EClass partitionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -49,28 +47,7 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass datastoreDescriptorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass drillDescriptorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass mongoDescriptorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass postgresDescriptorEClass = null;
+	private EEnum storageKindEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -143,8 +120,8 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRegionSet() {
-		return regionSetEClass;
+	public EClass getPartition() {
+		return partitionEClass;
 	}
 
 	/**
@@ -152,8 +129,8 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRegionSet_Regions() {
-		return (EReference)regionSetEClass.getEStructuralFeatures().get(0);
+	public EReference getPartition_Regions() {
+		return (EReference)partitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -161,8 +138,8 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRegionSet_Name() {
-		return (EAttribute)regionSetEClass.getEStructuralFeatures().get(1);
+	public EAttribute getPartition_Name() {
+		return (EAttribute)partitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -197,8 +174,8 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRegion_Associations() {
-		return (EReference)regionEClass.getEStructuralFeatures().get(2);
+	public EAttribute getRegion_Storage() {
+		return (EAttribute)regionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -206,116 +183,8 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRegion_DatastoreDescriptor() {
-		return (EReference)regionEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDatastoreDescriptor() {
-		return datastoreDescriptorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDrillDescriptor() {
-		return drillDescriptorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDrillDescriptor_DrillDriver() {
-		return (EAttribute)drillDescriptorEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getMongoDescriptor() {
-		return mongoDescriptorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getMongoDescriptor_Host() {
-		return (EAttribute)mongoDescriptorEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getMongoDescriptor_Port() {
-		return (EAttribute)mongoDescriptorEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getMongoDescriptor_DatabaseName() {
-		return (EAttribute)mongoDescriptorEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getPostgresDescriptor() {
-		return postgresDescriptorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPostgresDescriptor_Host() {
-		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPostgresDescriptor_Port() {
-		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPostgresDescriptor_DatabaseName() {
-		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPostgresDescriptor_JdbcDriver() {
-		return (EAttribute)postgresDescriptorEClass.getEStructuralFeatures().get(3);
+	public EEnum getStorageKind() {
+		return storageKindEEnum;
 	}
 
 	/**
@@ -346,31 +215,17 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 		isCreated = true;
 
 		// Create classes and their features
-		regionSetEClass = createEClass(REGION_SET);
-		createEReference(regionSetEClass, REGION_SET__REGIONS);
-		createEAttribute(regionSetEClass, REGION_SET__NAME);
+		partitionEClass = createEClass(PARTITION);
+		createEReference(partitionEClass, PARTITION__REGIONS);
+		createEAttribute(partitionEClass, PARTITION__NAME);
 
 		regionEClass = createEClass(REGION);
 		createEAttribute(regionEClass, REGION__NAME);
 		createEReference(regionEClass, REGION__CLASSES);
-		createEReference(regionEClass, REGION__ASSOCIATIONS);
-		createEReference(regionEClass, REGION__DATASTORE_DESCRIPTOR);
+		createEAttribute(regionEClass, REGION__STORAGE);
 
-		datastoreDescriptorEClass = createEClass(DATASTORE_DESCRIPTOR);
-
-		drillDescriptorEClass = createEClass(DRILL_DESCRIPTOR);
-		createEAttribute(drillDescriptorEClass, DRILL_DESCRIPTOR__DRILL_DRIVER);
-
-		mongoDescriptorEClass = createEClass(MONGO_DESCRIPTOR);
-		createEAttribute(mongoDescriptorEClass, MONGO_DESCRIPTOR__HOST);
-		createEAttribute(mongoDescriptorEClass, MONGO_DESCRIPTOR__PORT);
-		createEAttribute(mongoDescriptorEClass, MONGO_DESCRIPTOR__DATABASE_NAME);
-
-		postgresDescriptorEClass = createEClass(POSTGRES_DESCRIPTOR);
-		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__HOST);
-		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__PORT);
-		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__DATABASE_NAME);
-		createEAttribute(postgresDescriptorEClass, POSTGRES_DESCRIPTOR__JDBC_DRIVER);
+		// Create enums
+		storageKindEEnum = createEEnum(STORAGE_KIND);
 	}
 
 	/**
@@ -397,7 +252,6 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 		UMLPackage theUMLPackage = (UMLPackage)EPackage.Registry.INSTANCE.getEPackage(UMLPackage.eNS_URI);
 
 		// Create type parameters
@@ -405,36 +259,22 @@ public class RegionPackageImpl extends EPackageImpl implements RegionPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		drillDescriptorEClass.getESuperTypes().add(this.getDatastoreDescriptor());
-		mongoDescriptorEClass.getESuperTypes().add(this.getDrillDescriptor());
-		postgresDescriptorEClass.getESuperTypes().add(this.getDrillDescriptor());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(regionSetEClass, RegionSet.class, "RegionSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRegionSet_Regions(), this.getRegion(), null, "regions", null, 0, -1, RegionSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRegionSet_Name(), theEcorePackage.getEString(), "name", null, 0, 1, RegionSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(partitionEClass, Partition.class, "Partition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPartition_Regions(), this.getRegion(), null, "regions", null, 0, -1, Partition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPartition_Name(), ecorePackage.getEString(), "name", null, 0, 1, Partition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(regionEClass, Region.class, "Region", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRegion_Name(), ecorePackage.getEString(), "name", null, 0, 1, Region.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegion_Classes(), theUMLPackage.getClass_(), null, "classes", null, 0, -1, Region.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRegion_Associations(), theUMLPackage.getAssociation(), null, "associations", null, 0, -1, Region.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRegion_DatastoreDescriptor(), this.getDatastoreDescriptor(), null, "datastoreDescriptor", null, 0, 1, Region.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRegion_Storage(), this.getStorageKind(), "storage", null, 0, 1, Region.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(datastoreDescriptorEClass, DatastoreDescriptor.class, "DatastoreDescriptor", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(drillDescriptorEClass, DrillDescriptor.class, "DrillDescriptor", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDrillDescriptor_DrillDriver(), theEcorePackage.getEString(), "drillDriver", null, 0, 1, DrillDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(mongoDescriptorEClass, MongoDescriptor.class, "MongoDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMongoDescriptor_Host(), theEcorePackage.getEString(), "host", null, 0, 1, MongoDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMongoDescriptor_Port(), theEcorePackage.getEInt(), "port", null, 0, 1, MongoDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getMongoDescriptor_DatabaseName(), theEcorePackage.getEString(), "databaseName", null, 0, 1, MongoDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(postgresDescriptorEClass, PostgresDescriptor.class, "PostgresDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPostgresDescriptor_Host(), theEcorePackage.getEString(), "host", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPostgresDescriptor_Port(), theEcorePackage.getEInt(), "port", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPostgresDescriptor_DatabaseName(), theEcorePackage.getEString(), "databaseName", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPostgresDescriptor_JdbcDriver(), theEcorePackage.getEString(), "jdbcDriver", null, 0, 1, PostgresDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		// Initialize enums and add enum literals
+		initEEnum(storageKindEEnum, StorageKind.class, "StorageKind");
+		addEEnumLiteral(storageKindEEnum, StorageKind.GRAPH);
+		addEEnumLiteral(storageKindEEnum, StorageKind.DOCUMENT);
+		addEEnumLiteral(storageKindEEnum, StorageKind.RELATIONAL);
 
 		// Create resource
 		createResource(eNS_URI);

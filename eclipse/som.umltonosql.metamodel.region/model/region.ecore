@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="region" nsURI="som.umltonosql.metamodel.region" nsPrefix="region">
-  <eClassifiers xsi:type="ecore:EClass" name="RegionSet">
+  <eClassifiers xsi:type="ecore:EClass" name="Partition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="regions" upperBound="-1"
         eType="#//Region" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -10,24 +10,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classes" upperBound="-1"
         eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//Class"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="associations" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//Association"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="datastoreDescriptor" eType="#//DatastoreDescriptor"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="storage" eType="#//StorageKind"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DatastoreDescriptor" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DrillDescriptor" abstract="true" eSuperTypes="#//DatastoreDescriptor">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="drillDriver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MongoDescriptor" eSuperTypes="#//DrillDescriptor">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="host" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="databaseName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PostgresDescriptor" eSuperTypes="#//DrillDescriptor">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="host" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="databaseName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="jdbcDriver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="StorageKind">
+    <eLiterals name="GRAPH"/>
+    <eLiterals name="DOCUMENT" value="1"/>
+    <eLiterals name="RELATIONAL" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

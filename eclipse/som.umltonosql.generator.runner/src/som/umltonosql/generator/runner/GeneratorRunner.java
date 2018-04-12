@@ -13,9 +13,9 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl;
 
+import region.Partition;
 import region.Region;
 import region.RegionPackage;
-import region.RegionSet;
 import som.umltonosql.generator.runner.util.UmlToNoSQLGeneratorUtil;
 import som.umltonosql.generator.structure.UmlToNoSQLGenerator;
 
@@ -49,24 +49,24 @@ public class GeneratorRunner {
 		Resource modelResource = rSet.getResource(modelResourceURI, true);
 		modelResource.setURI(URI.createURI("model.uml"));
 		Resource regionResource = rSet.getResource(regionResourceURI, true);
-		RegionSet regionSet = (RegionSet) regionResource.getContents().get(0);
+		Partition partition = (Partition) regionResource.getContents().get(0);
 		
 		// Initialize the Generator Helper
-		UmlToNoSQLGeneratorUtil genHelper = UmlToNoSQLGeneratorUtil.init(rootFolder, regionSet);
+		UmlToNoSQLGeneratorUtil genHelper = UmlToNoSQLGeneratorUtil.init(rootFolder, partition);
 		
 		List<UmlToNoSQLGenerator> generators = UmlToNoSQLGeneratorUtil.getInstance().getGenerators();
 
-		generateMavenStructure(rootFolder, regionSet);
+		generateMavenStructure(rootFolder, partition);
 		
 		StreamSupport.stream(generators.spliterator(), false).forEach(g -> g.launch());
 	}
 	
-	private static void generateMavenStructure(File file, RegionSet regionSet) {
-		File basePackage = new File(file, "src\\main\\java\\" + regionSet.getName() + "\\");
+	private static void generateMavenStructure(File file, Partition partition) {
+		File basePackage = new File(file, "src\\main\\java\\" + partition.getName() + "\\");
 		basePackage.mkdirs();
 		new File(basePackage, "core").mkdir();
 		new File(file, "src\\main\\resources").mkdirs();
-		for(Region region : regionSet.getRegions()) {
+		for(Region region : partition.getRegions()) {
 			new File(basePackage, region.getName()).mkdir();
 		}
 	}

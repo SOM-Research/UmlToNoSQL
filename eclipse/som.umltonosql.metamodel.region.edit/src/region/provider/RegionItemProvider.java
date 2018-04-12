@@ -11,7 +11,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,7 +23,6 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import region.Region;
-import region.RegionFactory;
 import region.RegionPackage;
 
 /**
@@ -64,7 +62,7 @@ public class RegionItemProvider
 
 			addNamePropertyDescriptor(object);
 			addClassesPropertyDescriptor(object);
-			addAssociationsPropertyDescriptor(object);
+			addStoragePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -114,55 +112,25 @@ public class RegionItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Associations feature.
+	 * This adds a property descriptor for the Storage feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addAssociationsPropertyDescriptor(Object object) {
+	protected void addStoragePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Region_associations_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Region_associations_feature", "_UI_Region_type"),
-				 RegionPackage.Literals.REGION__ASSOCIATIONS,
+				 getString("_UI_Region_storage_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Region_storage_feature", "_UI_Region_type"),
+				 RegionPackage.Literals.REGION__STORAGE,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(RegionPackage.Literals.REGION__DATASTORE_DESCRIPTOR);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -204,10 +172,8 @@ public class RegionItemProvider
 
 		switch (notification.getFeatureID(Region.class)) {
 			case RegionPackage.REGION__NAME:
+			case RegionPackage.REGION__STORAGE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case RegionPackage.REGION__DATASTORE_DESCRIPTOR:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -223,16 +189,6 @@ public class RegionItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(RegionPackage.Literals.REGION__DATASTORE_DESCRIPTOR,
-				 RegionFactory.eINSTANCE.createMongoDescriptor()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(RegionPackage.Literals.REGION__DATASTORE_DESCRIPTOR,
-				 RegionFactory.eINSTANCE.createPostgresDescriptor()));
 	}
 
 	/**

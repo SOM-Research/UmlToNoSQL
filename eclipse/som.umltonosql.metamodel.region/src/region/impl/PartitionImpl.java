@@ -18,25 +18,25 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import region.Partition;
 import region.Region;
 import region.RegionPackage;
-import region.RegionSet;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Set</b></em>'.
+ * An implementation of the model object '<em><b>Partition</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link region.impl.RegionSetImpl#getRegions <em>Regions</em>}</li>
- *   <li>{@link region.impl.RegionSetImpl#getName <em>Name</em>}</li>
+ *   <li>{@link region.impl.PartitionImpl#getRegions <em>Regions</em>}</li>
+ *   <li>{@link region.impl.PartitionImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class RegionSetImpl extends MinimalEObjectImpl.Container implements RegionSet {
+public class PartitionImpl extends MinimalEObjectImpl.Container implements Partition {
 	/**
 	 * The cached value of the '{@link #getRegions() <em>Regions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -56,6 +56,7 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	 * @ordered
 	 */
 	protected static final String NAME_EDEFAULT = null;
+
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -71,7 +72,7 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RegionSetImpl() {
+	protected PartitionImpl() {
 		super();
 	}
 
@@ -82,7 +83,7 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return RegionPackage.Literals.REGION_SET;
+		return RegionPackage.Literals.PARTITION;
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	 */
 	public EList<Region> getRegions() {
 		if (regions == null) {
-			regions = new EObjectContainmentEList<Region>(Region.class, this, RegionPackage.REGION_SET__REGIONS);
+			regions = new EObjectContainmentEList<Region>(Region.class, this, RegionPackage.PARTITION__REGIONS);
 		}
 		return regions;
 	}
@@ -115,7 +116,7 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RegionPackage.REGION_SET__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, RegionPackage.PARTITION__NAME, oldName, name));
 	}
 
 	/**
@@ -126,7 +127,7 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case RegionPackage.REGION_SET__REGIONS:
+			case RegionPackage.PARTITION__REGIONS:
 				return ((InternalEList<?>)getRegions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -140,9 +141,9 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RegionPackage.REGION_SET__REGIONS:
+			case RegionPackage.PARTITION__REGIONS:
 				return getRegions();
-			case RegionPackage.REGION_SET__NAME:
+			case RegionPackage.PARTITION__NAME:
 				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -157,11 +158,11 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RegionPackage.REGION_SET__REGIONS:
+			case RegionPackage.PARTITION__REGIONS:
 				getRegions().clear();
 				getRegions().addAll((Collection<? extends Region>)newValue);
 				return;
-			case RegionPackage.REGION_SET__NAME:
+			case RegionPackage.PARTITION__NAME:
 				setName((String)newValue);
 				return;
 		}
@@ -176,10 +177,10 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RegionPackage.REGION_SET__REGIONS:
+			case RegionPackage.PARTITION__REGIONS:
 				getRegions().clear();
 				return;
-			case RegionPackage.REGION_SET__NAME:
+			case RegionPackage.PARTITION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
 		}
@@ -194,9 +195,9 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RegionPackage.REGION_SET__REGIONS:
+			case RegionPackage.PARTITION__REGIONS:
 				return regions != null && !regions.isEmpty();
-			case RegionPackage.REGION_SET__NAME:
+			case RegionPackage.PARTITION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
@@ -218,4 +219,4 @@ public class RegionSetImpl extends MinimalEObjectImpl.Container implements Regio
 		return result.toString();
 	}
 
-} //RegionSetImpl
+} //PartitionImpl

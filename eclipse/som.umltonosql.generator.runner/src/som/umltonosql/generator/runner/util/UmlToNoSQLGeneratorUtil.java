@@ -12,13 +12,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import postgres.PostgresPackage;
+
 import mongodb.MongodbPackage;
-import region.DatastoreDescriptor;
-import region.MongoDescriptor;
-import region.PostgresDescriptor;
+import postgres.PostgresPackage;
+import region.Partition;
 import region.Region;
-import region.RegionSet;
+import region.StorageKind;
 import som.umltonosql.generator.core.UmlToNoSQLCoreGenerator;
 import som.umltonosql.generator.mongodb.UmlToNoSQLMongoGenerator;
 import som.umltonosql.generator.postgres.UmlToNoSQLPostgresGenerator;
@@ -30,7 +29,7 @@ public class UmlToNoSQLGeneratorUtil {
 	
 	private File basePackage;
 	
-	private RegionSet rSet;
+	private Partition partition;
 	
 	private ResourceSet resourceSet;
 
@@ -40,17 +39,17 @@ public class UmlToNoSQLGeneratorUtil {
 		return INSTANCE;
 	}
 	
-	public static UmlToNoSQLGeneratorUtil init(File rootFile, RegionSet rSet) {
+	public static UmlToNoSQLGeneratorUtil init(File rootFile, Partition partition) {
 		if(nonNull(INSTANCE)) {
 			throw new RuntimeException("An instance of UmlToNoSQLGenerator already exist");
 		}
-		INSTANCE = new UmlToNoSQLGeneratorUtil(rootFile, rSet);
+		INSTANCE = new UmlToNoSQLGeneratorUtil(rootFile, partition);
 		return INSTANCE;
 	}
 	
-	private UmlToNoSQLGeneratorUtil(File rootFile, RegionSet rSet) {
+	private UmlToNoSQLGeneratorUtil(File rootFile, Partition partition) {
 		this.rootFile = rootFile;
-		this.rSet = rSet;
+		this.partition = partition;
 		this.resourceSet = new ResourceSetImpl();
 		EPackage.Registry.INSTANCE.put(MongodbPackage.eINSTANCE.getNsURI(), MongodbPackage.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(PostgresPackage.eINSTANCE.getNsURI(), PostgresPackage.eINSTANCE);
@@ -60,13 +59,13 @@ public class UmlToNoSQLGeneratorUtil {
 	
 	public List<UmlToNoSQLGenerator> getGenerators() {
 		List<UmlToNoSQLGenerator> generators = new ArrayList<>();
-		generators.add(new UmlToNoSQLCoreGenerator(rSet.eResource(), rootFile));
-		for(Region r : rSet.getRegions()) {
-			DatastoreDescriptor descriptor = r.getDatastoreDescriptor();
-			if(descriptor instanceof MongoDescriptor) {
+		generators.add(new UmlToNoSQLCoreGenerator(partition.eResource(), rootFile));
+		for(Region r : partition.getRegions()) {
+			StorageKind sKind = r.getStorage();
+			if(sKind.equals(StorageKind.DOCUMENT)) {
 				Resource mongoResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
 				generators.add(new UmlToNoSQLMongoGenerator(mongoResource, new File(basePackage, r.getName().toLowerCase()), r));
-			} else if(descriptor instanceof PostgresDescriptor) {
+			} else if(sKind.equals(StorageKind.RELATIONAL)) {
 				Resource postgresResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
 				generators.add(new UmlToNoSQLPostgresGenerator(postgresResource, new File(basePackage, r.getName().toLowerCase()), r));
 			}

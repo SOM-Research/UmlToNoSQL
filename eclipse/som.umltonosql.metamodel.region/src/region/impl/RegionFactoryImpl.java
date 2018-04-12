@@ -3,6 +3,7 @@
 package region.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -56,10 +57,8 @@ public class RegionFactoryImpl extends EFactoryImpl implements RegionFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case RegionPackage.REGION_SET: return createRegionSet();
+			case RegionPackage.PARTITION: return createPartition();
 			case RegionPackage.REGION: return createRegion();
-			case RegionPackage.MONGO_DESCRIPTOR: return createMongoDescriptor();
-			case RegionPackage.POSTGRES_DESCRIPTOR: return createPostgresDescriptor();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -70,9 +69,39 @@ public class RegionFactoryImpl extends EFactoryImpl implements RegionFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RegionSet createRegionSet() {
-		RegionSetImpl regionSet = new RegionSetImpl();
-		return regionSet;
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case RegionPackage.STORAGE_KIND:
+				return createStorageKindFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case RegionPackage.STORAGE_KIND:
+				return convertStorageKindToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Partition createPartition() {
+		PartitionImpl partition = new PartitionImpl();
+		return partition;
 	}
 
 	/**
@@ -90,9 +119,10 @@ public class RegionFactoryImpl extends EFactoryImpl implements RegionFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MongoDescriptor createMongoDescriptor() {
-		MongoDescriptorImpl mongoDescriptor = new MongoDescriptorImpl();
-		return mongoDescriptor;
+	public StorageKind createStorageKindFromString(EDataType eDataType, String initialValue) {
+		StorageKind result = StorageKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
 	}
 
 	/**
@@ -100,9 +130,8 @@ public class RegionFactoryImpl extends EFactoryImpl implements RegionFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PostgresDescriptor createPostgresDescriptor() {
-		PostgresDescriptorImpl postgresDescriptor = new PostgresDescriptorImpl();
-		return postgresDescriptor;
+	public String convertStorageKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

@@ -72,26 +72,26 @@ public class RegionItemProviderAdapterFactory extends RegionAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link region.RegionSet} instances.
+	 * This keeps track of the one adapter used for all {@link region.Partition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RegionSetItemProvider regionSetItemProvider;
+	protected PartitionItemProvider partitionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link region.RegionSet}.
+	 * This creates an adapter for a {@link region.Partition}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createRegionSetAdapter() {
-		if (regionSetItemProvider == null) {
-			regionSetItemProvider = new RegionSetItemProvider(this);
+	public Adapter createPartitionAdapter() {
+		if (partitionItemProvider == null) {
+			partitionItemProvider = new PartitionItemProvider(this);
 		}
 
-		return regionSetItemProvider;
+		return partitionItemProvider;
 	}
 
 	/**
@@ -115,52 +115,6 @@ public class RegionItemProviderAdapterFactory extends RegionAdapterFactory imple
 		}
 
 		return regionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link region.MongoDescriptor} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected MongoDescriptorItemProvider mongoDescriptorItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link region.MongoDescriptor}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createMongoDescriptorAdapter() {
-		if (mongoDescriptorItemProvider == null) {
-			mongoDescriptorItemProvider = new MongoDescriptorItemProvider(this);
-		}
-
-		return mongoDescriptorItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link region.PostgresDescriptor} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PostgresDescriptorItemProvider postgresDescriptorItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link region.PostgresDescriptor}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPostgresDescriptorAdapter() {
-		if (postgresDescriptorItemProvider == null) {
-			postgresDescriptorItemProvider = new PostgresDescriptorItemProvider(this);
-		}
-
-		return postgresDescriptorItemProvider;
 	}
 
 	/**
@@ -262,10 +216,8 @@ public class RegionItemProviderAdapterFactory extends RegionAdapterFactory imple
 	 * @generated
 	 */
 	public void dispose() {
-		if (regionSetItemProvider != null) regionSetItemProvider.dispose();
+		if (partitionItemProvider != null) partitionItemProvider.dispose();
 		if (regionItemProvider != null) regionItemProvider.dispose();
-		if (mongoDescriptorItemProvider != null) mongoDescriptorItemProvider.dispose();
-		if (postgresDescriptorItemProvider != null) postgresDescriptorItemProvider.dispose();
 	}
 
 }
