@@ -13,6 +13,8 @@ import java.util.Set
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
+import region.Partition
+import region.Region
 import som.umltonosql.generator.core.GeneratorUtil
 import som.umltonosql.generator.mongodb.MongoGeneratorUtil
 
@@ -25,12 +27,15 @@ class MongoBeanGenerator implements IGenerator {
 	String mongoBasePackage
 	String appName
 	String corePackage
+	
+	Region region
 
 	new() {
 		
 		this.mongoBasePackage = MongoGeneratorUtil.instance.mongoBasePackage
 		this.appName = GeneratorUtil.instance.appName
 		this.corePackage = GeneratorUtil.instance.corePackageName
+		this.region = MongoGeneratorUtil.instance.region
 		
 		primitiveTypeToJavaTypeMapping = new HashMap<String,String>()
 		primitiveTypeToJavaTypeMapping.put("String", "String")
@@ -101,7 +106,7 @@ class MongoBeanGenerator implements IGenerator {
 							«ELSE»
 								«IF field.type instanceof UmlToNoSQLIDReference»
 								ObjectId «field.type.name.toFirstLower»Id = getValue("«field.key»");
-								return «appName.toFirstUpper»Middleware.get«field.type.name.toFirstUpper»(«field.type.name.toFirstLower»Id.toString());
+								return «appName.toFirstUpper»Middleware.getInstance().get«field.type.name.toFirstUpper»(«field.type.name.toFirstLower»Id.toString());
 								«ELSE»
 								return getValue("«field.key.toFirstLower»");
 								«ENDIF»
@@ -122,12 +127,14 @@ class MongoBeanGenerator implements IGenerator {
 							«ENDIF»
 						«ENDIF»
 					}
+					
 					«ELSE»
 					public void add«field.key.toFirstUpper»(«field.type.name» new«field.key.toFirstUpper») {
 						List<ObjectId> «field.key»Id = getValue("«field.key»");
 						«field.key»Id.add(new«field.key.toFirstUpper».getObjectId());
 						updateField("«field.key»", «field.key»Id);	
 					}
+					
 					«ENDIF»
 					«ENDFOR»
 				«ENDFOR»
@@ -165,6 +172,11 @@ class MongoBeanGenerator implements IGenerator {
 					imports.add("java.util.ArrayList")
 					imports.add("org.bson.types.ObjectId")
 				}
+				if(f.type instanceof UmlToNoSQLIDReference) {
+					val beanName = (f.type as UmlToNoSQLIDReference).name
+					val beanRegion = findRegion(beanName)
+					imports.add(appName + '.' + beanRegion.name + '.' + beanName)
+				}
 			]
 		];
 		return imports
@@ -172,6 +184,11 @@ class MongoBeanGenerator implements IGenerator {
 	
 	def String getImport(String type) {
 		return javaTypeToImportMapping.get(type)
+	}
+	
+	def Region findRegion(String beanName) {
+		val Partition partition = region.eContainer as Partition
+		partition.regions.findFirst[r | r.classes.map[c | c.name.toFirstUpper].contains(beanName)]
 	}
 	
 }

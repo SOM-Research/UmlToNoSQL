@@ -2,6 +2,8 @@ package som.umltonosql.generator.mongodb;
 
 import static java.util.Objects.isNull;
 
+import region.Region;
+
 public class MongoGeneratorUtil {
 
 	private static MongoGeneratorUtil INSTANCE;
@@ -15,6 +17,8 @@ public class MongoGeneratorUtil {
 	
 	private String mongoBasePackage;
 	
+	private Region region;
+	
 	private MongoGeneratorUtil() {
 		
 	}
@@ -27,6 +31,14 @@ public class MongoGeneratorUtil {
 	
 	public String getMongoBasePackage() {
 		return this.mongoBasePackage;
+	}
+	
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+	
+	public Region getRegion() {
+		return region;
 	}
 	
 }

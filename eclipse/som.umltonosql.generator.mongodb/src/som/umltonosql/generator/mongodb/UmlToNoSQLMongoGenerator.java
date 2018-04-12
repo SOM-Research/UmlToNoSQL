@@ -20,6 +20,7 @@ public class UmlToNoSQLMongoGenerator extends UmlToNoSQLGenerator {
 		GeneratorUtil.getInstance().setAppName("demo");
 		GeneratorUtil.getInstance().setCorePackageName("core");
 		MongoGeneratorUtil.getInstance().setMongoBasePackage(region.getName());
+		MongoGeneratorUtil.getInstance().setRegion(region);
 	}
 	
 	@Override
