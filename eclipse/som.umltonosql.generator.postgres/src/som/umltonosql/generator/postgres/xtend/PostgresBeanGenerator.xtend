@@ -143,7 +143,6 @@ class PostgresBeanGenerator implements IGenerator {
 	}
 
 	def String computeGetterType(Type type) {
-		println(type.eClass.name)
 		return primitiveTypeToJavaTypeMapping.get(type.eClass.name)
 	}
 
