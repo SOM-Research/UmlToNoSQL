@@ -93,7 +93,7 @@ class CoreXTendGenerator implements IGenerator {
 			
 			public «partition.name.toFirstUpper»Middleware(«getMiddlewareConstructorArguments(partition, helper)») {
 				«FOR r : partition.regions»
-				this.«helper.getDatastoreVariableName(r)» = «helper.getDatastoreVariableName(r)»
+				this.«helper.getDatastoreVariableName(r)» = «helper.getDatastoreVariableName(r)»;
 				«ENDFOR»
 				«FOR r : partition.regions»
 				this.«helper.getProcessorVariableName(r)» = new «helper.getProcessorType(r)»(«helper.getProcessorArgumenst(r)»);
@@ -121,7 +121,7 @@ class CoreXTendGenerator implements IGenerator {
 			}
 			
 			public «helper.getProcessorType(r)» get«helper.getProcessorVariableName(r).toFirstUpper»() {
-				return this.«helper.getProcessorVariableName(r)»
+				return this.«helper.getProcessorVariableName(r)»;
 			}
 			
 			«ENDFOR»
