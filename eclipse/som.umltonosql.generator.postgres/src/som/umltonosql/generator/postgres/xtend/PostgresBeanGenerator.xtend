@@ -18,6 +18,7 @@ import relationaldb.Type
 import som.umltonosql.generator.postgres.PostgresGeneratorUtil
 
 import static java.util.Objects.nonNull
+import som.umltonosql.generator.core.CoreGeneratorUtil
 
 class PostgresBeanGenerator implements IGenerator {
 
@@ -32,9 +33,9 @@ class PostgresBeanGenerator implements IGenerator {
 
 	new() {
 
-		this.postgresBasePackage = PostgresGeneratorUtil.instance.postgresBasePackage
-		this.appName = PostgresGeneratorUtil.instance.appName
-		this.corePackage = PostgresGeneratorUtil.instance.corePackageName
+		this.postgresBasePackage = PostgresGeneratorUtil.instance.basePackage
+		this.appName = CoreGeneratorUtil.instance.appName
+		this.corePackage = CoreGeneratorUtil.instance.corePackageName
 		this.region = PostgresGeneratorUtil.instance.region
 
 		primitiveTypeToJavaTypeMapping = new HashMap<String, String>()

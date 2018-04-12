@@ -2,22 +2,26 @@ package som.umltonosql.generator.core;
 
 import static java.util.Objects.isNull;
 
-public class GeneratorUtil {
+import region.Partition;
 
-	private static GeneratorUtil INSTANCE;
+public class CoreGeneratorUtil {
 	
-	public static GeneratorUtil getInstance() {
+	private static CoreGeneratorUtil INSTANCE;
+	
+	public static CoreGeneratorUtil getInstance() {
 		if(isNull(INSTANCE)) {
-			INSTANCE = new GeneratorUtil();
+			INSTANCE = new CoreGeneratorUtil();
 		}
 		return INSTANCE;
 	}
 	
 	private String appName;
 	
+	private Partition partition;
+	
 	private String corePackageName;
 	
-	private GeneratorUtil() {
+	private CoreGeneratorUtil() {
 		
 	}
 	
@@ -29,6 +33,14 @@ public class GeneratorUtil {
 		return this.appName;
 	}
 	
+	public void setPartition(Partition partition) {
+		this.partition = partition;
+	}
+	
+	public Partition getPartition() {
+		return this.partition;
+	}
+	
 	public void setCorePackageName(String corePackageName) {
 		this.corePackageName = corePackageName;
 	}
@@ -37,4 +49,5 @@ public class GeneratorUtil {
 		return corePackageName;
 	}
 	
+
 }

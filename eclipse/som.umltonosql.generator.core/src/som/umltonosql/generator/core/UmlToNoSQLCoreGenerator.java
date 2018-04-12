@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import region.Partition;
 import som.umltonosql.generator.structure.UmlToNoSQLGenerator;
 
 public class UmlToNoSQLCoreGenerator extends UmlToNoSQLGenerator {
@@ -15,6 +16,10 @@ public class UmlToNoSQLCoreGenerator extends UmlToNoSQLGenerator {
 	
 	public UmlToNoSQLCoreGenerator(Resource resource, File rootFolder) {
 		super(resource, rootFolder);
+		Partition partition = (Partition)resource.getContents().get(0);
+		CoreGeneratorUtil.getInstance().setAppName(partition.getName());
+		CoreGeneratorUtil.getInstance().setPartition(partition);
+		CoreGeneratorUtil.getInstance().setCorePackageName("core");
 	}
 	
 	@Override

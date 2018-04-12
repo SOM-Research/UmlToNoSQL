@@ -8,7 +8,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import region.Region;
-import som.umltonosql.generator.core.GeneratorUtil;
 import som.umltonosql.generator.structure.UmlToNoSQLGenerator;
 
 public class UmlToNoSQLMongoGenerator extends UmlToNoSQLGenerator {
@@ -17,9 +16,7 @@ public class UmlToNoSQLMongoGenerator extends UmlToNoSQLGenerator {
 	
 	public UmlToNoSQLMongoGenerator(Resource res, File rootFolder, Region region) {
 		super(res, rootFolder, region);
-		GeneratorUtil.getInstance().setAppName("demo");
-		GeneratorUtil.getInstance().setCorePackageName("core");
-		MongoGeneratorUtil.getInstance().setMongoBasePackage(region.getName());
+		MongoGeneratorUtil.getInstance().setBasePackage(region.getName());
 		MongoGeneratorUtil.getInstance().setRegion(region);
 	}
 	

@@ -16,9 +16,7 @@ private static Injector injector = Guice.createInjector(new PostgresGeneratorMod
 	
 	public UmlToNoSQLPostgresGenerator(Resource res, File rootFolder, Region region) {
 		super(res, rootFolder, region);
-		PostgresGeneratorUtil.getInstance().setAppName("demo");
-		PostgresGeneratorUtil.getInstance().setCorePackageName("core");
-		PostgresGeneratorUtil.getInstance().setPostgresBasePackage(region.getName());
+		PostgresGeneratorUtil.getInstance().setBasePackage(region.getName());
 		PostgresGeneratorUtil.getInstance().setRegion(region);
 	}
 	
