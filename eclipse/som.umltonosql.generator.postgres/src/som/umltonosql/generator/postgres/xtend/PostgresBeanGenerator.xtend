@@ -10,11 +10,11 @@ import java.util.Set
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import postgres.ForeignKey
-import postgres.Table
-import postgres.Type
 import region.Partition
 import region.Region
+import relationaldb.ForeignKey
+import relationaldb.Table
+import relationaldb.Type
 import som.umltonosql.generator.postgres.PostgresGeneratorUtil
 
 import static java.util.Objects.nonNull

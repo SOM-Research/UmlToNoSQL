@@ -9,4 +9,4 @@ Require-Bundle: org.eclipse.xtext.generator,
  org.eclipse.xtext,
  som.umltonosql.generator.core,
  som.umltonosql.metamodel.region,
- som.umltonosql.metamodel.postgres;bundle-version="1.0.0"
+ som.umltonosql.metamodel.relationaldb;bundle-version="1.0.0"

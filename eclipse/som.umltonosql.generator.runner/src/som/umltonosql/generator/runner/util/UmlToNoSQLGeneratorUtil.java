@@ -16,10 +16,10 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import documentdb.Database;
 import documentdb.DatabaseKind;
 import documentdb.DocumentdbPackage;
-import postgres.PostgresPackage;
 import region.Partition;
 import region.Region;
 import region.StorageKind;
+import relationaldb.RelationaldbPackage;
 import som.umltonosql.generator.core.UmlToNoSQLCoreGenerator;
 import som.umltonosql.generator.mongodb.UmlToNoSQLMongoGenerator;
 import som.umltonosql.generator.postgres.UmlToNoSQLPostgresGenerator;
@@ -54,7 +54,7 @@ public class UmlToNoSQLGeneratorUtil {
 		this.partition = partition;
 		this.resourceSet = new ResourceSetImpl();
 		EPackage.Registry.INSTANCE.put(DocumentdbPackage.eINSTANCE.getNsURI(), DocumentdbPackage.eINSTANCE);
-		EPackage.Registry.INSTANCE.put(PostgresPackage.eINSTANCE.getNsURI(), PostgresPackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(RelationaldbPackage.eINSTANCE.getNsURI(), RelationaldbPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		basePackage = new File(rootFile, "\\src\\main\\java\\demo");
 	}
@@ -65,16 +65,21 @@ public class UmlToNoSQLGeneratorUtil {
 		for(Region r : partition.getRegions()) {
 			StorageKind sKind = r.getStorage();
 			if(sKind.equals(StorageKind.DOCUMENT)) {
-				Resource mongoResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
-				Database db = (Database)mongoResource.getContents().get(0);
+				Resource documentResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
+				Database db = (Database)documentResource.getContents().get(0);
 				if(db.getRawDatabase().equals(DatabaseKind.MONGODB)) {
-					generators.add(new UmlToNoSQLMongoGenerator(mongoResource, new File(basePackage, r.getName().toLowerCase()), r));
+					generators.add(new UmlToNoSQLMongoGenerator(documentResource, new File(basePackage, r.getName().toLowerCase()), r));
 				} else {
 					throw new RuntimeException("Unknown Document Database Kind: " + db.getRawDatabase());
 				}
 			} else if(sKind.equals(StorageKind.RELATIONAL)) {
-				Resource postgresResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
-				generators.add(new UmlToNoSQLPostgresGenerator(postgresResource, new File(basePackage, r.getName().toLowerCase()), r));
+				Resource relationalResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
+				relationaldb.Database db = (relationaldb.Database)relationalResource.getContents().get(0);
+				if(db.getRawDatabase().equals(relationaldb.DatabaseKind.POSTGRES)) {
+					generators.add(new UmlToNoSQLPostgresGenerator(relationalResource, new File(basePackage, r.getName().toLowerCase()), r));
+				} else {
+					throw new RuntimeException("Unknown Relational Database Kind: " + db.getRawDatabase());
+				}
 			}
 		}
 		return generators;

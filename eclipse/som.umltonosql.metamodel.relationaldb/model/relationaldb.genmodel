@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/som.umltonosql.metamodel.relationaldb/src" modelPluginID="som.umltonosql.metamodel.relationaldb"
+    modelName="Relationaldb" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>relationaldb.ecore</foreignModel>
+  <genPackages prefix="Relationaldb" disposableProviderFactory="true" ecorePackage="relationaldb.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="relationaldb.ecore#//DatabaseKind">
+      <genEnumLiterals ecoreEnumLiteral="relationaldb.ecore#//DatabaseKind/POSTGRES"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="relationaldb.ecore#//Named">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute relationaldb.ecore#//Named/name"/>
+    </genClasses>
+    <genClasses ecoreClass="relationaldb.ecore#//Database">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference relationaldb.ecore#//Database/tables"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute relationaldb.ecore#//Database/rawDatabase"/>
+    </genClasses>
+    <genClasses ecoreClass="relationaldb.ecore#//Table">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference relationaldb.ecore#//Table/col"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference relationaldb.ecore#//Table/primaryKeys"/>
+    </genClasses>
+    <genClasses ecoreClass="relationaldb.ecore#//Column">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference relationaldb.ecore#//Column/owner"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference relationaldb.ecore#//Column/type"/>
+    </genClasses>
+    <genClasses ecoreClass="relationaldb.ecore#//ForeignKey">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference relationaldb.ecore#//ForeignKey/referencedColumn"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="relationaldb.ecore#//Type"/>
+    <genClasses image="false" ecoreClass="relationaldb.ecore#//PrimitiveType"/>
+    <genClasses ecoreClass="relationaldb.ecore#//Varchar">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute relationaldb.ecore#//Varchar/length"/>
+    </genClasses>
+    <genClasses ecoreClass="relationaldb.ecore#//Integer"/>
+    <genClasses ecoreClass="relationaldb.ecore#//UmlToNoSQLID"/>
+  </genPackages>
+</genmodel:GenModel>

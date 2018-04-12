@@ -9,4 +9,4 @@ Require-Bundle: som.umltonosql.generator.core;bundle-version="1.0.0",
  som.umltonosql.metamodel.documentdb;bundle-version="0.1.0",
  som.umltonosql.generator.mongodb,
  som.umltonosql.generator.postgres;bundle-version="1.0.0",
- som.umltonosql.metamodel.postgres
+ som.umltonosql.metamodel.relationaldb
