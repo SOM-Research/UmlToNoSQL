@@ -18,6 +18,7 @@ import region.Region;
 import region.RegionPackage;
 import som.umltonosql.generator.runner.util.UmlToNoSQLGeneratorUtil;
 import som.umltonosql.generator.structure.UmlToNoSQLGenerator;
+import som.umltonosql.generator.util.CoreGeneratorUtil;
 
 public class GeneratorRunner {
 	
@@ -64,7 +65,7 @@ public class GeneratorRunner {
 	private static void generateMavenStructure(File file, Partition partition) {
 		File basePackage = new File(file, "src\\main\\java\\" + partition.getName() + "\\");
 		basePackage.mkdirs();
-		new File(basePackage, "core").mkdir();
+		new File(basePackage, CoreGeneratorUtil.getInstance().getBasePackage()).mkdir();
 		new File(file, "src\\main\\resources").mkdirs();
 		for(Region region : partition.getRegions()) {
 			new File(basePackage, region.getName()).mkdir();

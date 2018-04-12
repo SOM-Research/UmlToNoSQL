@@ -15,8 +15,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import region.Partition
 import region.Region
-import som.umltonosql.generator.core.CoreGeneratorUtil
 import som.umltonosql.generator.mongodb.MongoGeneratorUtil
+import som.umltonosql.generator.util.CoreGeneratorUtil
 
 class MongoBeanGenerator implements IGenerator {
 	
@@ -34,8 +34,8 @@ class MongoBeanGenerator implements IGenerator {
 		
 		this.mongoBasePackage = MongoGeneratorUtil.instance.basePackage
 		this.appName = CoreGeneratorUtil.instance.appName
-		this.corePackage = CoreGeneratorUtil.instance.corePackageName
-		this.region = MongoGeneratorUtil.instance.region
+		this.corePackage = CoreGeneratorUtil.instance.basePackage
+		this.region = MongoGeneratorUtil.instance.getRegion
 		
 		primitiveTypeToJavaTypeMapping = new HashMap<String,String>()
 		primitiveTypeToJavaTypeMapping.put("String", "String")

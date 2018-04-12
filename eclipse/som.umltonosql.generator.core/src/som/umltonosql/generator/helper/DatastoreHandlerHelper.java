@@ -1,4 +1,4 @@
-package som.umltonosql.generator.core;
+package som.umltonosql.generator.helper;
 
 import java.text.MessageFormat;
 

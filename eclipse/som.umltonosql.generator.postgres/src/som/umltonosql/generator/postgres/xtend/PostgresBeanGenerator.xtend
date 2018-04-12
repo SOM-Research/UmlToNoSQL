@@ -16,9 +16,9 @@ import relationaldb.ForeignKey
 import relationaldb.Table
 import relationaldb.Type
 import som.umltonosql.generator.postgres.PostgresGeneratorUtil
+import som.umltonosql.generator.util.CoreGeneratorUtil
 
 import static java.util.Objects.nonNull
-import som.umltonosql.generator.core.CoreGeneratorUtil
 
 class PostgresBeanGenerator implements IGenerator {
 
@@ -35,7 +35,7 @@ class PostgresBeanGenerator implements IGenerator {
 
 		this.postgresBasePackage = PostgresGeneratorUtil.instance.basePackage
 		this.appName = CoreGeneratorUtil.instance.appName
-		this.corePackage = CoreGeneratorUtil.instance.corePackageName
+		this.corePackage = CoreGeneratorUtil.instance.basePackage
 		this.region = PostgresGeneratorUtil.instance.region
 
 		primitiveTypeToJavaTypeMapping = new HashMap<String, String>()

@@ -1,10 +1,10 @@
-package som.umltonosql.generator.core;
+package som.umltonosql.generator.util;
 
 import static java.util.Objects.isNull;
 
 import region.Partition;
 
-public class CoreGeneratorUtil {
+public class CoreGeneratorUtil extends AbstractRegionGeneratorUtil {
 	
 	private static CoreGeneratorUtil INSTANCE;
 	
@@ -18,8 +18,6 @@ public class CoreGeneratorUtil {
 	private String appName;
 	
 	private Partition partition;
-	
-	private String corePackageName;
 	
 	private CoreGeneratorUtil() {
 		
@@ -39,14 +37,6 @@ public class CoreGeneratorUtil {
 	
 	public Partition getPartition() {
 		return this.partition;
-	}
-	
-	public void setCorePackageName(String corePackageName) {
-		this.corePackageName = corePackageName;
-	}
-	
-	public String getCorePackageName() {
-		return corePackageName;
 	}
 	
 

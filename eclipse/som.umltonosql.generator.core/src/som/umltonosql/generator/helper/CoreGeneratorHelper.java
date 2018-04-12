@@ -1,4 +1,4 @@
-package som.umltonosql.generator.core;
+package som.umltonosql.generator.helper;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import region.Partition;
 import region.Region;
 import region.StorageKind;
 
-public class RegionGeneratorHelper {
+public class CoreGeneratorHelper {
 
 	private Partition partition;
 	
@@ -23,7 +23,7 @@ public class RegionGeneratorHelper {
 	private Set<Class> beans;
 	private Map<Class, Region> regionPerClass;
 	
-	public RegionGeneratorHelper(Partition partition) {
+	public CoreGeneratorHelper(Partition partition) {
 		this.partition = partition;
 		this.projectName = partition.getName();
 		

@@ -1,8 +1,8 @@
-package som.umltonosql.generator.core;
+package som.umltonosql.generator.util;
 
 import region.Region;
 
-public abstract class RegionGeneratorUtil {
+public abstract class AbstractRegionGeneratorUtil {
 
 	protected String basePackage;
 
@@ -14,7 +14,7 @@ public abstract class RegionGeneratorUtil {
 	 * This constructor is <i>protected</i>, subclasses should provide a static way
 	 * to access a singleton instance.
 	 */
-	protected RegionGeneratorUtil() {
+	protected AbstractRegionGeneratorUtil() {
 
 	}
 

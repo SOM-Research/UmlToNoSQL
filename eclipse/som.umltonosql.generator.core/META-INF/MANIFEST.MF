@@ -4,7 +4,8 @@ Bundle-Name: Core
 Bundle-SymbolicName: som.umltonosql.generator.core
 Bundle-Version: 1.0.0.qualifier
 Export-Package: som.umltonosql.generator.core,
- som.umltonosql.generator.structure
+ som.umltonosql.generator.structure,
+ som.umltonosql.generator.util
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  som.umltonosql.metamodel.region,

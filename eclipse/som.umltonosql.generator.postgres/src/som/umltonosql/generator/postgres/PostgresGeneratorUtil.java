@@ -2,10 +2,9 @@ package som.umltonosql.generator.postgres;
 
 import static java.util.Objects.isNull;
 
-import region.Region;
-import som.umltonosql.generator.core.RegionGeneratorUtil;
+import som.umltonosql.generator.util.AbstractRegionGeneratorUtil;
 
-public class PostgresGeneratorUtil extends RegionGeneratorUtil {
+public class PostgresGeneratorUtil extends AbstractRegionGeneratorUtil {
 
 	private static PostgresGeneratorUtil INSTANCE;
 	

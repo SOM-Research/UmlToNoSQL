@@ -4,8 +4,9 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import region.Partition
-import som.umltonosql.generator.core.DatastoreHandlerHelper
-import som.umltonosql.generator.core.RegionGeneratorHelper
+import som.umltonosql.generator.helper.CoreGeneratorHelper
+import som.umltonosql.generator.helper.DatastoreHandlerHelper
+import som.umltonosql.generator.util.CoreGeneratorUtil
 
 class CoreXTendGenerator implements IGenerator {
 	
@@ -20,7 +21,7 @@ class CoreXTendGenerator implements IGenerator {
 	 */
 	override doGenerate(Resource regionModel, IFileSystemAccess fsa) {
 		val Partition partition = regionModel.contents.get(0) as Partition
-		val RegionGeneratorHelper helper = new RegionGeneratorHelper(partition)
+		val CoreGeneratorHelper helper = new CoreGeneratorHelper(partition)
 		fsa.generateFile("pom.xml",'''
 		<?xml version="1.0" encoding="UTF-8"?>
 		<project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -55,8 +56,8 @@ class CoreXTendGenerator implements IGenerator {
 		
 		</project>
 		''')
-		fsa.generateFile("src\\main\\java\\" + partition.name.toLowerCase + "\\core\\" + partition.name.toFirstUpper + "Middleware.java", '''
-		package «partition.name.toLowerCase».core;
+		fsa.generateFile("src\\main\\java\\" + partition.name.toLowerCase + "\\" + CoreGeneratorUtil.instance.basePackage + "\\" + partition.name.toFirstUpper + "Middleware.java", '''
+		package «partition.name.toLowerCase».«CoreGeneratorUtil.instance.basePackage»;
 		
 		import som.umltonosql.core.Middleware;
 		import fr.inria.atlanmod.commons.log.Log;
@@ -172,8 +173,8 @@ class CoreXTendGenerator implements IGenerator {
 			}
 		}
 		''')
-		fsa.generateFile("src\\main\\java\\" + partition.name.toLowerCase + "\\core\\" + partition.name.toFirstUpper + "Bootstrap.java", '''
-		package «partition.name.toLowerCase».core;
+		fsa.generateFile("src\\main\\java\\" + partition.name.toLowerCase + "\\" + CoreGeneratorUtil.instance.basePackage + "\\" + partition.name.toFirstUpper + "Bootstrap.java", '''
+		package «partition.name.toLowerCase».«CoreGeneratorUtil.instance.basePackage»;
 		
 		import som.umltonosql.core.Bootstrap;
 		
@@ -199,7 +200,7 @@ class CoreXTendGenerator implements IGenerator {
 		
 	}
 	
-	def String getMiddlewareConstructorArguments(Partition partition, RegionGeneratorHelper helper) {
+	def String getMiddlewareConstructorArguments(Partition partition, CoreGeneratorHelper helper) {
 		var StringBuilder sb = new StringBuilder()
 		for(var i = 0; i < partition.regions.size; i++) {
 			sb.append(helper.getDatastoreType(partition.regions.get(i)))
@@ -212,7 +213,7 @@ class CoreXTendGenerator implements IGenerator {
 		sb.toString
 	}
 	
-	def String getDatastoreVariablesAsParameters(Partition partition, RegionGeneratorHelper helper) {
+	def String getDatastoreVariablesAsParameters(Partition partition, CoreGeneratorHelper helper) {
 		var StringBuilder sb = new StringBuilder()
 		for(var i = 0; i < partition.regions.size; i++) {
 			sb.append(helper.getDatastoreVariableName(partition.regions.get(i)))
@@ -223,7 +224,7 @@ class CoreXTendGenerator implements IGenerator {
 		sb.toString
 	}
 	
-	def String getProcessorVariablesAsParameters(Partition partition, RegionGeneratorHelper helper) {
+	def String getProcessorVariablesAsParameters(Partition partition, CoreGeneratorHelper helper) {
 		var StringBuilder sb = new StringBuilder()
 		for(var i = 0; i < partition.regions.size; i++) {
 			sb.append(helper.getProcessorVariableName(partition.regions.get(i)))

@@ -9,6 +9,7 @@ import com.google.inject.Injector;
 
 import region.Partition;
 import som.umltonosql.generator.structure.UmlToNoSQLGenerator;
+import som.umltonosql.generator.util.CoreGeneratorUtil;
 
 public class UmlToNoSQLCoreGenerator extends UmlToNoSQLGenerator {
 
@@ -19,7 +20,7 @@ public class UmlToNoSQLCoreGenerator extends UmlToNoSQLGenerator {
 		Partition partition = (Partition)resource.getContents().get(0);
 		CoreGeneratorUtil.getInstance().setAppName(partition.getName());
 		CoreGeneratorUtil.getInstance().setPartition(partition);
-		CoreGeneratorUtil.getInstance().setCorePackageName("core");
+		CoreGeneratorUtil.getInstance().setBasePackage("core");
 	}
 	
 	@Override
