@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import mongodb.MongodbPackage;
+import documentdb.DocumentdbPackage;
 import postgres.PostgresPackage;
 import region.Partition;
 import region.Region;
@@ -51,7 +51,7 @@ public class UmlToNoSQLGeneratorUtil {
 		this.rootFile = rootFile;
 		this.partition = partition;
 		this.resourceSet = new ResourceSetImpl();
-		EPackage.Registry.INSTANCE.put(MongodbPackage.eINSTANCE.getNsURI(), MongodbPackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(DocumentdbPackage.eINSTANCE.getNsURI(), DocumentdbPackage.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(PostgresPackage.eINSTANCE.getNsURI(), PostgresPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		basePackage = new File(rootFile, "\\src\\main\\java\\demo");

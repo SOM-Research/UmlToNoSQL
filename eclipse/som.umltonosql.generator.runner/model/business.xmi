@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<mongodb:Database xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongodb="som.umltonosql.metamodel.mongodb">
+<mongodb:Database xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongodb="som.umltonosql.metamodel.documentdb">
   <collections name="Order">
     <documents>
       <fields key="reference">

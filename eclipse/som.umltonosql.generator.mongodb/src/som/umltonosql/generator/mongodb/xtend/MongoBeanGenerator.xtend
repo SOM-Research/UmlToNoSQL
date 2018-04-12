@@ -1,20 +1,20 @@
 package som.umltonosql.generator.mongodb.xtend
 
+import documentdb.Collection
+import documentdb.CollectionType
+import documentdb.Field
+import documentdb.UmlToNoSQLIDReference
+import java.util.ArrayList
 import java.util.HashMap
 import java.util.HashSet
 import java.util.List
 import java.util.Map
 import java.util.Set
-import mongodb.Collection
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import som.umltonosql.generator.mongodb.MongoGeneratorUtil
-import java.util.ArrayList
-import mongodb.CollectionType
 import som.umltonosql.generator.core.GeneratorUtil
-import mongodb.Field
-import mongodb.UmlToNoSQLIDReference
+import som.umltonosql.generator.mongodb.MongoGeneratorUtil
 
 class MongoBeanGenerator implements IGenerator {
 	
