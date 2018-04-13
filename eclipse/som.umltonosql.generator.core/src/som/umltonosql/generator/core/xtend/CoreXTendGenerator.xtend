@@ -177,8 +177,15 @@ class CoreXTendGenerator implements IGenerator {
 		package «partition.name.toLowerCase».«CoreGeneratorUtil.instance.basePackage»;
 		
 		import som.umltonosql.core.Bootstrap;
+		import som.umltonosql.core.LifeCycleManager;
+		import java.util.Arrays;
 		
-		public class DemoBootstrap extends Bootstrap {
+		«FOR r : partition.regions»
+		import «DatastoreHandlerHelper.getHandlerImport(r)»;
+		import «helper.getDatastoreImport(r)»;
+		«ENDFOR» 
+		
+		public class «partition.name.toFirstUpper»Bootstrap extends Bootstrap {
 			
 			@Override
 			public void init() {
