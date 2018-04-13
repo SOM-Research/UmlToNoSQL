@@ -127,6 +127,17 @@ public class DemoMiddleware extends Middleware {
                 clazz.getName()));
     }
 
+    @Override
+    public <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) throws ConsistencyException {
+        if(clazz.equals(Order.class) || clazz.equals(Product.class) || clazz.equals(OrderLine.class)) {
+            return mongoDatastore.getAllInstances(clazz);
+        }
+        if(clazz.equals(Client.class)) {
+            return postgresDatastore.getAllInstances(clazz);
+        }
+        throw new ConsistencyException(MessageFormat.format("Cannot get the instances of the provided class: {0}", clazz.getName()));
+    }
+
     // Get existing elements
 
     public Order getOrder(String id) {

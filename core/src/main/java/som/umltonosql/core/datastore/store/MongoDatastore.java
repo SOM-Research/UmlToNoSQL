@@ -14,7 +14,9 @@ import som.umltonosql.core.bean.MongoBean;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 import static java.util.Objects.isNull;
@@ -182,6 +184,17 @@ public class MongoDatastore extends Datastore {
             Log.error("Cannot invoke the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e1);
         }
+    }
+
+    @Override
+    public <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) {
+        Iterable<Document> documents = database.getCollection(getCollectionNameFromBeanClass(clazz)).find();
+        List<T> beans = new ArrayList<>();
+        for(Document doc : documents) {
+            Bean bean = getElement((ObjectId) doc.get("_id"), clazz);
+            beans.add((T) bean);
+        }
+        return beans;
     }
 
     /**

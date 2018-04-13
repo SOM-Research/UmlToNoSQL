@@ -83,6 +83,20 @@ public abstract class Datastore {
     public abstract Bean getElement(String id, Class<? extends Bean> clazz);
 
     /**
+     * Returns an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}.
+     * <p>
+     * This method is part of the UmlToNoSQL generic API, that can be used in generated code to retrieve
+     * {@link Bean}'s subclasses instances transparently. Note that the generated code embeds a
+     * {@link som.umltonosql.core.Middleware} subclass that should be used by end users to retrieve statically-typed
+     * {@link Bean}s.
+     *
+     * @param clazz the {@link Class} of the {@link Bean} type to retrieve the instances of
+     * @return an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}
+     * @see som.umltonosql.core.Middleware
+     */
+    public abstract <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz);
+
+    /**
      * Commits the pending modifications to the underlying database, if any.
      * <p>
      * This method is specific to each datastore implementation: if the datastore does not provide a transactional

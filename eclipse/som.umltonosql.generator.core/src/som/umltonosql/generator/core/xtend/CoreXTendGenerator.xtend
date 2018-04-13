@@ -153,6 +153,17 @@ class CoreXTendGenerator implements IGenerator {
 				throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class: {0}", clazz.getName()));
 			}
 			
+			@Override
+			public <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) throws ConsistencyException {
+				«FOR b : helper.beanTypes»
+				«val r = helper.getRegionForBean(b)»
+				if(clazz.equals(«b».class)) {
+					return «helper.getDatastoreVariableName(r)».getAllInstances(clazz);
+				}
+				«ENDFOR»
+				throw new ConsistencyException(MessageFormat.format("Cannot get the instances of the provided class: {0}", clazz.getName()));
+			}
+			
 			«FOR b : helper.beanTypes»
 			«val r = helper.getRegionForBean(b)»
 			public «b» get«b»(String id) {

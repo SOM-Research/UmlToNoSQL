@@ -85,6 +85,20 @@ public abstract class Middleware {
     public abstract Bean getElement(String id, Class<? extends Bean> clazz) throws ConsistencyException;
 
     /**
+     * Returns an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}.
+     * <p>
+     * This method returns all the instances of an existing {@link Bean} type. To retrieve an element based on its
+     * {@code id} use {@link Middleware#getElement(String, Class)}.
+     *
+     * @param clazz the {@link Class} of the {@link Bean} type to retrieve the instances of
+     * @return an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}
+     * @throws ConsistencyException if the provided {@code clazz} is not a valid {@link Bean} class
+     * @see #getElement(String, Class)
+     */
+    public abstract <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) throws
+            ConsistencyException;
+
+    /**
      * Commits the pending modeling operations to the underlying database, if any.
      * <p>
      * This method is specific to each datastore implementation: if the datastore does not provide a transactional

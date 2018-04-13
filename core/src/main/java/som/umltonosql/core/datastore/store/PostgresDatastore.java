@@ -48,6 +48,19 @@ public class PostgresDatastore extends Datastore {
     private static String GET_ELEMENT_TEMPLATE = "select id from {0} where id = ''{1}''";
 
     /**
+     * The SQL query template used to retrieve all the instances of a given type.
+     * <p>
+     * <b>Note:</b> this query only returns the identifiers of the elements. To retrieve a specific column value
+     * associated to the element, see {@link PostgresDatastore#SELECT_COLUMN_TEMPLATE} and
+     * {@link PostgresDatastore#SELECT_MULTI_VALUE}.
+     *
+     * @see #getAllInstances(Class)
+     * @see #SELECT_COLUMN_TEMPLATE
+     * @see #SELECT_MULTI_VALUE
+     */
+    private static String ALL_INSTANCES_TEMPLATE = "select id from {0}";
+
+    /**
      * The SQL query template used to retrieve the value of a specific column value of an existing record.
      * <p>
      * <b>Note:</b> this query only returns values of single-valued {@link Bean} feature. To retrieve a
@@ -192,6 +205,36 @@ public class PostgresDatastore extends Datastore {
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e1) {
             Log.error("Cannot invoke the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e1);
+        }
+    }
+
+    @Override
+    public <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) {
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStatement = MessageFormat.format(ALL_INSTANCES_TEMPLATE, getTableNameFromBeanClass
+                    (clazz));
+            Log.trace("PostgresDatastore: allInstances({0})\n\t{2}", clazz.getName(), sqlStatement);
+            ResultSet rSet = statement.executeQuery(sqlStatement);
+            List<T> beans = new ArrayList<>();
+            while (rSet.next()) {
+                String objectId = rSet.getString(1);
+                // Reify the element into a Bean
+                try {
+                    Constructor<?> constructor = clazz.getConstructor(String.class, PostgresDatastore.class);
+                    beans.add((T) constructor.newInstance(objectId, this));
+                } catch (NoSuchMethodException e1) {
+                    Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
+                    throw new RuntimeException(e1);
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException e1) {
+                    Log.error("Cannot invoke the constructor for the provided bean {0}", clazz.getName());
+                    throw new RuntimeException(e1);
+                }
+            }
+            return beans;
+        } catch (SQLException e) {
+            throw new RuntimeException(MessageFormat.format("Cannot get the instances of {0}", clazz.getSimpleName())
+                    , e);
         }
     }
 
