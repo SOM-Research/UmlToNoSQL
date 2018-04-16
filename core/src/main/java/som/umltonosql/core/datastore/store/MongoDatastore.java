@@ -118,20 +118,21 @@ public class MongoDatastore extends Datastore {
      * statically-typed {@link Bean}s.
      *
      * @param clazz the {@link Class} of the {@link Bean} element to create
+     * @param <T>   the concrete type of the {@link Bean} instance to create
      * @return the created {@link MongoBean}
      * @see Middleware
      */
     @Override
-    public MongoBean createElement(Class<? extends Bean> clazz) {
+    public <T extends Bean> T createElement(Class<T> clazz) {
         Document document = new Document("_id", new ObjectId());
         MongoCollection<Document> collection = database.getCollection(getCollectionNameFromBeanClass(clazz));
 //        if(isNull(collection)) {
 //            database.createCollection(clazz.getName().toLowerCase());
 //        }
-        MongoBean bean = null;
+        T bean = null;
         try {
             Constructor<?> constructor = clazz.getConstructor(Document.class, MongoDatastore.class);
-            bean = (MongoBean) constructor.newInstance(document, this);
+            bean = (T) constructor.newInstance(document, this);
         } catch (NoSuchMethodException e) {
             Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e);
@@ -152,7 +153,7 @@ public class MongoDatastore extends Datastore {
      * @see #getElement(ObjectId, Class)
      */
     @Override
-    public Bean getElement(String id, Class<? extends Bean> clazz) {
+    public <T extends Bean> T getElement(String id, Class<T> clazz) {
         /*
          * This code assumes that the provided id can be used to construct an ObjectId instance. We may need
          * something more robust to handle potential bean retrieval errors.
@@ -170,13 +171,14 @@ public class MongoDatastore extends Datastore {
      *
      * @param id    the unique, MongoDB specific, identifier of the {@link MongoBean} element to retrieve
      * @param clazz the {@link Class} of the {@link Bean} element to retrieve
+     * @param <T>   the concrete type of the {@link Bean} instance to retrieve
      * @return the retrieved {@link MongoBean}
      * @see #getElement(String, Class)
      */
-    public MongoBean getElement(ObjectId id, Class<? extends Bean> clazz) {
+    public <T extends Bean> T getElement(ObjectId id, Class<T> clazz) {
         try {
             Constructor<?> constructor = clazz.getConstructor(ObjectId.class, MongoDatastore.class);
-            return (MongoBean) constructor.newInstance(id, this);
+            return (T) constructor.newInstance(id, this);
         } catch (NoSuchMethodException e) {
             Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e);
@@ -190,7 +192,7 @@ public class MongoDatastore extends Datastore {
     public <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) {
         Iterable<Document> documents = database.getCollection(getCollectionNameFromBeanClass(clazz)).find();
         List<T> beans = new ArrayList<>();
-        for(Document doc : documents) {
+        for (Document doc : documents) {
             Bean bean = getElement((ObjectId) doc.get("_id"), clazz);
             beans.add((T) bean);
         }

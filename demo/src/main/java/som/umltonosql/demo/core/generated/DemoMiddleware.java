@@ -77,18 +77,18 @@ public class DemoMiddleware extends Middleware {
 
 
     @Override
-    public Bean createElement(Class<? extends Bean> clazz) throws ConsistencyException {
+    public <T extends Bean> T createElement(Class<T> clazz) throws ConsistencyException {
         if(clazz.equals(Order.class)) {
-            return createOrder();
+            return (T) createOrder();
         }
         if(clazz.equals(Product.class)) {
-            return createProduct();
+            return (T) createProduct();
         }
         if(clazz.equals(OrderLine.class)) {
-            return createOrderLine();
+            return (T) createOrderLine();
         }
         if(clazz.equals(Client.class)) {
-            return createClient();
+            return (T) createClient();
         }
         throw new ConsistencyException(MessageFormat.format("Cannot create the element with the provided class: " +
                 "{0}", clazz.getName()));
@@ -110,18 +110,18 @@ public class DemoMiddleware extends Middleware {
         return (Client) postgresDatastore.createElement(Client.class);
     }
     @Override
-    public Bean getElement(String id, Class<? extends Bean> clazz) throws ConsistencyException {
+    public <T extends Bean> T getElement(String id, Class<T> clazz) throws ConsistencyException {
         if(clazz.equals(Order.class)) {
-            return getOrder(id);
+            return (T) getOrder(id);
         }
         if(clazz.equals(Product.class)) {
-            return getProduct(id);
+            return (T) getProduct(id);
         }
         if(clazz.equals(OrderLine.class)) {
-            return getOrderLine(id);
+            return (T) getOrderLine(id);
         }
         if(clazz.equals(Client.class)) {
-            return getClient(id);
+            return (T) getClient(id);
         }
         throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class : {0}",
                 clazz.getName()));

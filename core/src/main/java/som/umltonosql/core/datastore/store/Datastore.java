@@ -62,10 +62,11 @@ public abstract class Datastore {
      * statically-typed {@link Bean}s.
      *
      * @param clazz the {@link Class} of the {@link Bean} element to create
+     * @param <T>   the concrete type of the {@link Bean} instance to create
      * @return the created {@link Bean}
      * @see som.umltonosql.core.Middleware
      */
-    public abstract Bean createElement(Class<? extends Bean> clazz);
+    public abstract <T extends Bean> T createElement(Class<T> clazz);
 
     /**
      * Retrieves the {@link Bean} element with the type {@code clazz} and the unique identifier {@code id}.
@@ -77,10 +78,11 @@ public abstract class Datastore {
      *
      * @param id    the unique identifier of the {@link Bean} element to retrieve
      * @param clazz the {@link Class} of the {@link Bean} element to retrieve
+     * @param <T>   the concrete type of the {@link Bean} instance to retrieve
      * @return the retrieved {@link Bean}
      * @see som.umltonosql.core.Middleware
      */
-    public abstract Bean getElement(String id, Class<? extends Bean> clazz);
+    public abstract <T extends Bean> T getElement(String id, Class<T> clazz);
 
     /**
      * Returns an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}.
@@ -91,6 +93,7 @@ public abstract class Datastore {
      * {@link Bean}s.
      *
      * @param clazz the {@link Class} of the {@link Bean} type to retrieve the instances of
+     * @param <T>   the concrete type of the {@link Bean} instances to retrieve
      * @return an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}
      * @see som.umltonosql.core.Middleware
      */

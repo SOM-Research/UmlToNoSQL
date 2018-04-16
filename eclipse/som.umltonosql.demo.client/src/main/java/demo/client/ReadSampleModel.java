@@ -27,6 +27,7 @@ public class ReadSampleModel {
             Iterable<Client> clients = middleware.getAllInstances(Client.class);
             for (Client c : clients) {
                 System.out.println(c.getName());
+                System.out.println(c.getOrders().iterator().next().getReference());
             }
         } catch(ConsistencyException e) {
             e.printStackTrace();

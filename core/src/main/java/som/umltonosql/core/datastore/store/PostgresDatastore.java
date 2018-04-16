@@ -147,11 +147,12 @@ public class PostgresDatastore extends Datastore {
      * statically-typed {@link Bean}s.
      *
      * @param clazz the {@link Class} of the {@link Bean} element to create
+     * @param <T>   the concrete type of the {@link Bean} instance to create
      * @return the created {@link PostgresBean}
      * @see Middleware
      */
     @Override
-    public PostgresBean createElement(Class<? extends Bean> clazz) {
+    public <T extends Bean> T createElement(Class<T> clazz) {
         ObjectId newObjectId = new ObjectId();
         try {
             Statement statement = connection.createStatement();
@@ -163,10 +164,9 @@ public class PostgresDatastore extends Datastore {
             throw new RuntimeException(MessageFormat.format("Cannot create the database record for the new instance " +
                     "of {0} (id = {1})", clazz.getSimpleName(), newObjectId.toString()), e);
         }
-        Bean bean = null;
         try {
             Constructor<?> constructor = clazz.getConstructor(String.class, PostgresDatastore.class);
-            return (PostgresBean) constructor.newInstance(newObjectId.toString(), this);
+            return (T) constructor.newInstance(newObjectId.toString(), this);
         } catch (NoSuchMethodException e) {
             Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e);
@@ -180,7 +180,7 @@ public class PostgresDatastore extends Datastore {
      * {@inheritDoc}
      */
     @Override
-    public Bean getElement(String id, Class<? extends Bean> clazz) {
+    public <T extends Bean> T getElement(String id, Class<T> clazz) {
         try {
             Statement statement = connection.createStatement();
             String sqlStatement = MessageFormat.format(GET_ELEMENT_TEMPLATE, getTableNameFromBeanClass
@@ -198,7 +198,7 @@ public class PostgresDatastore extends Datastore {
         }
         try {
             Constructor<?> constructor = clazz.getConstructor(String.class, PostgresDatastore.class);
-            return (Bean) constructor.newInstance(id, this);
+            return (T) constructor.newInstance(id, this);
         } catch (NoSuchMethodException e) {
             Log.error("Cannot find the constructor for the provided bean {0}", clazz.getName());
             throw new RuntimeException(e);
