@@ -18,6 +18,7 @@ public class ReadSampleModel {
             Iterable<Order> orders = middleware.getAllInstances(Order.class);
             for (Order o : orders) {
                 System.out.println(o.getReference());
+                System.out.println(o.getClient());
             }
         } catch(ConsistencyException e) {
             e.printStackTrace();

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.uml2.uml.Model;
 
 import documentdb.Database;
 import documentdb.DatabaseKind;
@@ -34,6 +35,8 @@ public class UmlToNoSQLGeneratorUtil {
 	private Partition partition;
 	
 	private ResourceSet resourceSet;
+	
+	private Model pimModel;
 
 	private static UmlToNoSQLGeneratorUtil INSTANCE;
 		
@@ -41,18 +44,19 @@ public class UmlToNoSQLGeneratorUtil {
 		return INSTANCE;
 	}
 	
-	public static UmlToNoSQLGeneratorUtil init(File rootFile, Partition partition) {
+	public static UmlToNoSQLGeneratorUtil init(File rootFile, Partition partition, Model pimModel) {
 		if(nonNull(INSTANCE)) {
 			throw new RuntimeException("An instance of UmlToNoSQLGenerator already exist");
 		}
-		INSTANCE = new UmlToNoSQLGeneratorUtil(rootFile, partition);
+		INSTANCE = new UmlToNoSQLGeneratorUtil(rootFile, partition, pimModel);
 		return INSTANCE;
 	}
 	
-	private UmlToNoSQLGeneratorUtil(File rootFile, Partition partition) {
+	private UmlToNoSQLGeneratorUtil(File rootFile, Partition partition, Model pimModel) {
 		this.rootFile = rootFile;
 		this.partition = partition;
 		this.resourceSet = new ResourceSetImpl();
+		this.pimModel = pimModel;
 		EPackage.Registry.INSTANCE.put(DocumentdbPackage.eINSTANCE.getNsURI(), DocumentdbPackage.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(RelationaldbPackage.eINSTANCE.getNsURI(), RelationaldbPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
@@ -61,14 +65,14 @@ public class UmlToNoSQLGeneratorUtil {
 	
 	public List<UmlToNoSQLGenerator> getGenerators() {
 		List<UmlToNoSQLGenerator> generators = new ArrayList<>();
-		generators.add(new UmlToNoSQLCoreGenerator(partition.eResource(), rootFile));
+		generators.add(new UmlToNoSQLCoreGenerator(partition.eResource(), rootFile, pimModel));
 		for(Region r : partition.getRegions()) {
 			StorageKind sKind = r.getStorage();
 			if(sKind.equals(StorageKind.DOCUMENT)) {
 				Resource documentResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
 				Database db = (Database)documentResource.getContents().get(0);
 				if(db.getRawDatabase().equals(DatabaseKind.MONGODB)) {
-					generators.add(new UmlToNoSQLMongoGenerator(documentResource, new File(basePackage, r.getName().toLowerCase()), r));
+					generators.add(new UmlToNoSQLMongoGenerator(documentResource, new File(basePackage, r.getName().toLowerCase()), r, pimModel));
 				} else {
 					throw new RuntimeException("Unknown Document Database Kind: " + db.getRawDatabase());
 				}
@@ -76,7 +80,7 @@ public class UmlToNoSQLGeneratorUtil {
 				Resource relationalResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
 				relationaldb.Database db = (relationaldb.Database)relationalResource.getContents().get(0);
 				if(db.getRawDatabase().equals(relationaldb.DatabaseKind.POSTGRES)) {
-					generators.add(new UmlToNoSQLPostgresGenerator(relationalResource, new File(basePackage, r.getName().toLowerCase()), r));
+					generators.add(new UmlToNoSQLPostgresGenerator(relationalResource, new File(basePackage, r.getName().toLowerCase()), r, pimModel));
 				} else {
 					throw new RuntimeException("Unknown Relational Database Kind: " + db.getRawDatabase());
 				}

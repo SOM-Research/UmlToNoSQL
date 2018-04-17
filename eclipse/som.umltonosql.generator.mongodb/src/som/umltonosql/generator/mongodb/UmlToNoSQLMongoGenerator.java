@@ -3,6 +3,7 @@ package som.umltonosql.generator.mongodb;
 import java.io.File;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.uml2.uml.Model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -14,10 +15,12 @@ public class UmlToNoSQLMongoGenerator extends UmlToNoSQLGenerator {
 
 	private static Injector injector = Guice.createInjector(new MongoGeneratorModule());
 	
-	public UmlToNoSQLMongoGenerator(Resource documentPsmResource, File rootFolder, Region region) {
-		super(documentPsmResource, rootFolder, region);
+	public UmlToNoSQLMongoGenerator(Resource documentPsmResource, File rootFolder, Region region, Model pimModel) {
+		super(documentPsmResource, rootFolder, region, pimModel);
 		MongoGeneratorUtil.getInstance().setBasePackage(region.getName());
 		MongoGeneratorUtil.getInstance().setRegion(region);
+		MongoGeneratorUtil.getInstance().setPimModel(pimModel);
+		
 	}
 	
 	@Override

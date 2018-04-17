@@ -1,5 +1,8 @@
 package som.umltonosql.generator.util;
 
+import org.eclipse.uml2.uml.Model;
+import org.eclipse.xtext.generator.GeneratorUtil;
+
 import region.Region;
 
 public abstract class AbstractRegionGeneratorUtil {
@@ -7,6 +10,8 @@ public abstract class AbstractRegionGeneratorUtil {
 	protected String basePackage;
 
 	protected Region region;
+
+	private Model pimModel;
 
 	/**
 	 * Constructs a new {@link GeneratorUtil}.
@@ -54,6 +59,25 @@ public abstract class AbstractRegionGeneratorUtil {
 	 */
 	public Region getRegion() {
 		return region;
+	}
+
+	/**
+	 * Sets the {@code pimModel} of this {@link GeneratorUtil}
+	 * 
+	 * @param pimModel
+	 *            the {@link Model} associated to this helper
+	 */
+	public void setPimModel(Model pimModel) {
+		this.pimModel = pimModel;
+	}
+
+	/**
+	 * Returns the {@link Model} associated to this helper.
+	 * 
+	 * @return the {@link Model} associated to this helper
+	 */
+	public Model getPimModel() {
+		return pimModel;
 	}
 
 }

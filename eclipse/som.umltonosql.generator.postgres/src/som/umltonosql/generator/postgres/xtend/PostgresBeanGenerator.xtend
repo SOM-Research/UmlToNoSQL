@@ -94,7 +94,7 @@ class PostgresBeanGenerator implements IGenerator {
 							«val outerTypeName = getOuterTypeName(multiTable)»
 							public Iterable<«outerTypeBean»> get«outerTypeName.toFirstUpper»() throws ConsistencyException {
 								List<String> «outerTypeName»Ids = getMultiValue("«outerTypeName»");
-								if(!«outerTypeName»Ids.isEmpty()) {
+								if(«outerTypeName»Ids != null && !«outerTypeName»Ids.isEmpty()) {
 									List<«outerTypeBean»> «outerTypeName» = new ArrayList<>();
 									for(String id : «outerTypeName»Ids) {
 										«outerTypeName».add(«appName.toFirstUpper»Middleware.getInstance().get«outerTypeBean»(id));

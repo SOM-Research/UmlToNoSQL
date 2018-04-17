@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl;
 
 import region.Partition;
@@ -49,11 +50,12 @@ public class GeneratorRunner {
 		rSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("uml", new UMLResourceFactoryImpl());
 		Resource modelResource = rSet.getResource(modelResourceURI, true);
 		modelResource.setURI(URI.createURI("model.uml"));
+		Model pimModel = (Model) modelResource.getContents().get(0);
 		Resource regionResource = rSet.getResource(regionResourceURI, true);
 		Partition partition = (Partition) regionResource.getContents().get(0);
 		
 		// Initialize the Generator Helper
-		UmlToNoSQLGeneratorUtil genHelper = UmlToNoSQLGeneratorUtil.init(rootFolder, partition);
+		UmlToNoSQLGeneratorUtil.init(rootFolder, partition, pimModel);
 		
 		List<UmlToNoSQLGenerator> generators = UmlToNoSQLGeneratorUtil.getInstance().getGenerators();
 
