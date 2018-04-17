@@ -8,18 +8,18 @@ import region.Region;
 
 public abstract class UmlToNoSQLGenerator {
 	
-	protected Resource resource;
+	protected Resource psmResource;
 	
 	protected File rootFolder;
 	
 	protected Region region;
 	
-	public UmlToNoSQLGenerator(Resource resource, File rootFolder) {
-		this(resource, rootFolder, null);
+	public UmlToNoSQLGenerator(Resource psmResource, File rootFolder) {
+		this(psmResource, rootFolder, null);
 	}
 	
-	public UmlToNoSQLGenerator(Resource resource, File rootFolder, Region region) {
-		this.resource = resource;
+	public UmlToNoSQLGenerator(Resource psmResource, File rootFolder, Region region) {
+		this.psmResource = psmResource;
 		this.rootFolder = rootFolder;
 		this.region = region;
 	}
