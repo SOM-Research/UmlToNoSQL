@@ -1,5 +1,9 @@
 package som.umltonosql.generator.util;
 
+import java.util.Iterator;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.xtext.generator.GeneratorUtil;
 

@@ -17,6 +17,7 @@ import relationaldb.Table
 import relationaldb.Type
 import som.umltonosql.generator.postgres.PostgresGeneratorUtil
 import som.umltonosql.generator.util.CoreGeneratorUtil
+import som.umltonosql.generator.util.UmlHelper
 
 import static java.util.Objects.nonNull
 
@@ -30,6 +31,8 @@ class PostgresBeanGenerator implements IGenerator {
 	String appName
 	String corePackage
 	Region region
+	
+	UmlHelper umlHelper
 
 	new() {
 
@@ -37,6 +40,7 @@ class PostgresBeanGenerator implements IGenerator {
 		this.appName = CoreGeneratorUtil.instance.appName
 		this.corePackage = CoreGeneratorUtil.instance.basePackage
 		this.region = PostgresGeneratorUtil.instance.region
+		this.umlHelper = new UmlHelper(PostgresGeneratorUtil.instance.pimModel)
 
 		primitiveTypeToJavaTypeMapping = new HashMap<String, String>()
 		primitiveTypeToJavaTypeMapping.put("Varchar", "String")
@@ -74,6 +78,7 @@ class PostgresBeanGenerator implements IGenerator {
 					«ENDFOR»
 					
 					public class «table.name» extends PostgresBean {
+					«val umlClass = umlHelper.getClassWithName(table.name)»
 						
 						public «table.name»(String id, PostgresDatastore datastore) {
 							super(id, datastore);
@@ -85,6 +90,7 @@ class PostgresBeanGenerator implements IGenerator {
 							}
 							
 							public void set«col.name.toFirstUpper»(«computeGetterType(col.type)» new«col.name.toFirstUpper») {
+								«/* We should probably generate cardinality checking code here */»
 								updateSimpleValue("«col.name.toFirstLower»", new«col.name.toFirstUpper»);
 							}
 							
@@ -101,11 +107,16 @@ class PostgresBeanGenerator implements IGenerator {
 									}
 									return Collections.unmodifiableList(«outerTypeName»);
 								}
-								// Cardinality needs to be checked
 								return Collections.emptyList();
 							}
 							
 							public void add«outerTypeBean»(«outerTypeBean» new«outerTypeBean») {
+								«val upperBound = umlHelper.getAssociationEnd(umlClass, outerTypeName).getUpper()»
+								«IF upperBound > 1»
+								if(getMultiValue("«outerTypeName»").size() >= «upperBound») {
+									throw new ConsistencyException("Cannot add a new «outerTypeBean», the association cardinality is «upperBound» and the list already contains at least «upperBound» elements");
+								}
+								«ENDIF»
 								addMultiValue("«outerTypeName»", new«outerTypeBean».getId());
 							}
 							

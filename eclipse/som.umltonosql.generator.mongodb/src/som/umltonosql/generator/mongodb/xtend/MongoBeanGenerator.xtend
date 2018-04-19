@@ -18,6 +18,7 @@ import region.Partition
 import region.Region
 import som.umltonosql.generator.mongodb.MongoGeneratorUtil
 import som.umltonosql.generator.util.CoreGeneratorUtil
+import som.umltonosql.generator.util.UmlHelper
 
 class MongoBeanGenerator implements IGenerator {
 
@@ -31,6 +32,8 @@ class MongoBeanGenerator implements IGenerator {
 
 	Region region
 	Model pimModel
+	
+	UmlHelper umlHelper
 
 	new() {
 
@@ -39,6 +42,7 @@ class MongoBeanGenerator implements IGenerator {
 		this.corePackage = CoreGeneratorUtil.instance.basePackage
 		this.region = MongoGeneratorUtil.instance.getRegion
 		this.pimModel = MongoGeneratorUtil.instance.pimModel
+		this.umlHelper = new UmlHelper(pimModel)
 
 		primitiveTypeToJavaTypeMapping = new HashMap<String, String>()
 		primitiveTypeToJavaTypeMapping.put("String", "String")
@@ -75,6 +79,7 @@ class MongoBeanGenerator implements IGenerator {
 					import org.bson.types.ObjectId;
 					import som.umltonosql.core.bean.MongoBean;
 					import som.umltonosql.core.datastore.store.MongoDatastore;
+					import som.umltonosql.core.exceptions.ConsistencyException;
 					import «appName».«corePackage».«appName.toFirstUpper»Middleware;
 					
 					«FOR imp : getImports(cc)»
@@ -82,6 +87,8 @@ class MongoBeanGenerator implements IGenerator {
 					«ENDFOR»
 					
 					public class «cc.name» extends MongoBean {
+					«val umlClass = umlHelper.getClassWithName(cc.name)»
+						
 						
 						public «cc.name.toFirstUpper»(ObjectId id, MongoDatastore mongoDatastore) {
 							super(id, mongoDatastore);
@@ -108,7 +115,6 @@ class MongoBeanGenerator implements IGenerator {
 												return Collections.unmodifiableList(«field.key»);
 											}
 											else {
-												// should check the cardinality to throw an exception when necessary
 												return Collections.emptyMap();
 											}
 										«ELSE»
@@ -133,8 +139,15 @@ class MongoBeanGenerator implements IGenerator {
 											updateField("«field.key»", timestamp);
 										«ELSE»
 											«IF field.type instanceof UmlToNoSQLIDReference»
+											«val lowerBound = umlHelper.getAssociationEnd(umlClass, field.key).getLower()»
+												«IF lowerBound == 1»
+												if(new«field.key.toFirstUpper» == null) {
+													throw new ConsistencyException("Cannot set null «field.key», the association cardinality is 1");
+												}
+												«ENDIF»
 												updateField("«field.key»", new ObjectId(new«field.key.toFirstUpper».getId()));
 											«ELSE»
+											«/* TODO check if we need to generate cardinality checks here */»
 												updateField("«field.key»", new«field.key.toFirstUpper»);
 											«ENDIF»
 										«ENDIF»
@@ -142,7 +155,13 @@ class MongoBeanGenerator implements IGenerator {
 									
 								«ELSE»
 									public void add«field.key.toFirstUpper»(«field.type.name» new«field.key.toFirstUpper») {
+										«val upperBound = umlHelper.getAssociationEnd(umlClass, field.key).getUpper()»
 										List<ObjectId> «field.key»Id = getValue("«field.key»");
+										«IF upperBound > 1»
+										if(«field.key»Id.size() >= «upperBound») {
+											throw new ConsistencyException("Cannot add a new «field.key.toFirstUpper», the association cardinality is «upperBound» and the list already contains at least «upperBound» elements");
+										}
+										«ENDIF»
 										«field.key»Id.add(new«field.key.toFirstUpper».getObjectId());
 										updateField("«field.key»", «field.key»Id);	
 									}
