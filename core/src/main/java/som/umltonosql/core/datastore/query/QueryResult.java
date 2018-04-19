@@ -26,7 +26,7 @@ public class QueryResult {
         this.middleware = middleware;
     }
 
-    public Iterable<Bean> getResults() throws ConsistencyException {
+    public Iterable<Bean> getResults() {
         List<Bean> reifiedResults = new ArrayList<>();
         for (String id : rawResult) {
             reifiedResults.add(middleware.getElement(id, resultType));

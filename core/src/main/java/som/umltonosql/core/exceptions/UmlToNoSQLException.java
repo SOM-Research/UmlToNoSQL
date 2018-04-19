@@ -2,8 +2,10 @@ package som.umltonosql.core.exceptions;
 
 /**
  * An abstract class representing an UmlToNoSQL-specific exception.
+ * <p>
+ * This class extends {@link RuntimeException} to allow unchecked throws.
  */
-public abstract class UmlToNoSQLException extends Exception {
+public abstract class UmlToNoSQLException extends RuntimeException {
 
     /**
      * Constructs a new {@link UmlToNoSQLException}.

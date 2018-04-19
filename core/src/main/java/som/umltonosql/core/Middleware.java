@@ -66,10 +66,9 @@ public abstract class Middleware {
      * @param clazz the {@link Class} of the {@link Bean} to create
      * @param <T>   the concrete type of {@link Bean} to create
      * @return a {@link Bean} subclass instance with the type {@code clazz}
-     * @throws ConsistencyException if the provided {@code clazz} is not a valid {@link Bean} class
      * @see #getElement(String, Class)
      */
-    public abstract <T extends Bean> T createElement(Class<T> clazz) throws ConsistencyException;
+    public abstract <T extends Bean> T createElement(Class<T> clazz);
 
     /**
      * Returns the {@link Bean} subclass instance with the type {@code clazz} and the unique identifier {@code
@@ -83,11 +82,9 @@ public abstract class Middleware {
      * @param <T>   the concrete type of {@link Bean} to retrieve
      * @return the {@link Bean} subclass instance with the type {@code clazz} and the unique identifier {@code
      * id}.
-     * @throws ConsistencyException if the provided {@code clazz} is not a valid {@link Bean} class
      * @see #createElement(Class)
      */
-    public abstract <T extends Bean> T getElement(String id, Class<T> clazz) throws
-            ConsistencyException;
+    public abstract <T extends Bean> T getElement(String id, Class<T> clazz);
 
     /**
      * Returns an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}.
@@ -98,11 +95,9 @@ public abstract class Middleware {
      * @param clazz the {@link Class} of the {@link Bean} type to retrieve the instances of
      * @param <T>   the concrete type of {@link Bean} instances to retrieve
      * @return an {@link Iterable} containing all the {@link Bean} instances with the type {@code clazz}
-     * @throws ConsistencyException if the provided {@code clazz} is not a valid {@link Bean} class
      * @see #getElement(String, Class)
      */
-    public abstract <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) throws
-            ConsistencyException;
+    public abstract <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz);
 
     /**
      * Commits the pending modeling operations to the underlying database, if any.
