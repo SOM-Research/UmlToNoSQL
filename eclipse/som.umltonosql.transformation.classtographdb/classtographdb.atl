@@ -1,0 +1,328 @@
+-- @nsURI UML=http://www.eclipse.org/uml2/5.0.0/UML
+-- @nsURI Graph=som.umltonosql.metamodel.graphdb
+-- @nsURI Region=som.umltonosql.metamodel.region
+
+module classtographdb;
+
+create OUT : Graph from IN : UML, IN2 : Region;
+
+--
+-- Module Helpers
+--
+
+helper def : getAllUMLClasses() : Sequence(UML!Class) = 
+	UML!Class.allInstances()
+;
+
+helper def : getAllNotAbstractUMLClasses() : Sequence(UML!Class) = 
+	UML!Class.allInstances()->select(cc | not(cc.isAbstract))	
+;
+
+helper def : getAllAssociations() : Sequence(UML!Association) =
+	UML!Association.allInstances()
+;
+
+helper def : getAllClassesWithStaticField() : Sequence(UML!Class) =
+	UML!Class.allInstances()->select(cc | cc.attribute->exists(att | att.isStatic))
+;
+
+helper def : getAllStaticAttributes() : Sequence(UML!Property) = 
+	UML!Class.allInstances()->collect(cc | cc.attribute)->flatten()->select(att | att.isStatic)
+;
+
+--
+-- Classifier Helpers
+--
+helper context UML!Element def : getContainingModel() : UML!Model =
+	if(self.refImmediateComposite().oclIsTypeOf(UML!Model)) then
+		self.refImmediateComposite()
+	else
+		self.refImmediateComposite().getContainingModel()
+	endif
+;
+
+--
+-- Class Helpers
+--
+
+-- Return all the super class of self
+-- Since Ecore allows multiple inheritance, the list of super classes is processed 
+-- to retrieve recursively all the parents
+-- Returns a Set(UML!Class) containing all the super classes of self, without duplicates
+helper context UML!Class def : getClassHierarchy() : Set(UML!Class) = 
+	let res : Set(UML!Class) = Set{self} in
+		if(self.superClass.oclIsUndefined()) then
+			res
+		else
+			res.union(self.superClass->collect(sc | sc.getClassHierarchy())->flatten())
+		endif
+;
+	
+helper context UML!Class def : getAllSubClasses() : Set(UML!Class) = 
+	UML!Class.allInstances()->select(cc | cc.getClassHierarchy()->includes(self))
+;
+
+helper context UML!Class def : getAllConcreteSubClasses() : Set(UML!Class) = 
+	self.getAllSubClasses()->select(cc | not(cc.isAbstract))	
+;
+
+helper context UML!Class def : getNonStaticAttributes() : Sequence(UML!Property) =
+	self.attribute->select(att | not(att.isStatic))	
+;
+
+helper context UML!Class def : getStaticAttributes() : Sequence(UML!Property) = 
+	self.attribute->select(att | att.isStatic)	
+;
+
+helper context UML!Class def : getNonStaticAttributesInHierarchy() : Sequence(UML!Property) = 
+	self.getClassHierarchy()->collect(cc | cc.getNonStaticAttributes())->flatten()
+;
+
+helper context UML!Class def : getStaticAttributesInHierarchy() : Sequence(UML!Property) = 
+	self.getClassHierarchy()->collect(cc | cc.getStaticAttributes())->flatten()	
+;
+
+helper context UML!Class def : containsStaticFields() : Boolean =
+	self.getStaticAttributes()->size() > 0
+;
+
+--
+-- Property Helpers
+--
+	
+helper context UML!Property def : isClassProperty() : Boolean =
+	self.refImmediateComposite().oclIsTypeOf(UML!Class)
+;
+
+helper context UML!Property def : isStringProperty() : Boolean =
+	self.debug().type.debug().name = 'String'
+;
+
+helper context UML!Property def : isIntegerProperty() : Boolean =
+	self.type.name = 'Integer'
+;
+
+helper context UML!Property def : isBooleanProperty() : Boolean =
+	self.type.name = 'Boolean'
+;
+
+--
+-- Association Helpers
+--
+
+helper context UML!Association def : getCompositeOrSharedProperties() : Sequence(UML!Property) =
+	self.memberEnd->select(me | me.aggregation=#composite or me.aggregation=#shared)
+;
+
+helper context UML!Association def : getTailClass() : UML!Class =
+	if(self.memberEnd.size() = 2) then
+		if(self.getCompositeOrSharedProperties().size() > 0) then
+			-- The association contains a composite / shared property, search for the
+			-- other property and returns it as the tail of the association
+			self.memberEnd->select(me | not(self.getCompositeOrSharedProperties().includes(me))).first().type
+		else
+			-- Not enough information to find the direction of the association,
+			-- return the first element by default
+			self.memberEnd.at(1).type.debug('[Association.getTailClass()] Not enough information in the metamodel, direction of ' + self.name + ' is set by default')
+		endif
+	else
+		OclUndefined
+	endif
+;
+
+helper context UML!Association def : getHeadClass() : UML!Class = 
+	if(self.memberEnd.size() = 2) then
+		if(self.getCompositeOrSharedProperties().size() > 0) then
+			-- The association contains a composite / shared property, return its
+			-- class as the head of the association
+			self.getCompositeOrSharedProperties().first().type
+		else
+			-- Not enough information to find the direction of the association,
+			-- return the second element by default
+			self.memberEnd.at(2).type.debug('[Association.getHeadClass()] Not enough information in the metamodel, direction of ' + self.name + ' is set by default')
+		endif
+	else
+		OclUndefined
+	endif
+;
+
+rule Model2Graph {
+	from
+		model : UML!Model
+	to
+		graph : Graph!Graph (
+			vertices <- thisModule.getAllNotAbstractUMLClasses()->select(cc | not(cc.oclIsTypeOf(UML!AssociationClass)) and cc.isInGraphRegion())
+				->union(thisModule.getAllClassesWithStaticField()->select(cc | not(cc.oclIsTypeOf(UML!AssociationClass)) and cc.isInGraphRegion())->
+					collect(cc | thisModule.ClassStaticPart2Vertex(cc)))
+			-- Note: association bindings are not done here, they are performed by the cartesian product
+			-- between associations and classes, in order to generate subclass related relationships
+			-- Association bindings for static nodes is also done at the edge creation, because it is dependent 
+			-- of the number of classes in the hierarchy (one static edge per concrete subclass)
+		)
+}
+
+--
+-- Class Transformation
+--
+
+rule ConcreteClass2Vertex {
+	from
+		class : UML!Class (not(class.oclIsTypeOf(UML!AssociationClass)) and not(class.isAbstract) and class.isInGraphRegion())
+	to
+		-- Empty vertex is used only for inheritance purposes
+		vertex : Graph!Vertex ()
+}
+
+-- Transform a class that does not have static properties in its hierarchy into a regular
+-- vertex.
+-- Note: the default implementation add to subclasses each properties inherited from its parents
+rule ClassNoStaticPart2Vertex extends ConcreteClass2Vertex {
+	from 
+		class : UML!Class (not(class.oclIsTypeOf(UML!AssociationClass)) and class.getStaticAttributesInHierarchy()->size() = 0)
+	to
+		vertex : Graph!Vertex (
+			name <- class.name,
+			-- Generate a property for each Attribute in the class hierarchy
+			properties <- class.getNonStaticAttributesInHierarchy()->collect(att | thisModule.GenericProperty2Property(att)),
+			labels <- class.getClassHierarchy()->collect(cc | cc.name)
+		)
+}
+
+-- Transform a class that has static properties in its hierarchy into a regular
+-- vertex and add an outgoing edge that link to the static vertex.
+-- Note: the default implementation generates a single vertex containing all the static fields
+-- of a type (not its hierarchy)
+rule ClassWithStaticPart2Vertex extends ConcreteClass2Vertex {
+	from
+		class : UML!Class (not(class.oclIsTypeOf(UML!AssociationClass)) and class.getStaticAttributesInHierarchy()->size() > 0)
+	to
+		vertex : Graph!Vertex (
+			name <- class.name,
+			-- Generate a property for each Attribute in the class hierarchy
+			properties <- class.getNonStaticAttributesInHierarchy()->collect(att | thisModule.GenericProperty2Property(att)),
+			labels <- class.getClassHierarchy()->collect(cc | cc.name),
+			outEdges <- class.getStaticAttributesInHierarchy()->collect(att | thisModule.StaticProperty2StaticEdge(att))	
+		)
+}
+
+-- Generate a vertex that stores static fields of a class
+-- Note: the default implementation creates a static vertex for each type containing at least a static
+-- property
+unique lazy rule ClassStaticPart2Vertex {
+	from
+		class : UML!Class (class.containsStaticField())
+	to
+		vertex : Graph!Vertex (
+			name <- class.name + ' (static_fields)',
+			properties <- class.getStaticAttributes()->collect(att | thisModule.GenericProperty2Property(att))
+		)
+}
+
+-- Generate the outgoing edge that links regular vertex with their static content
+lazy rule StaticProperty2StaticEdge {
+	from
+		prop : UML!Property (prop.isStatic)
+	to
+		staticEdge : Graph!Edge (
+			graph <- prop.getContainingModel(),
+			name <- prop.class.name + '_static',
+			head <- thisModule.ClassStaticPart2Vertex(prop.class)
+		)
+}
+
+-- Transforms an UML Class Property into a Graph Property
+-- Generic implementation creates an Object Property. If the property type is known
+-- by the transformation then a specific typed property is created by sub-rules
+lazy rule GenericProperty2Property {
+	from
+		umlProp : UML!Property (umlProp.isClassProperty())
+	to
+		vertex : Graph!Property (
+			key <- umlProp.name,
+			-- Does not appear in the generated XMI because #Object is the default literal
+			type <- #"Object"
+		)
+}
+
+lazy rule StringProperty2Property extends GenericProperty2Property {
+	from
+		umlProp : UML!Property (umlProp.isStringProperty())
+	to
+		vertex : Graph!Property (
+			type <- #"String"	
+		)
+}
+
+lazy rule IntegerProperty2Property extends GenericProperty2Property {
+	from
+		umlProp : UML!Property (umlProp.isIntegerProperty())
+	to
+		vertex : Graph!Property (
+			type <- #"Integer"	
+		)
+}
+
+lazy rule BooleanProperty2Property extends GenericProperty2Property {
+	from
+		umlProp : UML!Property (umlProp.isBooleanProperty())
+	to
+		vertex : Graph!Property (
+			type <- #"Boolean"	
+		)
+}
+
+--
+-- Association Transformation
+--
+
+-- TODO this kind of rule only handles binary associations. To be more complete it should also handle
+-- associations with n ends. But it should be move to a dedicated rule that compute an edge from an association, and
+-- is called for each subclasses involved in it
+-- Change it to a lazy rule, and call it on tuples that represent each possible type involved in the transformation
+
+-- Note: the rule also transforms AssociationClasses, by setting their attributes as node attributes
+rule Association2Edge {
+	from
+		asso : UML!Association,
+		class1 : UML!Class,
+		class2 : UML!Class (
+			class1.isInGraphRegion() and class2.isInGraphRegion() and
+			asso.getTailClass().getAllConcreteSubClasses().includes(class1)
+			and
+			asso.getHeadClass().getAllConcreteSubClasses().includes(class2)
+		)
+	to
+		edge : Graph!Edge (
+			name <- asso.name + '(' + class1.name + '->' + class2.name + ')',
+			type <- asso.name,	
+			tail <- class1,
+			head <- class2,
+			graph <- asso.getContainingModel(),
+			properties <- asso.attribute->collect(at | thisModule.GenericProperty2Property(at))
+		)
+}
+
+rule CrossDatastoreAssocation2Property {
+	from
+		asso : UML!Association,
+		class1 : UML!Class,
+		class2 : UML!Class (
+			if asso.name = 'company' then
+			if asso.getTailClass().getAllConcreteSubClasses().includes(class1) and
+			asso.getHeadClass().getAllConcreteSubClasses().includes(class2) then
+			(class1.isInGraphRegion().debug('r1') and not(class2.isInGraphRegion().debug('r2'))) or
+			(not(class1.isInGraphRegion()) and class2.isInGraphRegion())
+			else
+				false
+			endif
+			else
+				false
+			endif
+		)
+	to
+		prop : Graph!Property(
+			key <- asso.name.debug('assoName'),
+			type <- #"UmlToNoSQLID",
+			owner <- if(class1.isInGraphRegion()) then class1 else class2 endif
+		)
+}

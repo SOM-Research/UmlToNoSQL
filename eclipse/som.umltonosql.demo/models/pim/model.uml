@@ -33,6 +33,27 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K7a-oCfpEeiExuQKA170HQ" value="*"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_7MsQsEPbEeiiOY14Pjwcow" name="company" memberEnd="_91TRsEPbEeiiOY14Pjwcow _A4OQIEPcEeiiOY14Pjwcow">
+      <ownedEnd xmi:id="_91TRsEPbEeiiOY14Pjwcow" name="client" type="_9s2L4CflEeiExuQKA170HQ" association="_7MsQsEPbEeiiOY14Pjwcow">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DIhe0EPcEeiiOY14Pjwcow" value="*"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_A4OQIEPcEeiiOY14Pjwcow" name="company" type="_IKYd4EPWEeixYpQk6DoQkg" association="_7MsQsEPbEeiiOY14Pjwcow"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_IKYd4EPWEeixYpQk6DoQkg" name="Company">
+      <ownedAttribute xmi:id="_O_vzMEPWEeixYpQk6DoQkg" name="name" type="_VK2hkJ6QEeGdnpRmAZh-dQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_WrsLMEPWEeixYpQk6DoQkg" name="Bank">
+      <ownedAttribute xmi:id="_Y3i-wEPWEeixYpQk6DoQkg" name="name" type="_VK2hkJ6QEeGdnpRmAZh-dQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_a8nN0EPWEeixYpQk6DoQkg" name="banks" memberEnd="_f3_isEPWEeixYpQk6DoQkg _j6xboEPWEeixYpQk6DoQkg">
+      <ownedEnd xmi:id="_f3_isEPWEeixYpQk6DoQkg" name="companies" type="_IKYd4EPWEeixYpQk6DoQkg" association="_a8nN0EPWEeixYpQk6DoQkg">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ibgoUEPWEeixYpQk6DoQkg" value="*"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_j6xboEPWEeixYpQk6DoQkg" name="banks" type="_WrsLMEPWEeixYpQk6DoQkg" association="_a8nN0EPWEeixYpQk6DoQkg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lRn50EPWEeixYpQk6DoQkg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mfmI0EPWEeixYpQk6DoQkg" value="*"/>
+      </ownedEnd>
+    </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_SoMXkJ6QEeGdnpRmAZh-dQ" name="Date"/>
   <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_VK2hkJ6QEeGdnpRmAZh-dQ" name="String"/>

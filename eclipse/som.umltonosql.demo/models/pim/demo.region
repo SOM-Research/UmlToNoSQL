@@ -8,4 +8,8 @@
     <classes href="model.uml#_Tpr2oCfmEeiExuQKA170HQ"/>
     <classes href="model.uml#_hilOMCfoEeiExuQKA170HQ"/>
   </regions>
+  <regions name="economy">
+    <classes href="model.uml#_IKYd4EPWEeixYpQk6DoQkg"/>
+    <classes href="model.uml#_WrsLMEPWEeixYpQk6DoQkg"/>
+  </regions>
 </region:Partition>

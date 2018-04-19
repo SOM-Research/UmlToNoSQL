@@ -39,6 +39,10 @@ helper context UML!Class def : isInPostgresRegion() : Boolean =
 	self.getRegion().datastoreDescriptor.oclIsKindOf(Region!PostgresDescriptor)
 ;
 
+helper context UML!Class def : isInGraphRegion() : Boolean = 
+	self.getRegion().storage = #"GRAPH"
+;
+
 helper context UML!Class def : getAssociations() : Sequence(UML!Association) =
 	UML!Association.allInstances()->select(aa | aa.ownedEnd->collect(ee | ee.type)->contains(self))
 ;
