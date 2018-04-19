@@ -127,7 +127,7 @@ class CoreXTendGenerator implements IGenerator {
 			
 			«ENDFOR»
 			@Override
-			public <T extends Bean> T createElement(Class<T> clazz) throws ConsistencyException {
+			public <T extends Bean> T createElement(Class<T> clazz) {
 				«FOR b : helper.beanTypes»
 				if(clazz.equals(«b».class)) {
 					return (T) create«b»();
@@ -144,7 +144,7 @@ class CoreXTendGenerator implements IGenerator {
 			
 			«ENDFOR»
 			@Override
-			public <T extends Bean> T getElement(String id, Class<T> clazz) throws ConsistencyException {
+			public <T extends Bean> T getElement(String id, Class<T> clazz) {
 				«FOR b : helper.beanTypes»
 				if(clazz.equals(«b».class)) {
 					return (T) get«b»(id);
@@ -154,7 +154,7 @@ class CoreXTendGenerator implements IGenerator {
 			}
 			
 			@Override
-			public <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) throws ConsistencyException {
+			public <T extends Bean> Iterable<T> getAllInstances(Class<T> clazz) {
 				«FOR b : helper.beanTypes»
 				«val r = helper.getRegionForBean(b)»
 				if(clazz.equals(«b».class)) {
