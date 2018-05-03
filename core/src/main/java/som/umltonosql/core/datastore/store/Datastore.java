@@ -2,6 +2,8 @@ package som.umltonosql.core.datastore.store;
 
 import som.umltonosql.core.bean.Bean;
 
+import static fr.inria.atlanmod.commons.Preconditions.checkNotNull;
+
 /**
  * An abstract class representing a datastore used to persist and access a model region.
  * <p>
@@ -28,6 +30,7 @@ public abstract class Datastore {
      * @param path the raw path of the {@link Datastore}
      */
     public Datastore(String path) {
+        checkNotNull(path, "Cannot construct a Datastore from a null path");
         this.path = path;
     }
 
