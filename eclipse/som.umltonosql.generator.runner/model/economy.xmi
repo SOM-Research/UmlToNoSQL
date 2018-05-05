@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<graphdb:Graph xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:graphdb="som.umltonosql.metamodel.graphdb">
+  <vertices outEdges="//@edges.0" name="Company">
+    <properties key="name" type="String"/>
+    <properties key="companyClient" type="UmlToNoSQLID"/>
+    <labels>Company</labels>
+  </vertices>
+  <vertices inEdges="//@edges.0" name="Bank">
+    <properties key="name" type="String"/>
+    <labels>Bank</labels>
+  </vertices>
+  <edges tail="//@vertices.0" head="//@vertices.1" type="banks" name="banks(Company->Bank)"/>
+</graphdb:Graph>
