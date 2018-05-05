@@ -35,8 +35,7 @@ public abstract class MongoBean extends Bean<MongoDatastore> {
      * @see MongoDatastore#getElement(ObjectId, Class)
      */
     public MongoBean(ObjectId id, MongoDatastore mongoDatastore) {
-        super(mongoDatastore);
-        this.id = id.toString();
+        super(id.toString(), mongoDatastore);
         this.objectId = id;
     }
 
@@ -54,10 +53,7 @@ public abstract class MongoBean extends Bean<MongoDatastore> {
      * @see MongoDatastore#createElement(Class)
      */
     public MongoBean(Document document, MongoDatastore mongoDatastore) {
-        super(mongoDatastore);
-        ObjectId id = document.getObjectId("_id");
-        this.id = id.toString();
-        this.objectId = id;
+        this(document.getObjectId("_id"), mongoDatastore);
     }
 
     /**

@@ -28,9 +28,11 @@ public abstract class Bean<T extends Datastore> {
     /**
      * Constructs a new {@link Bean} with the provided {@code datastore}.
      *
+     * @param id        the unique identifier of the {@link Bean}
      * @param datastore the {@link Datastore} instance to delegate the {@link Bean}'s operations to
      */
-    public Bean(T datastore) {
+    public Bean(String id, T datastore) {
+        this.id = id;
         this.datastore = datastore;
     }
 

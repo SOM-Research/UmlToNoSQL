@@ -34,8 +34,7 @@ public class PostgresBean extends Bean<PostgresDatastore> {
      * @see PostgresDatastore#createElement(Class)
      */
     public PostgresBean(String id, PostgresDatastore postgresDatastore) {
-        super(postgresDatastore);
-        this.id = id;
+        super(id, postgresDatastore);
     }
 
     /**
