@@ -302,26 +302,23 @@ rule Association2Edge {
 		)
 }
 
+-- TODO check this rule
 rule CrossDatastoreAssocation2Property {
 	from
 		asso : UML!Association,
 		class1 : UML!Class,
 		class2 : UML!Class (
-			if asso.name = 'company' then
 			if asso.getTailClass().getAllConcreteSubClasses().includes(class1) and
 			asso.getHeadClass().getAllConcreteSubClasses().includes(class2) then
-			(class1.isInGraphRegion().debug('r1') and not(class2.isInGraphRegion().debug('r2'))) or
-			(not(class1.isInGraphRegion()) and class2.isInGraphRegion())
-			else
-				false
-			endif
+			(class1.isInGraphRegion().debug('r1') and not(class2.isInGraphRegion().debug('r2'))) 
+			or (not(class1.isInGraphRegion()) and class2.isInGraphRegion())
 			else
 				false
 			endif
 		)
 	to
 		prop : Graph!Property(
-			key <- asso.name.debug('assoName'),
+			key <- asso.name.debug('assoName') + (if not(class1.isInGraphRegion()) then class1.name else class2.name endif),
 			type <- #"UmlToNoSQLID",
 			owner <- if(class1.isInGraphRegion()) then class1 else class2 endif
 		)
