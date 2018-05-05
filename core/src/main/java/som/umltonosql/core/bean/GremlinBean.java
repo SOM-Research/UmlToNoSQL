@@ -23,7 +23,7 @@ public class GremlinBean extends Bean<GremlinDatastore> {
         return (T) datastore.getValue(id, this.getClass(), field);
     }
 
-    protected Iterable<Vertex> getAssociation(String field, Class<? extends Bean> fieldClazz) {
+    protected Iterable<String> getAssociation(String field, Class<? extends Bean> fieldClazz) {
         return datastore.getAssociation(id, this.getClass(), field, fieldClazz);
     }
 

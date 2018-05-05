@@ -126,7 +126,7 @@ public class GremlinDatastore extends Datastore {
         return v.property(field);
     }
 
-    public Iterable<Vertex> getAssociation(String id, Class<? extends Bean> clazz, String field, Class<? extends
+    public Iterable<String> getAssociation(String id, Class<? extends Bean> clazz, String field, Class<? extends
             Bean> fieldClazz) {
         // TODO handle exception
         Vertex v = null;
@@ -140,7 +140,12 @@ public class GremlinDatastore extends Datastore {
             /*
              * The value is stored in this datastore, we can retrieve it by navigating the outgoing edges.
              */
-            return () -> v.vertices(Direction.IN, field);
+            List<String> idList = new ArrayList<>();
+            Iterator<Vertex> vertices = v.vertices(Direction.IN, field);
+            while(vertices.hasNext()) {
+                idList.add(v.value("_id"));
+            }
+            return idList;
         } else {
             /*
              * The value is stored in another datastore, we can retrieve its IDs in the vertex's properties.

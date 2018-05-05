@@ -5,13 +5,17 @@ import org.bson.types.ObjectId;
 import som.umltonosql.core.Middleware;
 import som.umltonosql.core.bean.Bean;
 import som.umltonosql.core.datastore.query.processor.DrillQueryProcessor;
+import som.umltonosql.core.datastore.query.processor.GremlinQueryProcessor;
 import som.umltonosql.core.datastore.query.processor.MongoQueryProcessor;
 import som.umltonosql.core.datastore.query.processor.QueryProcessor;
 import som.umltonosql.core.datastore.store.Datastore;
+import som.umltonosql.core.datastore.store.GremlinDatastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.datastore.store.PostgresDatastore;
 import som.umltonosql.core.exceptions.ConsistencyException;
 import som.umltonosql.core.exceptions.LifeCycleException;
+import som.umltonosql.demo.gremlin.bean.Bank;
+import som.umltonosql.demo.gremlin.bean.Company;
 import som.umltonosql.demo.mongodb.beans.Order;
 import som.umltonosql.demo.mongodb.beans.OrderLine;
 import som.umltonosql.demo.mongodb.beans.Product;
@@ -29,9 +33,13 @@ public class DemoMiddleware extends Middleware {
 
     private PostgresDatastore postgresDatastore;
 
+    private GremlinDatastore gremlinDatastore;
+
     private MongoQueryProcessor mongoProcessor;
 
     private DrillQueryProcessor drillProcessor;
+
+    private GremlinQueryProcessor gremlinProcessor;
 
     private static DemoMiddleware INSTANCE;
 
@@ -39,11 +47,14 @@ public class DemoMiddleware extends Middleware {
         return INSTANCE;
     }
 
-    public DemoMiddleware(MongoDatastore mongoDatastore, PostgresDatastore postgresDatastore) {
+    public DemoMiddleware(MongoDatastore mongoDatastore, PostgresDatastore postgresDatastore, GremlinDatastore
+            gremlinDatastore) {
         this.mongoDatastore = mongoDatastore;
         this.postgresDatastore = postgresDatastore;
+        this.gremlinDatastore = gremlinDatastore;
         this.mongoProcessor = new MongoQueryProcessor(this, mongoDatastore);
         this.drillProcessor = new DrillQueryProcessor(this);
+        this.gremlinProcessor = new GremlinQueryProcessor(this, gremlinDatastore);
 
         if (nonNull(INSTANCE)) {
             Log.warn("Multiple instances of DemoMiddleware have been created");
@@ -53,7 +64,7 @@ public class DemoMiddleware extends Middleware {
 
     @Override
     public List<Datastore> getDatastores() {
-        return Arrays.asList(mongoDatastore, postgresDatastore);
+        return Arrays.asList(mongoDatastore, postgresDatastore, gremlinDatastore);
     }
 
     @Override
@@ -67,6 +78,10 @@ public class DemoMiddleware extends Middleware {
 
     public PostgresDatastore getPostgresDatastore() {
         return postgresDatastore;
+    }
+
+    public GremlinDatastore getGremlinDatastore() {
+        return gremlinDatastore;
     }
 
     public MongoQueryProcessor getMongoProcessor() {
@@ -90,6 +105,12 @@ public class DemoMiddleware extends Middleware {
         if(clazz.equals(Client.class)) {
             return (T) createClient();
         }
+        if(clazz.equals(Company.class)) {
+            return (T) createCompany();
+        }
+        if(clazz.equals(Bank.class)) {
+            return (T) createBank();
+        }
         throw new ConsistencyException(MessageFormat.format("Cannot create the element with the provided class: " +
                 "{0}", clazz.getName()));
     }
@@ -109,6 +130,15 @@ public class DemoMiddleware extends Middleware {
     public Client createClient() {
         return (Client) postgresDatastore.createElement(Client.class);
     }
+
+    public Company createCompany() {
+        return (Company) gremlinDatastore.createElement(Company.class);
+    }
+
+    public Bank createBank() {
+        return (Bank) gremlinDatastore.createElement(Bank.class);
+    }
+
     @Override
     public <T extends Bean> T getElement(String id, Class<T> clazz) throws ConsistencyException {
         if(clazz.equals(Order.class)) {
@@ -123,6 +153,12 @@ public class DemoMiddleware extends Middleware {
         if(clazz.equals(Client.class)) {
             return (T) getClient(id);
         }
+        if(clazz.equals(Company.class)) {
+            return (T) getCompany(id);
+        }
+        if(clazz.equals(Bank.class)) {
+            return (T) getBank(id);
+        }
         throw new ConsistencyException(MessageFormat.format("Cannot get the element with the provided class : {0}",
                 clazz.getName()));
     }
@@ -134,6 +170,9 @@ public class DemoMiddleware extends Middleware {
         }
         if(clazz.equals(Client.class)) {
             return postgresDatastore.getAllInstances(clazz);
+        }
+        if(clazz.equals(Company.class) || clazz.equals(Bank.class)) {
+            return gremlinDatastore.getAllInstances(clazz);
         }
         throw new ConsistencyException(MessageFormat.format("Cannot get the instances of the provided class: {0}", clazz.getName()));
     }
@@ -154,6 +193,14 @@ public class DemoMiddleware extends Middleware {
 
     public Client getClient(String id) {
         return (Client) postgresDatastore.getElement(id, Client.class);
+    }
+
+    public Company getCompany(String id) {
+        return (Company) gremlinDatastore.getElement(id, Company.class);
+    }
+
+    public Bank getBank(String id) {
+        return (Bank) gremlinDatastore.getElement(id, Bank.class);
     }
 
     @Override

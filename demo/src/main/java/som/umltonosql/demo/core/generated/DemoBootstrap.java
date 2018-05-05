@@ -8,6 +8,7 @@ import som.umltonosql.core.datastore.handler.DrillHandler;
 import som.umltonosql.core.datastore.handler.MongoHandler;
 import som.umltonosql.core.datastore.query.DrillQuery;
 import som.umltonosql.core.datastore.query.MongoQuery;
+import som.umltonosql.core.datastore.store.GremlinDatastore;
 import som.umltonosql.core.datastore.store.MongoDatastore;
 import som.umltonosql.core.datastore.store.PostgresDatastore;
 import som.umltonosql.demo.mongodb.beans.Order;
@@ -32,8 +33,9 @@ public class DemoBootstrap extends Bootstrap {
         // Creates the Datastores
         MongoDatastore businessDatastore = new MongoDatastore("demo");
         PostgresDatastore clientDatastore = new PostgresDatastore("jdbc:postgresql://127.0.0.1:5432/demo");
+        GremlinDatastore economyDatastore = new GremlinDatastore("/tmp/gremlin-db-economy");
 
-        middleware = new DemoMiddleware(businessDatastore, clientDatastore);
+        middleware = new DemoMiddleware(businessDatastore, clientDatastore, economyDatastore);
 
         ConstraintManager.getInstance().addConstraint(new Constraint("validPrice", new MongoQuery("db.product.find" +
                         "({price: {$lt: 0}})", Product.class), middleware.getProcessorFor(MongoQuery.class)));
