@@ -96,7 +96,7 @@ lazy rule singleValuedAssociationProperty2column {
 		prop : UML!Property
 	to
 		col : Postgres!ForeignKey(
-			name <- prop.name,
+			name <- prop.name + '_id',
 			type <- id1
 		),
 		id1 : Postgres!UmlToNoSQLID()
