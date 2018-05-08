@@ -20,6 +20,9 @@ public class DatastoreHandlerHelper {
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "DrillHandler";
 		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "GremlinHandler";
+		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the handler type for {0}", sKind));
 	}
 	
@@ -31,6 +34,9 @@ public class DatastoreHandlerHelper {
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "som.umltonosql.core.datastore.handler.DrillHandler";
 		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "som.umltonosql.core.datastore.handler.GremlinHandler";
+		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the handler import for {0}", sKind));
 	}
 	
@@ -41,6 +47,9 @@ public class DatastoreHandlerHelper {
 		}
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return DRILL_LOCATION;
+		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "";
 		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the handler location for {0}", sKind));
 	}

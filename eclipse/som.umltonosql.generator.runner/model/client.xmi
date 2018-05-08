@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:postgres="som.umltonosql.metamodel.relationaldb">
-  <postgres:Database name="demo" tables="/1 /2"/>
-  <postgres:Table name="Client" primaryKeys="/1/@col.0">
+<relationaldb:Database xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:relationaldb="som.umltonosql.metamodel.relationaldb" name="demo">
+  <tables name="Client" primaryKeys="//@tables.0/@col.0">
     <col name="id">
-      <type xsi:type="postgres:UmlToNoSQLID"/>
+      <type xsi:type="relationaldb:UmlToNoSQLID"/>
     </col>
     <col name="name">
-      <type xsi:type="postgres:Varchar"/>
+      <type xsi:type="relationaldb:Varchar"/>
     </col>
     <col name="address">
-      <type xsi:type="postgres:Varchar"/>
+      <type xsi:type="relationaldb:Varchar"/>
     </col>
-  </postgres:Table>
-  <postgres:Table name="client_orders" primaryKeys="/2/@col.0 /2/@col.1">
-    <col xsi:type="postgres:ForeignKey" name="client_id" referencedColumn="/1/@col.0">
-      <type xsi:type="postgres:UmlToNoSQLID"/>
+    <col xsi:type="relationaldb:ForeignKey" name="company_id">
+      <type xsi:type="relationaldb:UmlToNoSQLID"/>
     </col>
-    <col xsi:type="postgres:ForeignKey" name="order_id">
-      <type xsi:type="postgres:UmlToNoSQLID"/>
+  </tables>
+  <tables name="client_orders" primaryKeys="//@tables.1/@col.1 //@tables.1/@col.0">
+    <col xsi:type="relationaldb:ForeignKey" name="client_id" referencedColumn="//@tables.0/@col.0">
+      <type xsi:type="relationaldb:UmlToNoSQLID"/>
     </col>
-  </postgres:Table>
-</xmi:XMI>
+    <col xsi:type="relationaldb:ForeignKey" name="order_id">
+      <type xsi:type="relationaldb:UmlToNoSQLID"/>
+    </col>
+  </tables>
+  <tables name="company_company" primaryKeys="//@tables.2/@col.0 //@tables.2/@col.1">
+    <col xsi:type="relationaldb:ForeignKey" name="company_id">
+      <type xsi:type="relationaldb:UmlToNoSQLID"/>
+    </col>
+    <col xsi:type="relationaldb:ForeignKey" name="client_id" referencedColumn="//@tables.0/@col.0">
+      <type xsi:type="relationaldb:UmlToNoSQLID"/>
+    </col>
+  </tables>
+</relationaldb:Database>

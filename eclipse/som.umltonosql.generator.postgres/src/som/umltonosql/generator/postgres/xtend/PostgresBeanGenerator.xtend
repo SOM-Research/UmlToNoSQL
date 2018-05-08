@@ -20,6 +20,7 @@ import som.umltonosql.generator.util.CoreGeneratorUtil
 import som.umltonosql.generator.util.UmlHelper
 
 import static java.util.Objects.nonNull
+import relationaldb.Column
 
 class PostgresBeanGenerator implements IGenerator {
 
@@ -85,6 +86,7 @@ class PostgresBeanGenerator implements IGenerator {
 						}
 						
 						«FOR col : table.col.filter[c | !c.name.equals("id")]»
+							«IF !(col instanceof ForeignKey)»
 							public «computeGetterType(col.type)» get«col.name.toFirstUpper»() {
 								return getSimpleValue("«col.name.toFirstLower»");
 							}
@@ -93,6 +95,18 @@ class PostgresBeanGenerator implements IGenerator {
 								«/* We should probably generate cardinality checking code here */»
 								updateSimpleValue("«col.name.toFirstLower»", new«col.name.toFirstUpper»);
 							}
+							«ELSE»
+							«val outerTypeBean = getOuterTypeBeanSimpleValue(col as ForeignKey)»
+							«val outerTypeName = getOuterTypeName(col as ForeignKey)»
+							public «outerTypeBean» get«outerTypeName.toFirstUpper»() {
+								String id = getSimpleValue("«col.name.toFirstLower»");
+								return «appName.toFirstUpper»Middleware.getInstance().get«outerTypeBean»(id);
+							}
+							
+							public void set«outerTypeName.toFirstUpper»(«outerTypeBean» new«outerTypeName.toFirstUpper») {
+								updateSimpleValue("«col.name.toFirstLower»", new«outerTypeName.toFirstUpper».getId());
+							}
+							«ENDIF»
 							
 						«ENDFOR»
 						«FOR multiTable : getTablesForMultiValuedFeatures(postgresModel, table)»
@@ -146,6 +160,12 @@ class PostgresBeanGenerator implements IGenerator {
 				imports.add(appName + '.' + beanRegion.name + '.' + beanName)
 			}
 		}
+		val crossDatastoreForeignKeys = getCrossDatastoreForeignKeys(postgresModel)
+		for(ForeignKey fk : crossDatastoreForeignKeys) {
+			val beanName = getOuterTypeBeanSimpleValue(fk);
+			val beanRegion = findRegion(beanName);
+			imports.add(appName + '.' + beanRegion.name + '.' + beanName)
+		}
 		return imports
 	}
 	
@@ -156,6 +176,10 @@ class PostgresBeanGenerator implements IGenerator {
 
 	def String computeGetterType(Type type) {
 		return primitiveTypeToJavaTypeMapping.get(type.eClass.name)
+	}
+	
+	def Collection<ForeignKey> getCrossDatastoreForeignKeys(Resource postgresModel) {
+		postgresModel.allContents.filter[o | o instanceof ForeignKey].map[o | o as ForeignKey].filter[fk | fk.referencedColumn == null].toList
 	}
 
 	def Collection<Table> getTablesForMultiValuedFeatures(Resource postgresModel, Table table) {
@@ -172,6 +196,19 @@ class PostgresBeanGenerator implements IGenerator {
 
 	def boolean isForeignKeyOf(ForeignKey fk, Table table) {
 		nonNull(fk.referencedColumn) && (fk.referencedColumn.eContainer as Table).equals(table)
+	}
+	
+	def String getOuterTypeBeanSimpleValue(ForeignKey fk) {
+		// == null -> cross datastore association
+		if(fk.referencedColumn == null) {
+			fk.name.substring(0, fk.name.indexOf('_')).toFirstUpper
+		} else {
+			fk.referencedColumn.name.toFirstUpper
+		}
+	}
+	
+	def String getOuterTypeName(ForeignKey fk) {
+		fk.name.substring(0, fk.name.indexOf('_')).toFirstLower
 	}
 	
 	def String getOuterTypeBean(Table multiTable, Table table) {

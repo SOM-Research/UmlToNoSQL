@@ -45,6 +45,9 @@ public class CoreGeneratorHelper {
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "som.umltonosql.core.datastore.store.PostgresDatastore";
 		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "som.umltonosql.core.datastore.store.GremlinDatastore";
+		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the datastore import for {0}", sKind));
 	}
 	
@@ -55,6 +58,9 @@ public class CoreGeneratorHelper {
 		}
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "PostgresDatastore";
+		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "GremlinDatastore";
 		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the datastore type for {0}", sKind));
 	}
@@ -71,6 +77,9 @@ public class CoreGeneratorHelper {
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "\"jdbc:" + "postgresql" + "://" + "127.0.0.1" + ":" + "5432" + "/" + ((Partition)region.eContainer()).getName().toLowerCase() + "\"";
 		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "\"/tmp/gremlin-db-" + region.getName() + "\"";
+		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the datastore parameters for {0}", sKind));
 	}
 	
@@ -81,6 +90,9 @@ public class CoreGeneratorHelper {
 		}
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "som.umltonosql.core.datastore.query.processor.DrillQueryProcessor";
+		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "som.umltonosql.core.datastore.query.processor.GremlinQueryProcessor";
 		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the processor import for {0}", sKind));
 
@@ -94,6 +106,9 @@ public class CoreGeneratorHelper {
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "DrillQueryProcessor";
 		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "GremlinQueryProcessor";
+		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the processor type for {0}", sKind));
 	}
 	
@@ -104,6 +119,9 @@ public class CoreGeneratorHelper {
 		}
 		if(sKind.equals(StorageKind.RELATIONAL)) {
 			return "this";
+		}
+		if(sKind.equals(StorageKind.GRAPH)) {
+			return "this," + region.getName() + "Datastore";
 		}
 		throw new RuntimeException(MessageFormat.format("Cannot find the processor arguments for {0}", sKind));
 	}
