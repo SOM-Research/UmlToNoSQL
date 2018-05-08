@@ -2,6 +2,7 @@
  */
 package graphdb.impl;
 
+import graphdb.DatabaseKind;
 import graphdb.Edge;
 import graphdb.Graph;
 import graphdb.GraphdbPackage;
@@ -9,6 +10,7 @@ import graphdb.Vertex;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -16,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
@@ -31,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link graphdb.impl.GraphImpl#getVertices <em>Vertices</em>}</li>
  *   <li>{@link graphdb.impl.GraphImpl#getEdges <em>Edges</em>}</li>
+ *   <li>{@link graphdb.impl.GraphImpl#getRawDatabase <em>Raw Database</em>}</li>
  * </ul>
  *
  * @generated
@@ -55,6 +59,26 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph {
 	 * @ordered
 	 */
 	protected EList<Edge> edges;
+
+	/**
+	 * The default value of the '{@link #getRawDatabase() <em>Raw Database</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRawDatabase()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DatabaseKind RAW_DATABASE_EDEFAULT = DatabaseKind.GREMLIN;
+
+	/**
+	 * The cached value of the '{@link #getRawDatabase() <em>Raw Database</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRawDatabase()
+	 * @generated
+	 * @ordered
+	 */
+	protected DatabaseKind rawDatabase = RAW_DATABASE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -104,6 +128,27 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DatabaseKind getRawDatabase() {
+		return rawDatabase;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRawDatabase(DatabaseKind newRawDatabase) {
+		DatabaseKind oldRawDatabase = rawDatabase;
+		rawDatabase = newRawDatabase == null ? RAW_DATABASE_EDEFAULT : newRawDatabase;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphdbPackage.GRAPH__RAW_DATABASE, oldRawDatabase, rawDatabase));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -144,6 +189,8 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph {
 				return getVertices();
 			case GraphdbPackage.GRAPH__EDGES:
 				return getEdges();
+			case GraphdbPackage.GRAPH__RAW_DATABASE:
+				return getRawDatabase();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -165,6 +212,9 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph {
 				getEdges().clear();
 				getEdges().addAll((Collection<? extends Edge>)newValue);
 				return;
+			case GraphdbPackage.GRAPH__RAW_DATABASE:
+				setRawDatabase((DatabaseKind)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -183,6 +233,9 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph {
 			case GraphdbPackage.GRAPH__EDGES:
 				getEdges().clear();
 				return;
+			case GraphdbPackage.GRAPH__RAW_DATABASE:
+				setRawDatabase(RAW_DATABASE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -199,8 +252,26 @@ public class GraphImpl extends MinimalEObjectImpl.Container implements Graph {
 				return vertices != null && !vertices.isEmpty();
 			case GraphdbPackage.GRAPH__EDGES:
 				return edges != null && !edges.isEmpty();
+			case GraphdbPackage.GRAPH__RAW_DATABASE:
+				return rawDatabase != RAW_DATABASE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (rawDatabase: ");
+		result.append(rawDatabase);
+		result.append(')');
+		return result.toString();
 	}
 
 } //GraphImpl

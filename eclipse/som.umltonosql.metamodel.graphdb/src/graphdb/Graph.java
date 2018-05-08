@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link graphdb.Graph#getVertices <em>Vertices</em>}</li>
  *   <li>{@link graphdb.Graph#getEdges <em>Edges</em>}</li>
+ *   <li>{@link graphdb.Graph#getRawDatabase <em>Raw Database</em>}</li>
  * </ul>
  *
  * @see graphdb.GraphdbPackage#getGraph()
@@ -59,5 +60,34 @@ public interface Graph extends EObject {
 	 * @generated
 	 */
 	EList<Edge> getEdges();
+
+	/**
+	 * Returns the value of the '<em><b>Raw Database</b></em>' attribute.
+	 * The literals are from the enumeration {@link graphdb.DatabaseKind}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Raw Database</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Raw Database</em>' attribute.
+	 * @see graphdb.DatabaseKind
+	 * @see #setRawDatabase(DatabaseKind)
+	 * @see graphdb.GraphdbPackage#getGraph_RawDatabase()
+	 * @model
+	 * @generated
+	 */
+	DatabaseKind getRawDatabase();
+
+	/**
+	 * Sets the value of the '{@link graphdb.Graph#getRawDatabase <em>Raw Database</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Raw Database</em>' attribute.
+	 * @see graphdb.DatabaseKind
+	 * @see #getRawDatabase()
+	 * @generated
+	 */
+	void setRawDatabase(DatabaseKind value);
 
 } // Graph

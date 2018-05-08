@@ -86,13 +86,22 @@ public interface GraphdbPackage extends EPackage {
 	int GRAPH__EDGES = 1;
 
 	/**
+	 * The feature id for the '<em><b>Raw Database</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRAPH__RAW_DATABASE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Graph</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_FEATURE_COUNT = 2;
+	int GRAPH_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Graph</em>' class.
@@ -399,6 +408,17 @@ public interface GraphdbPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link graphdb.DatabaseKind <em>Database Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see graphdb.DatabaseKind
+	 * @see graphdb.impl.GraphdbPackageImpl#getDatabaseKind()
+	 * @generated
+	 */
+	int DATABASE_KIND = 7;
+
+
+	/**
 	 * Returns the meta object for class '{@link graphdb.Graph <em>Graph</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -429,6 +449,17 @@ public interface GraphdbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGraph_Edges();
+
+	/**
+	 * Returns the meta object for the attribute '{@link graphdb.Graph#getRawDatabase <em>Raw Database</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Raw Database</em>'.
+	 * @see graphdb.Graph#getRawDatabase()
+	 * @see #getGraph()
+	 * @generated
+	 */
+	EAttribute getGraph_RawDatabase();
 
 	/**
 	 * Returns the meta object for class '{@link graphdb.Element <em>Element</em>}'.
@@ -645,6 +676,16 @@ public interface GraphdbPackage extends EPackage {
 	EEnum getPrimitiveType();
 
 	/**
+	 * Returns the meta object for enum '{@link graphdb.DatabaseKind <em>Database Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Database Kind</em>'.
+	 * @see graphdb.DatabaseKind
+	 * @generated
+	 */
+	EEnum getDatabaseKind();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -692,6 +733,14 @@ public interface GraphdbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GRAPH__EDGES = eINSTANCE.getGraph_Edges();
+
+		/**
+		 * The meta object literal for the '<em><b>Raw Database</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRAPH__RAW_DATABASE = eINSTANCE.getGraph_RawDatabase();
 
 		/**
 		 * The meta object literal for the '{@link graphdb.impl.ElementImpl <em>Element</em>}' class.
@@ -864,6 +913,16 @@ public interface GraphdbPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum PRIMITIVE_TYPE = eINSTANCE.getPrimitiveType();
+
+		/**
+		 * The meta object literal for the '{@link graphdb.DatabaseKind <em>Database Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see graphdb.DatabaseKind
+		 * @see graphdb.impl.GraphdbPackageImpl#getDatabaseKind()
+		 * @generated
+		 */
+		EEnum DATABASE_KIND = eINSTANCE.getDatabaseKind();
 
 	}
 

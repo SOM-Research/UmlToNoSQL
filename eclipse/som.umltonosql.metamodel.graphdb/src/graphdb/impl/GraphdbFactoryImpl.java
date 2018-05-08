@@ -76,6 +76,8 @@ public class GraphdbFactoryImpl extends EFactoryImpl implements GraphdbFactory {
 		switch (eDataType.getClassifierID()) {
 			case GraphdbPackage.PRIMITIVE_TYPE:
 				return createPrimitiveTypeFromString(eDataType, initialValue);
+			case GraphdbPackage.DATABASE_KIND:
+				return createDatabaseKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -91,6 +93,8 @@ public class GraphdbFactoryImpl extends EFactoryImpl implements GraphdbFactory {
 		switch (eDataType.getClassifierID()) {
 			case GraphdbPackage.PRIMITIVE_TYPE:
 				return convertPrimitiveTypeToString(eDataType, instanceValue);
+			case GraphdbPackage.DATABASE_KIND:
+				return convertDatabaseKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -153,6 +157,26 @@ public class GraphdbFactoryImpl extends EFactoryImpl implements GraphdbFactory {
 	 * @generated
 	 */
 	public String convertPrimitiveTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DatabaseKind createDatabaseKindFromString(EDataType eDataType, String initialValue) {
+		DatabaseKind result = DatabaseKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDatabaseKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

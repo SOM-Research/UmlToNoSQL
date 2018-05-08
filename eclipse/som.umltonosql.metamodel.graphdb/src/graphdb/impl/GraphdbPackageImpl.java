@@ -2,6 +2,7 @@
  */
 package graphdb.impl;
 
+import graphdb.DatabaseKind;
 import graphdb.Edge;
 import graphdb.Element;
 import graphdb.Graph;
@@ -75,6 +76,13 @@ public class GraphdbPackageImpl extends EPackageImpl implements GraphdbPackage {
 	 * @generated
 	 */
 	private EEnum primitiveTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum databaseKindEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -162,6 +170,15 @@ public class GraphdbPackageImpl extends EPackageImpl implements GraphdbPackage {
 	 */
 	public EReference getGraph_Edges() {
 		return (EReference)graphEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGraph_RawDatabase() {
+		return (EAttribute)graphEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -349,6 +366,15 @@ public class GraphdbPackageImpl extends EPackageImpl implements GraphdbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getDatabaseKind() {
+		return databaseKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GraphdbFactory getGraphdbFactory() {
 		return (GraphdbFactory)getEFactoryInstance();
 	}
@@ -375,6 +401,7 @@ public class GraphdbPackageImpl extends EPackageImpl implements GraphdbPackage {
 		graphEClass = createEClass(GRAPH);
 		createEReference(graphEClass, GRAPH__VERTICES);
 		createEReference(graphEClass, GRAPH__EDGES);
+		createEAttribute(graphEClass, GRAPH__RAW_DATABASE);
 
 		elementEClass = createEClass(ELEMENT);
 
@@ -402,6 +429,7 @@ public class GraphdbPackageImpl extends EPackageImpl implements GraphdbPackage {
 
 		// Create enums
 		primitiveTypeEEnum = createEEnum(PRIMITIVE_TYPE);
+		databaseKindEEnum = createEEnum(DATABASE_KIND);
 	}
 
 	/**
@@ -441,6 +469,7 @@ public class GraphdbPackageImpl extends EPackageImpl implements GraphdbPackage {
 		initEClass(graphEClass, Graph.class, "Graph", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGraph_Vertices(), this.getVertex(), this.getVertex_Graph(), "vertices", null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGraph_Edges(), this.getEdge(), this.getEdge_Graph(), "edges", null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraph_RawDatabase(), this.getDatabaseKind(), "rawDatabase", null, 0, 1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elementEClass, Element.class, "Element", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -473,6 +502,9 @@ public class GraphdbPackageImpl extends EPackageImpl implements GraphdbPackage {
 		addEEnumLiteral(primitiveTypeEEnum, PrimitiveType.INTEGER);
 		addEEnumLiteral(primitiveTypeEEnum, PrimitiveType.BOOLEAN);
 		addEEnumLiteral(primitiveTypeEEnum, PrimitiveType.UML_TO_NO_SQLID);
+
+		initEEnum(databaseKindEEnum, DatabaseKind.class, "DatabaseKind");
+		addEEnumLiteral(databaseKindEEnum, DatabaseKind.GREMLIN);
 
 		// Create resource
 		createResource(eNS_URI);

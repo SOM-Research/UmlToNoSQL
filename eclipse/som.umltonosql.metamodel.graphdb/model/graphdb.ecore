@@ -6,6 +6,7 @@
         eType="#//Vertex" containment="true" eOpposite="#//Vertex/graph"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="edges" upperBound="-1"
         eType="#//Edge" containment="true" eOpposite="#//Edge/graph"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rawDatabase" eType="#//DatabaseKind"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="GraphElement" abstract="true" eSuperTypes="#//Element">
@@ -45,5 +46,8 @@
     <eLiterals name="Integer" value="2"/>
     <eLiterals name="Boolean" value="3"/>
     <eLiterals name="UmlToNoSQLID" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DatabaseKind">
+    <eLiterals name="GREMLIN"/>
   </eClassifiers>
 </ecore:EPackage>
