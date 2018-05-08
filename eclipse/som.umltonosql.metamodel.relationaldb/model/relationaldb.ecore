@@ -8,7 +8,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Database" eSuperTypes="#//Named">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
-        eType="#//Table"/>
+        eType="#//Table" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rawDatabase" eType="#//DatabaseKind"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//Named">

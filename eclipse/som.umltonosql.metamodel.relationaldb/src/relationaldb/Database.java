@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Database extends Named {
 	/**
-	 * Returns the value of the '<em><b>Tables</b></em>' reference list.
+	 * Returns the value of the '<em><b>Tables</b></em>' containment reference list.
 	 * The list contents are of type {@link relationaldb.Table}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -31,9 +31,9 @@ public interface Database extends Named {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tables</em>' reference list.
+	 * @return the value of the '<em>Tables</em>' containment reference list.
 	 * @see relationaldb.RelationaldbPackage#getDatabase_Tables()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Table> getTables();

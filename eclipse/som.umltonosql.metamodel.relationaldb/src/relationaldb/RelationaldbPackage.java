@@ -114,7 +114,7 @@ public interface RelationaldbPackage extends EPackage {
 	int DATABASE__NAME = NAMED__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Tables</b></em>' reference list.
+	 * The feature id for the '<em><b>Tables</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -515,10 +515,10 @@ public interface RelationaldbPackage extends EPackage {
 	EClass getDatabase();
 
 	/**
-	 * Returns the meta object for the reference list '{@link relationaldb.Database#getTables <em>Tables</em>}'.
+	 * Returns the meta object for the containment reference list '{@link relationaldb.Database#getTables <em>Tables</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Tables</em>'.
+	 * @return the meta object for the containment reference list '<em>Tables</em>'.
 	 * @see relationaldb.Database#getTables()
 	 * @see #getDatabase()
 	 * @generated
@@ -744,7 +744,7 @@ public interface RelationaldbPackage extends EPackage {
 		EClass DATABASE = eINSTANCE.getDatabase();
 
 		/**
-		 * The meta object literal for the '<em><b>Tables</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Tables</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

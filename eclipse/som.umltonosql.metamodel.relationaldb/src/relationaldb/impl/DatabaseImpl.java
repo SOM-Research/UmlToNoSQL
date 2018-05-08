@@ -6,14 +6,16 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import relationaldb.Database;
 import relationaldb.DatabaseKind;
 import relationaldb.RelationaldbPackage;
@@ -35,7 +37,7 @@ import relationaldb.Table;
  */
 public class DatabaseImpl extends NamedImpl implements Database {
 	/**
-	 * The cached value of the '{@link #getTables() <em>Tables</em>}' reference list.
+	 * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTables()
@@ -90,7 +92,7 @@ public class DatabaseImpl extends NamedImpl implements Database {
 	 */
 	public EList<Table> getTables() {
 		if (tables == null) {
-			tables = new EObjectResolvingEList<Table>(Table.class, this, RelationaldbPackage.DATABASE__TABLES);
+			tables = new EObjectContainmentEList<Table>(Table.class, this, RelationaldbPackage.DATABASE__TABLES);
 		}
 		return tables;
 	}
@@ -114,6 +116,20 @@ public class DatabaseImpl extends NamedImpl implements Database {
 		rawDatabase = newRawDatabase == null ? RAW_DATABASE_EDEFAULT : newRawDatabase;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, RelationaldbPackage.DATABASE__RAW_DATABASE, oldRawDatabase, rawDatabase));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case RelationaldbPackage.DATABASE__TABLES:
+				return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

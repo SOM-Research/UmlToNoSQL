@@ -8,8 +8,8 @@ library common;
 -- Global variables
 --
 
-helper def : getRegionSetName() : String =
-	Region!RegionSet.allInstances()->first().name
+helper def : getPartitionName() : String =
+	Region!Partition.allInstances()->first().name
 ;
 
 --
@@ -36,7 +36,7 @@ helper context UML!Class def : isInMongoRegion() : Boolean =
 ;
 
 helper context UML!Class def : isInPostgresRegion() : Boolean = 
-	self.getRegion().datastoreDescriptor.oclIsKindOf(Region!PostgresDescriptor)
+	self.getRegion().storage = #"RELATIONAL"
 ;
 
 helper context UML!Class def : isInGraphRegion() : Boolean = 
@@ -86,10 +86,10 @@ helper context UML!Property def : isInvolvedInCrossDatastoreAssociation() : Bool
 	endif
 ;
 
-helper context UML!Property def : refersToDatastoreClass(datastore : Region!DatastoreDescriptor) : Boolean = 
+helper context UML!Property def : refersToDatastoreClass(storage : Region!StorageKind) : Boolean = 
 	let type : UML!Type = self.type in
 	if type.oclIsTypeOf(UML!Class) then
-		type.getRegion().datastoreDescriptor.oclIsKindOf(datastore)
+		type.getRegion().storage = storage
 	else
 		OclUndefined.debug('[Property.refersToDatastoreClass()] - The provided Property does not refer to a Class:' + self)
 	endif
@@ -109,14 +109,14 @@ helper context UML!Property def : getAssociation() : UML!Association =
 -- Association-related helpers
 --
 
-helper def : getRegionAssociations(datastore : Region!DatastoreDescriptor) : Sequence(UML!Association) =
+helper def : getRegionAssociations(storage : Region!StorageKind) : Sequence(UML!Association) =
 	UML!Association.allInstances()
-		->select(a | a.hasEndStoredInDatastore(datastore))
+		->select(a | a.hasEndStoredInDatastore(storage))
 ;
 
-helper context UML!Association def : hasEndStoredInDatastore(datastore : Region!DatastoreDescriptor) : Boolean =
-	self.memberEnd.at(1).type.getRegion().datastoreDescriptor.oclIsKindOf(datastore) or
-	self.memberEnd.at(2).type.getRegion().datastoreDescriptor.oclIsKindOf(datastore)
+helper context UML!Association def : hasEndStoredInDatastore(datastore : Region!StorageKind) : Boolean =
+	self.memberEnd.at(1).type.getRegion().storage = datastore or
+	self.memberEnd.at(2).type.getRegion().storage = datastore
 ;
 
 helper context UML!Association def : isCrossRegionAssociation() : Boolean =
