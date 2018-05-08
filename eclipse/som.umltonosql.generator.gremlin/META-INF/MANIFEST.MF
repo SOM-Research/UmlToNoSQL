@@ -7,4 +7,6 @@ Require-Bundle: org.eclipse.xtext.generator,
  com.google.inject,
  org.eclipse.xtext,
  som.umltonosql.generator.core,
- som.umltonosql.metamodel.region
+ som.umltonosql.metamodel.region,
+ som.umltonosql.metamodel.graphdb;bundle-version="0.1.0"
+Export-Package: som.umltonosql.generator.gremlin

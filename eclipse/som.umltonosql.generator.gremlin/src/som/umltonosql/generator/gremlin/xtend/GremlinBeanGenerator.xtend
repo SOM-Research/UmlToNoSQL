@@ -1,5 +1,6 @@
 package som.umltonosql.generator.gremlin.xtend
 
+import graphdb.Vertex
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
@@ -56,7 +57,23 @@ class GremlinBeanGenerator implements IGenerator {
 	 * Generate Java beans for UML entities (regardless the actual mapping
 	 * to low-level representation of these entities)
 	 */
-	override doGenerate(Resource mongoModel, IFileSystemAccess fsa) {
+	override doGenerate(Resource gremlinModel, IFileSystemAccess fsa) {
+		val List<Vertex> vertices = gremlinModel.allContents.filter[o | o instanceof Vertex].map[o | o as Vertex].toList
+		vertices.forEach[vv | fsa.generateFile(vv.labels.get(0).toFirstUpper + ".java",
+			'''
+			package «appName».«gremlinBasePackage»;
+			
+			import som.umltonosql.core.bean.GremlinBean;
+			import som.umltonosql.core.datastore.store.GremlinDatastore;
+			
+			public class «vv.labels.get(0).toFirstUpper» extends GremlinBean {
+				
+				public «vv.labels.get(0).toFirstUpper»(String id, GremlinDatastore datastore) {
+					super(id, datastore);
+				}
+			}
+			'''
+		)]
 		// populateMongoBeans(mongoModel)
 		//val List<Collection> collections = mongoModel.allContents.filter[o|o instanceof Collection].map [o |
 		//	o as Collection

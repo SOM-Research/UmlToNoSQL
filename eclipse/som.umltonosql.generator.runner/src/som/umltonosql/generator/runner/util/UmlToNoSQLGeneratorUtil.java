@@ -17,11 +17,14 @@ import org.eclipse.uml2.uml.Model;
 import documentdb.Database;
 import documentdb.DatabaseKind;
 import documentdb.DocumentdbPackage;
+import graphdb.Graph;
+import graphdb.GraphdbPackage;
 import region.Partition;
 import region.Region;
 import region.StorageKind;
 import relationaldb.RelationaldbPackage;
 import som.umltonosql.generator.core.UmlToNoSQLCoreGenerator;
+import som.umltonosql.generator.gremlin.UmlToNoSQLGremlinGenerator;
 import som.umltonosql.generator.mongodb.UmlToNoSQLMongoGenerator;
 import som.umltonosql.generator.postgres.UmlToNoSQLPostgresGenerator;
 import som.umltonosql.generator.structure.UmlToNoSQLGenerator;
@@ -59,6 +62,7 @@ public class UmlToNoSQLGeneratorUtil {
 		this.pimModel = pimModel;
 		EPackage.Registry.INSTANCE.put(DocumentdbPackage.eINSTANCE.getNsURI(), DocumentdbPackage.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(RelationaldbPackage.eINSTANCE.getNsURI(), RelationaldbPackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(GraphdbPackage.eINSTANCE.getNsURI(), GraphdbPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		basePackage = new File(rootFile, "\\src\\main\\java\\demo");
 	}
@@ -84,6 +88,16 @@ public class UmlToNoSQLGeneratorUtil {
 				} else {
 					throw new RuntimeException("Unknown Relational Database Kind: " + db.getRawDatabase());
 				}
+			} else if(sKind.equals(StorageKind.GRAPH)) {
+				Resource graphResource = resourceSet.getResource(URI.createURI("model/" + r.getName().toLowerCase() + ".xmi"), true);
+				Graph db = (Graph)graphResource.getContents().get(0);
+				if(db.getRawDatabase().equals(graphdb.DatabaseKind.GREMLIN)) {
+					generators.add(new UmlToNoSQLGremlinGenerator(graphResource, new File(basePackage, r.getName().toLowerCase()), r, pimModel));
+				} else {
+					throw new RuntimeException("Unknown Graph Database Kind: " + db.getRawDatabase());
+				}
+			} else {
+				throw new RuntimeException("Unknown StorageKind: " + sKind);
 			}
 		}
 		return generators;

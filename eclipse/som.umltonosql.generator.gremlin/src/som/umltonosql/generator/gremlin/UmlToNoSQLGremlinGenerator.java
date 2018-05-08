@@ -25,7 +25,7 @@ public class UmlToNoSQLGremlinGenerator extends UmlToNoSQLGenerator {
 	
 	@Override
 	public void launch() {
-		System.out.println("Running MongoDB Generator");
+		System.out.println("Running Gremlin Generator");
 		Generator generator = injector.getInstance(Generator.class);
 		generator.runGenerator(psmResource, rootFolder.getAbsolutePath());
 	}
