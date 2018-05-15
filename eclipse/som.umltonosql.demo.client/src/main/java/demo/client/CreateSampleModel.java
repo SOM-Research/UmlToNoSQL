@@ -3,6 +3,8 @@ package demo.client;
 import demo.business.Order;
 import demo.core.DemoBootstrap;
 import demo.core.DemoMiddleware;
+import demo.economy.Bank;
+import demo.economy.Company;
 
 import java.util.Date;
 
@@ -21,11 +23,27 @@ public class CreateSampleModel {
         validOrder.setDeliveryDate(new Date());
         validOrder.setPaid(true);
 
+        // Create the banks
+        Bank bank1 = middleware.createBank();
+        bank1.setName("Bank1");
+
+        Bank bank2 = middleware.createBank();
+        bank2.setName("Bank2");
+
+        // Create a company
+        Company company = middleware.createCompany();
+        company.setName("My Company");
+        company.addBanks(bank1);
+        company.addBanks(bank2);
+
         // Create a valid client
         Client client = middleware.createClient();
         client.setName("John Doe");
         client.setAddress("Barcelona");
         client.addOrder(validOrder);
+        client.setCompany(company);
+
+        middleware.commit();
 
         demoBootsrap.getLcManager().stopServers();
 

@@ -123,15 +123,15 @@ public class GremlinDatastore extends Datastore {
             throw new ConsistencyException(MessageFormat.format("Cannot retrieve the vertex with the provided ID: " +
                     "{0}", id), e);
         }
-        return v.property(field);
+        return v.value(field);
     }
 
     public Iterable<String> getAssociation(String id, Class<? extends Bean> clazz, String field, Class<? extends
             Bean> fieldClazz) {
         // TODO handle exception
-        Vertex v = null;
+        Vertex v;
         try {
-            getVertex(id, clazz);
+            v = getVertex(id, clazz);
         } catch (NoSuchElementException e) {
             throw new ConsistencyException(MessageFormat.format("Cannot retrieve the vertex with the provided ID: " +
                     "{0}", id), e);
@@ -141,9 +141,9 @@ public class GremlinDatastore extends Datastore {
              * The value is stored in this datastore, we can retrieve it by navigating the outgoing edges.
              */
             List<String> idList = new ArrayList<>();
-            Iterator<Vertex> vertices = v.vertices(Direction.IN, field);
+            Iterator<Vertex> vertices = v.vertices(Direction.OUT, field);
             while(vertices.hasNext()) {
-                idList.add(v.value("_id"));
+                idList.add(vertices.next().value("_id"));
             }
             return idList;
         } else {
@@ -204,6 +204,7 @@ public class GremlinDatastore extends Datastore {
 
     @Override
     public void commit() {
+        graph.tx().commit();
         // Nothing to do? (check the documentation)
     }
 

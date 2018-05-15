@@ -52,6 +52,6 @@ public class Company extends GremlinBean {
     }
 
     public void addBank(Bank newBank) {
-        addAssociation("bank", newBank);
+        addAssociation("banks", newBank);
     }
 }

@@ -35,7 +35,6 @@
             <groupId>org.apache.tinkerpop</groupId>
             <artifactId>neo4j-gremlin</artifactId>
             <version>3.3.2</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
